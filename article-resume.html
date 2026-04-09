@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Write a Resume That Actually Gets Read | Carl Masters</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #0a0f0b; color: #e0e0e0; }
+    .article-page { max-width: 780px; margin: 0 auto; padding: 7rem 1.5rem 4rem; }
+    .article-back { display: inline-flex; align-items: center; gap: 0.5em; font-family: var(--font-mono); font-size: 0.82rem; color: #00ff41; text-decoration: none; letter-spacing: 0.06em; margin-bottom: 2.5rem; transition: opacity 0.2s; }
+    .article-back:hover { opacity: 0.7; }
+    .article-tag { display: inline-block; background: rgba(0,255,65,0.12); color: #00ff41; border: 1px solid rgba(0,255,65,0.4); border-radius: 999px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.22em 0.85em; margin-bottom: 1.2rem; }
+    .article-title { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; color: #ffffff; line-height: 1.25; margin-bottom: 0.75rem; border-bottom: 4px solid #00ff41; display: inline-block; padding-bottom: 0.1em; }
+    .article-date { font-family: var(--font-mono); font-size: 0.78rem; color: #00cc33; letter-spacing: 0.06em; margin: 1.2rem 0 2.2rem; display: block; }
+    .article-body h2 { font-size: 1.25rem; font-weight: 700; color: #00ff41; margin: 2.2rem 0 0.7rem; font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+    .article-body p { color: rgba(255,255,255,0.82); line-height: 1.8; margin-bottom: 1.2rem; font-size: 1.02rem; }
+    .article-body ul { color: rgba(255,255,255,0.82); line-height: 1.8; margin: 0 0 1.2rem 1.5rem; font-size: 1.02rem; }
+    .article-body ul li { margin-bottom: 0.45rem; }
+    .article-body strong { color: #ffffff; }
+    .disqus-wrap { margin-top: 4rem; background: linear-gradient(135deg, #101c13 60%, #0a2e1a 100%); border: 2px solid rgba(0,255,65,0.32); border-radius: 1.3rem; padding: 2.5rem 2rem; }
+    .disqus-wrap h3 { font-family: var(--font-mono); font-size: 0.9rem; color: #00ff41; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+    @media (max-width: 900px) {
+      .article-page { padding: 6rem 1.5rem 3.5rem; }
+    }
+    @media (max-width: 720px) {
+      .article-page { padding: 5.5rem 1.25rem 3rem; }
+      .disqus-wrap { padding: 1.8rem 1.25rem; }
+    }
+    @media (max-width: 480px) {
+      .article-page { padding: 5rem 1rem 2.5rem; }
+      .article-body p, .article-body ul { font-size: 0.95rem; }
+      .article-body ul { margin-left: 1.1rem; }
+      .article-body h2 { font-size: 1.05rem; }
+      .disqus-wrap { padding: 1.4rem 1rem; }
+      .article-back { font-size: 0.78rem; }
+    }
+    @media (max-width: 360px) {
+      .article-page { padding: 4.5rem 0.8rem 2rem; }
+      .article-body p, .article-body ul { font-size: 0.9rem; }
+      .article-body ul { margin-left: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="custom-cursor"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Home">
+        <span class="logo-cm">
+          <span class="logo-cm-text">CM</span><span class="logo-cursor" aria-hidden="true"></span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#education">Education</a></li>
+        <li><a href="index.html#certifications">Certifications</a></li>
+        <li><a href="index.html#resume">Resume</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="article-page">
+    <a href="index.html#blog" class="article-back">&#8592; Back to Blog</a>
+    <span class="article-tag">Career Advice</span>
+    <h1 class="article-title">How to Write a Resume That Actually Gets Read</h1>
+
+    <div class="article-body">
+      <p>Recruiters spend an average of six to ten seconds scanning a resume before deciding whether to keep reading. That's not a lot of time. If your resume doesn't communicate value immediately, clearly and concisely, it gets passed over. The good news is that most resumes fail for the same fixable reasons. Here's what you need to know.</p>
+
+      <h2>The One-Page Rule</h2>
+      <p>For CS students and new graduates, one page is not a suggestion. It's the rule. Unless you have 10+ years of professional experience, a two-page resume signals that you don't know how to prioritize. Recruiters at large tech companies review hundreds of applications per role. A concise, well-curated single page shows you respect their time and can communicate efficiently, which is itself a skill they're hiring for.</p>
+      <p>If you're struggling to fit everything on one page, that means you're including too much. Cut older or less relevant experiences, reduce bullet points to two or three per role, and tighten your language. Every word should earn its place.</p>
+
+      <h2>Lead With Action Verbs</h2>
+      <p>Every bullet point on your resume should start with a strong action verb in the past tense. This structure is active, direct, and easy to scan. Compare these two versions:</p>
+      <ul>
+        <li><strong>Weak:</strong> "Was responsible for managing the team's deployment pipeline."</li>
+        <li><strong>Strong:</strong> "Automated CI/CD pipeline using GitHub Actions, reducing deployment time by 40%."</li>
+      </ul>
+      <p>Strong verbs to use include: <em>Built, Designed, Engineered, Implemented, Optimized, Reduced, Led, Launched, Automated, Refactored, Deployed, Integrated, Analyzed.</em> Weak verbs to avoid: "helped," "worked on," "was responsible for," "assisted with."</p>
+
+      <h2>Quantify Your Achievements</h2>
+      <p>Numbers make accomplishments concrete. Wherever possible, attach a metric to what you did. You don't need exact figures; reasonable estimates are fine. Ask yourself: How many users? How much faster? How much did costs drop? What was the scale of data involved?</p>
+      <ul>
+        <li>"Reduced page load time by 35% through image optimization and lazy loading."</li>
+        <li>"Built a REST API serving 500+ daily requests with zero downtime over 3 months."</li>
+        <li>"Scraped and processed 10,000+ records to build a dataset for ML analysis."</li>
+      </ul>
+      <p>Even on academic or personal projects, you can quantify. Scope, scale, performance improvements, and user counts all count.</p>
+
+      <h2>Tailor It to Each Job</h2>
+      <p>Sending the same resume to every job is one of the most common mistakes students make. Job descriptions are a roadmap. They tell you exactly what skills and keywords the team values. Mirror that language. If the posting mentions "React" and "REST APIs," make sure those exact terms appear in your resume, not just "frontend development."</p>
+      <p>This matters because many companies use Applicant Tracking Systems (ATS) that automatically filter resumes before a human sees them. A resume that doesn't contain the right keywords gets rejected before anyone reads a word. Tailoring takes ten minutes per application and dramatically improves your hit rate.</p>
+
+      <h2>Common Mistakes to Avoid</h2>
+      <ul>
+        <li><strong>Objective statements:</strong> Replace them with a short skills summary or just skip the top section entirely. Nobody needs to read "Seeking a challenging position where I can grow."</li>
+        <li><strong>Including every class you've taken:</strong> List your degree and GPA (if above 3.2). Relevant coursework is optional and should only include upper-level technical courses directly related to the role.</li>
+        <li><strong>Generic project descriptions:</strong> Don't just list what the project is. Explain the technical decisions you made and what you achieved with it.</li>
+        <li><strong>Unreadable formatting:</strong> Use a clean, single-column layout with consistent fonts and spacing. Tables, columns, and heavy design elements often break ATS parsers.</li>
+        <li><strong>Typos and inconsistencies:</strong> One typo can disqualify you at a competitive company. Proofread three times, then have someone else read it too.</li>
+      </ul>
+
+      <p>Your resume is not a complete record of your life. It's a curated argument that you're the right person for a specific role. Treat it like a product: iterate on it, get feedback, and keep improving it. The version that gets you your first internship will look very different from the one that gets you your first full-time job. That's a good thing.</p>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

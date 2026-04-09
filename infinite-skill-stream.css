@@ -1,0 +1,117 @@
+.row2 .infinite-skill-stream-track {
+  animation: skill-stream-right 40s linear infinite;
+  /* No delay for perfect sync */
+}
+@keyframes skill-stream-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+/* Infinite Skill Stream Section */
+.infinite-skill-stream-section {
+  background: #232323;
+  padding: 6rem 0 6rem 0;
+  margin: 0;
+  width: 100%;
+}
+.infinite-skill-stream-title {
+  text-align: center;
+  font-family: 'Share Tech Mono', 'JetBrains Mono', monospace;
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #00ff41;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  margin-top: 0;
+}
+.infinite-skill-stream-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.skill-stream-row {
+  width: 100vw;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.infinite-skill-stream-row {
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  margin-bottom: 1.2rem;
+}
+
+.row2 .infinite-skill-stream-track {
+  animation-delay: -20s;
+}
+.skill-stream-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.2rem;
+  min-width: 220vw;
+  will-change: transform;
+  animation: skill-stream-left 40s linear infinite;
+}
+.skill-tag {
+  font-family: 'Share Tech Mono', 'JetBrains Mono', monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #00ff41;
+  letter-spacing: 0.08em;
+  padding: 0.45em 1.2em;
+  border-radius: 2em;
+  background: rgba(0,255,65,0.07);
+  margin: 0 0.1em;
+  display: inline-block;
+  transition: filter 0.2s, box-shadow 0.2s;
+}
+.skill-tag:hover {
+  filter: brightness(1.5) drop-shadow(0 0 8px #00ff41cc);
+  box-shadow: 0 0 16px 2px #00ff41cc;
+}
+.skill-tag.bright {
+  opacity: 1;
+  filter: brightness(1.1);
+}
+.skill-tag.dim {
+  opacity: 0.4;
+  filter: brightness(0.7);
+}
+.skill-tag:hover {
+  filter: brightness(1.6) drop-shadow(0 0 8px #00ff41cc);
+  box-shadow: 0 0 16px 2px #00ff41cc;
+}
+/* Animation keyframes for infinite scroll */
+@keyframes skill-stream-left {
+  0% { transform: translate3d(0,0,0); }
+  100% { transform: translate3d(-50%,0,0); }
+}
+@keyframes skill-stream-right {
+  0% { transform: translate3d(-50%,0,0); }
+  100% { transform: translate3d(0,0,0); }
+}
+.left-to-right .skill-stream-track {
+  /* animation handled by explicit properties on .skill-stream-track */
+}
+.right-to-left .skill-stream-track {
+  /* animation handled by explicit properties on .row2 .infinite-skill-stream-track */
+}
+@media (max-width: 700px) {
+  .infinite-skill-stream-title {
+    font-size: 1.5rem;
+  }
+  .skill-tag {
+    font-size: 0.95rem;
+    padding: 0.35em 0.8em;
+  }
+  .skill-stream-row {
+    height: 2.2rem;
+  }
+}

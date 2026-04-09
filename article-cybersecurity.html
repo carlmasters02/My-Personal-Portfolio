@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Everyday Cybersecurity Habits That Actually Matter | Carl Masters</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #0a0f0b; color: #e0e0e0; }
+    .article-page { max-width: 780px; margin: 0 auto; padding: 7rem 1.5rem 4rem; }
+    .article-back { display: inline-flex; align-items: center; gap: 0.5em; font-family: var(--font-mono); font-size: 0.82rem; color: #00ff41; text-decoration: none; letter-spacing: 0.06em; margin-bottom: 2.5rem; transition: opacity 0.2s; }
+    .article-back:hover { opacity: 0.7; }
+    .article-tag { display: inline-block; background: rgba(0,255,65,0.12); color: #00ff41; border: 1px solid rgba(0,255,65,0.4); border-radius: 999px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.22em 0.85em; margin-bottom: 1.2rem; }
+    .article-title { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; color: #ffffff; line-height: 1.25; margin-bottom: 0.75rem; border-bottom: 4px solid #00ff41; display: inline-block; padding-bottom: 0.1em; }
+    .article-date { font-family: var(--font-mono); font-size: 0.78rem; color: #00cc33; letter-spacing: 0.06em; margin: 1.2rem 0 2.2rem; display: block; }
+    .article-body h2 { font-size: 1.25rem; font-weight: 700; color: #00ff41; margin: 2.2rem 0 0.7rem; font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+    .article-body p { color: rgba(255,255,255,0.82); line-height: 1.8; margin-bottom: 1.2rem; font-size: 1.02rem; }
+    .article-body ul { color: rgba(255,255,255,0.82); line-height: 1.8; margin: 0 0 1.2rem 1.5rem; font-size: 1.02rem; }
+    .article-body ul li { margin-bottom: 0.45rem; }
+    .article-body strong { color: #ffffff; }
+    .disqus-wrap { margin-top: 4rem; background: linear-gradient(135deg, #101c13 60%, #0a2e1a 100%); border: 2px solid rgba(0,255,65,0.32); border-radius: 1.3rem; padding: 2.5rem 2rem; }
+    .disqus-wrap h3 { font-family: var(--font-mono); font-size: 0.9rem; color: #00ff41; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+    @media (max-width: 900px) {
+      .article-page { padding: 6rem 1.5rem 3.5rem; }
+    }
+    @media (max-width: 720px) {
+      .article-page { padding: 5.5rem 1.25rem 3rem; }
+      .disqus-wrap { padding: 1.8rem 1.25rem; }
+    }
+    @media (max-width: 480px) {
+      .article-page { padding: 5rem 1rem 2.5rem; }
+      .article-body p, .article-body ul { font-size: 0.95rem; }
+      .article-body ul { margin-left: 1.1rem; }
+      .article-body h2 { font-size: 1.05rem; }
+      .disqus-wrap { padding: 1.4rem 1rem; }
+      .article-back { font-size: 0.78rem; }
+    }
+    @media (max-width: 360px) {
+      .article-page { padding: 4.5rem 0.8rem 2rem; }
+      .article-body p, .article-body ul { font-size: 0.9rem; }
+      .article-body ul { margin-left: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="custom-cursor"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Home">
+        <span class="logo-cm">
+          <span class="logo-cm-text">CM</span><span class="logo-cursor" aria-hidden="true"></span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#education">Education</a></li>
+        <li><a href="index.html#certifications">Certifications</a></li>
+        <li><a href="index.html#resume">Resume</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="article-page">
+    <a href="index.html#blog" class="article-back">&#8592; Back to Blog</a>
+    <span class="article-tag">Cybersecurity</span>
+    <h1 class="article-title">Everyday Cybersecurity Habits That Actually Matter</h1>
+
+    <div class="article-body">
+      <p>Most cybersecurity advice online is either too technical, too paranoid, or too focused on threats that almost never affect regular people. The reality is that the vast majority of cyberattacks succeed because of a small number of common, preventable mistakes. You don't need to be a security professional to protect yourself. You just need a handful of consistent habits. Here are the five that matter most.</p>
+
+      <h2>Use a Password Manager</h2>
+      <p>Reusing passwords is the single most dangerous thing most people do online. When one site gets breached (and it will, eventually), attackers take those leaked credentials and try them on every other major platform. This attack is called credential stuffing, and it's automated, fast, and extremely common.</p>
+      <p>The solution is a unique, random password for every account. That sounds impossible to manage manually, which is where a password manager comes in. Apps like <strong>Bitwarden</strong> (free and open source), <strong>1Password</strong>, or <strong>Dashlane</strong> generate and store strong passwords for you. You only need to remember one master password. It's one of the highest-leverage security changes you can make, and it costs almost nothing to set up.</p>
+
+      <h2>Enable Two-Factor Authentication</h2>
+      <p>Even if someone gets your password, two-factor authentication (2FA) stops them from logging in. With 2FA enabled, your account requires a second piece of proof, typically a time-based code generated by an app on your phone, before granting access.</p>
+      <p>Use an authenticator app like <strong>Aegis</strong> (Android), <strong>Raivo OTP</strong> (iOS), or <strong>Google Authenticator</strong> rather than SMS-based 2FA. SMS codes can be intercepted through SIM-swapping attacks. App-based codes are generated locally and never transmitted over the network. Enable 2FA on your email first. It's the master key to almost everything else.</p>
+
+      <h2>Recognize Phishing Attempts</h2>
+      <p>Phishing is the most common vector for account takeovers and malware infections. Attackers send fake emails or messages designed to look like they're from a trusted source, such as your bank, Google, Amazon, or a colleague, and trick you into clicking a link or entering your credentials.</p>
+      <p>A few things to watch for:</p>
+      <ul>
+        <li><strong>Urgency and fear:</strong> "Your account will be suspended in 24 hours." Legitimate companies rarely threaten you like this.</li>
+        <li><strong>Mismatched sender addresses:</strong> The display name might say "PayPal Support" but the actual email address is something like support@paypa1-secure.com.</li>
+        <li><strong>Suspicious links:</strong> Hover over any link before clicking. The actual URL should match the company's real domain.</li>
+        <li><strong>Unexpected attachments:</strong> Don't open attachments you weren't expecting, even from people you know, since their account may have been compromised.</li>
+      </ul>
+      <p>When in doubt, go directly to the website by typing the address yourself rather than clicking a link in the message.</p>
+
+      <h2>Be Careful on Public WiFi</h2>
+      <p>Public WiFi networks at coffee shops, airports, and hotels are convenient but risky. On an open network, it's relatively easy for someone on the same network to intercept unencrypted traffic. While HTTPS has made this harder than it used to be, you should still take precautions.</p>
+      <p>The best option is a <strong>VPN (Virtual Private Network)</strong>, which encrypts all traffic between your device and the internet. Reputable options include <strong>Mullvad</strong> and <strong>ProtonVPN</strong>. At minimum, avoid accessing sensitive accounts like banking, work email, and healthcare portals over public networks. If you must, make sure the site uses HTTPS (the padlock icon in your browser) and that 2FA is enabled on those accounts.</p>
+
+      <h2>Keep Your Software Updated</h2>
+      <p>Software updates are not just about new features. The majority of updates patch security vulnerabilities, which are known flaws that attackers actively exploit. Running outdated software means leaving doors unlocked that attackers know exactly how to open.</p>
+      <p>Enable automatic updates on your operating system, browser, and any apps you use regularly. This is especially critical for your browser and your phone's OS, which are the two surfaces most exposed to the internet. You don't need to update the moment a patch drops, but being weeks or months behind is a real risk. If you're still running an OS version that no longer receives security updates, consider upgrading or replacing the device.</p>
+
+      <p>None of these habits require technical expertise or significant time investment. Set them up once, and they work in the background protecting you continuously. Security doesn't have to be complicated. It just has to be consistent.</p>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

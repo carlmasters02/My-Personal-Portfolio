@@ -1,0 +1,1152 @@
+    <style>
+      /* Skill Card Modal Styles */
+      .skill-card-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0,0,0,0.55);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+      .skill-card-modal.active {
+        display: flex;
+      }
+      .skill-card {
+        background: #181f1b;
+        color: #b6ffb0;
+        border-radius: 1.2rem;
+        box-shadow: 0 0 32px 8px #00ff7b55;
+        padding: 2.5rem 2.5rem 2rem 2.5rem;
+        min-width: 320px;
+        max-width: 90vw;
+        font-family: 'Fira Mono', 'Consolas', monospace;
+        text-align: center;
+        position: relative;
+        animation: pop-in 0.18s cubic-bezier(.5,1.8,.7,1.1);
+      }
+      .skill-card-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1.2rem;
+        letter-spacing: 0.04em;
+      }
+      .skill-card-desc {
+        font-size: 1.15rem;
+        color: #eaffea;
+      }
+      .skill-card-close {
+        position: absolute;
+        top: 0.7rem;
+        right: 1.2rem;
+        font-size: 1.7rem;
+        color: #b6ffb0;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.15s;
+      }
+      .skill-card-close:hover {
+        color: #00ff7b;
+      }
+      @media (max-width: 600px) {
+        .skill-card {
+          padding: 2rem 1.2rem 1.5rem 1.2rem;
+          min-width: 0;
+          max-width: 94vw;
+        }
+        .skill-card-title {
+          font-size: 1.5rem;
+        }
+        .skill-card-desc {
+          font-size: 1rem;
+        }
+      }
+      @keyframes pop-in {
+        0% { transform: scale(0.85); opacity: 0; }
+        100% { transform: scale(1); opacity: 1; }
+      }
+    </style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carl Masters | Computer Science</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="infinite-skill-stream.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="custom-cursor"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <!-- About Modal -->
+  <div class="about-modal" id="aboutModal" style="display:none;">
+    <div class="about-modal-content">
+      <button class="about-modal-close" id="aboutModalClose" aria-label="Close">&times;</button>
+      <div class="about-modal-header">
+        <h3 id="aboutModalTitle"></h3>
+      </div>
+      <div class="about-modal-body" id="aboutModalBody">
+        <!-- Dynamic content injected here -->
+      </div>
+      <div class="about-modal-detail" id="aboutModalDetail" style="display:none;">
+        <button class="about-modal-back" id="aboutModalBack">&larr; Back</button>
+        <div id="aboutModalDetailTitle" class="about-modal-detail-title"></div>
+        <div id="aboutModalDetailDesc" class="about-modal-detail-desc"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skill Card Modal -->
+  <div class="skill-card-modal" id="skillCardModal">
+    <div class="skill-card">
+      <button class="skill-card-close" id="skillCardClose" aria-label="Close">&times;</button>
+      <div class="skill-card-title" id="skillCardTitle"></div>
+      <div class="skill-card-desc" id="skillCardDesc"></div>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo" aria-label="Home">
+        <span class="logo-cm">
+          <span class="logo-cm-text">CM</span><span class="logo-cursor" aria-hidden="true"></span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#home" id="homeMenuBtn">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#resume">Resume</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <p class="hero-greeting">Hello world. I'm</p>
+        <h1 class="hero-name">CARL MASTERS</h1>
+        <div class="hero-typing">
+          <span class="typing-text"></span>
+          <span class="typing-cursor">|</span>
+        </div>
+        <p class="hero-sub">First-year computer science student based in Tokyo, Japan</p>
+        <div class="hero-buttons">
+          <a href="#projects" class="btn-hero-primary">VIEW MY WORK</a>
+          <a href="#contact" class="btn-hero-outline">CONTACT ME</a>
+          <button id="openTerminalBtn" class="btn-hero-outline" type="button">OPEN TERMINAL</button>
+        </div>
+      </div>
+    </section>
+
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about" class="section section-bg-card">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label" style="color:#00ff41">01 / about</p>
+        <h2 class="section-title" style="color:#00ff41">Who I Am</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p style="color:#00ff41">
+            I'm a first-year Computer Science student at Temple University Japan,
+            based in Tokyo. I got into coding out of curiosity and found I genuinely
+            love it I'm currently working through Python, C, and web development
+            as part of my degree. My biggest interests right now are cybersecurity
+            and digital privacy, operating systems, and AI and machine learning.
+          </p>
+          <p style="color:#00ff41">
+            I've already had the chance to build a real-world project and place first
+            in a hackathon, and I'm eager to keep growing. I'm looking for opportunities
+            to collaborate, contribute, and learn alongside people who care about
+            what they make.
+          </p>
+          <div class="about-stats">
+            <div class="stat stat-projects" tabindex="0" data-stat="projects">
+              <span class="stat-number" data-target="3" style="color:#00ff41; font-size:2.8rem; cursor:pointer;">0</span>
+              <p style="color:#00ff41">Real Projects</p>
+            </div>
+            <div class="stat stat-languages" tabindex="0" data-stat="languages">
+              <span class="stat-number" data-target="5" style="color:#00ff41; font-size:2.8rem; cursor:pointer;">0</span>
+              <p style="color:#00ff41">Languages</p>
+            </div>
+            <div class="stat stat-hackathons" tabindex="0" data-stat="hackathons">
+              <span class="stat-number" data-target="2" style="color:#00ff41; font-size:2.8rem; cursor:pointer;">0</span>
+              <p style="color:#00ff41">Hackathons</p>
+            </div>
+          </div>
+
+        </div>
+        <div class="about-card">
+          <div class="card-inner">
+            <div class="code-block" style="background:#181c1b; box-shadow:0 0 64px 16px #00ff41cc;">
+              <div class="code-header">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="code-filename" style="color:#00ff41">about_me.py</span>
+              </div>
+              <pre><code><span class="kw">class</span> <span class="cls" style="color:#00ff41">CarlMasters</span>:
+    school  = <span class="str">"Temple Univ. Japan"</span>
+    year    = <span class="str">"1st Year CS"</span>
+    skills  = [<span class="str">"Python"</span>, <span class="str">"C"</span>,
+           <span class="str">"HTML/CSS/JS"</span>]
+    focus   = [<span class="str">"Cybersecurity & Privacy"</span>,
+           <span class="str">"Operating Systems"</span>,
+           <span class="str">"AI / ML"</span>]
+    based   = <span class="str">"Tokyo, Japan"</span>
+
+    <span class="kw">def</span> <span class="fn">greet</span>(self):
+      <span class="kw">return</span> <span class="str">"Just getting started."</span></code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SKILLS ===== -->
+  <section id="skills" class="section section-bg-card">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">02 / skills</p>
+        <h2 class="section-title">What I Know</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-category" data-category="Languages" tabindex="0">
+          <h3 class="skill-cat-title">Languages</h3>
+          <div class="skill-tags">
+            <span class="tag" data-skill="Python">Python</span>
+            <span class="tag" data-skill="C">C</span>
+            <span class="tag" data-skill="HTML">HTML</span>
+            <span class="tag" data-skill="CSS">CSS</span>
+            <span class="tag" data-skill="JavaScript">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-category" data-category="Web" tabindex="0">
+          <h3 class="skill-cat-title">Web</h3>
+          <div class="skill-tags">
+            <span class="tag" data-skill="Responsive Design">Responsive Design</span>
+            <span class="tag" data-skill="DOM Manipulation">DOM Manipulation</span>
+            <span class="tag" data-skill="Flexbox / Grid">Flexbox / Grid</span>
+            <span class="tag" data-skill="Web Forms">Web Forms</span>
+          </div>
+        </div>
+        <div class="skill-category" data-category="Tools" tabindex="0">
+          <h3 class="skill-cat-title">Tools</h3>
+          <div class="skill-tags">
+            <span class="tag" data-skill="Git">Git</span>
+            <span class="tag" data-skill="GitHub">GitHub</span>
+            <span class="tag" data-skill="VS Code">VS Code</span>
+            <span class="tag" data-skill="Terminal / CLI">Terminal / CLI</span>
+          </div>
+        </div>
+        <div class="skill-category" data-category="Currently Learning" tabindex="0">
+          <h3 class="skill-cat-title">Currently Learning</h3>
+          <div class="skill-tags">
+            <span class="tag" data-skill="Basic Cybersecurity">Basic Cybersecurity</span>
+            <span class="tag" data-skill="Digital Privacy">Digital Privacy</span>
+            <span class="tag" data-skill="Operating Systems">Operating Systems</span>
+            <span class="tag" data-skill="AI / Machine Learning">AI / Machine Learning</span>
+            <span class="tag" data-skill="Discrete Mathematics">Discrete Mathematics</span>
+            <span class="tag" data-skill="Precalculus">Precalculus</span>
+            <span class="tag" data-skill="Java">Java</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skill Modal -->
+      <div class="skill-explore-modal" id="skillExploreModal" style="display:none;">
+        <div class="skill-explore-modal-content">
+          <button class="skill-explore-modal-close" id="skillExploreModalClose" aria-label="Close">&times;</button>
+          <div class="skill-explore-modal-header">
+            <h3 id="skillExploreModalTitle"></h3>
+          </div>
+          <div class="skill-explore-modal-body" id="skillExploreModalBody">
+            <!-- Skill items will be injected here -->
+          </div>
+          <div class="skill-explore-modal-skill-detail" id="skillExploreModalSkillDetail" style="display:none;">
+            <button class="skill-explore-modal-back" id="skillExploreModalBack">&larr; Back</button>
+            <div id="skillExploreModalSkillTitle" class="skill-explore-modal-skill-title"></div>
+            <div id="skillExploreModalSkillDesc" class="skill-explore-modal-skill-desc"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INFINITE SKILL STREAM ===== -->
+  <section id="infinite-skill-stream" class="section infinite-skill-stream-section">
+      <h2 class="infinite-skill-stream-title">INFINITE SKILL STREAM</h2>
+      <div class="skill-stream-row infinite-skill-stream-row">
+        <div class="skill-stream-track infinite-skill-stream-track">
+          <span class="skill-tag bright">Python</span>
+          <span class="skill-tag bright">C</span>
+          <span class="skill-tag bright">JavaScript</span>
+          <span class="skill-tag bright">HTML</span>
+          <span class="skill-tag bright">CSS</span>
+          <span class="skill-tag bright">Git</span>
+          <span class="skill-tag bright">GitHub</span>
+          <span class="skill-tag bright">Terminal CLI</span>
+          <span class="skill-tag bright">Responsive Design</span>
+          <span class="skill-tag bright">DOM Manipulation</span>
+          <span class="skill-tag bright">Cybersecurity</span>
+          <span class="skill-tag bright">AI and ML</span>
+          <span class="skill-tag bright">Operating Systems</span>
+          <span class="skill-tag bright">Voice AI</span>
+          <span class="skill-tag bright">API Integration</span>
+          <span class="skill-tag bright">Hackathon Builder</span>
+          <span class="skill-tag bright">Problem Solving</span>
+          <span class="skill-tag bright">Team Collaboration</span>
+          <span class="skill-tag bright">Web Development</span>
+          <span class="skill-tag bright">Digital Privacy</span>
+          <span class="skill-tag bright">VS Code</span>
+          <span class="skill-tag bright">Flexbox / Grid</span>
+          <span class="skill-tag bright">Web Forms</span>
+          <!-- Repeat for seamless loop: duplicate the above sequence exactly once -->
+          <span class="skill-tag bright">Python</span>
+          <span class="skill-tag bright">C</span>
+          <span class="skill-tag bright">JavaScript</span>
+          <span class="skill-tag bright">HTML</span>
+          <span class="skill-tag bright">CSS</span>
+          <span class="skill-tag bright">Git</span>
+          <span class="skill-tag bright">GitHub</span>
+          <span class="skill-tag bright">Terminal CLI</span>
+          <span class="skill-tag bright">Responsive Design</span>
+          <span class="skill-tag bright">DOM Manipulation</span>
+          <span class="skill-tag bright">Cybersecurity</span>
+          <span class="skill-tag bright">AI and ML</span>
+          <span class="skill-tag bright">Operating Systems</span>
+          <span class="skill-tag bright">Voice AI</span>
+          <span class="skill-tag bright">API Integration</span>
+          <span class="skill-tag bright">Hackathon Builder</span>
+          <span class="skill-tag bright">Problem Solving</span>
+          <span class="skill-tag bright">Team Collaboration</span>
+          <span class="skill-tag bright">Web Development</span>
+          <span class="skill-tag bright">Digital Privacy</span>
+          <span class="skill-tag bright">VS Code</span>
+          <span class="skill-tag bright">Flexbox / Grid</span>
+          <span class="skill-tag bright">Web Forms</span>
+        </div>
+      </div>
+      <div class="skill-stream-row infinite-skill-stream-row row2">
+        <div class="skill-stream-track infinite-skill-stream-track">
+          <span class="skill-tag bright">Web Forms</span>
+          <span class="skill-tag bright">Flexbox / Grid</span>
+          <span class="skill-tag bright">VS Code</span>
+          <span class="skill-tag bright">Digital Privacy</span>
+          <span class="skill-tag bright">Web Development</span>
+          <span class="skill-tag bright">Team Collaboration</span>
+          <span class="skill-tag bright">Problem Solving</span>
+          <span class="skill-tag bright">Hackathon Builder</span>
+          <span class="skill-tag bright">API Integration</span>
+          <span class="skill-tag bright">Voice AI</span>
+          <span class="skill-tag bright">Operating Systems</span>
+          <span class="skill-tag bright">AI and ML</span>
+          <span class="skill-tag bright">Cybersecurity</span>
+          <span class="skill-tag bright">DOM Manipulation</span>
+          <span class="skill-tag bright">Responsive Design</span>
+          <span class="skill-tag bright">Terminal CLI</span>
+          <span class="skill-tag bright">GitHub</span>
+          <span class="skill-tag bright">Git</span>
+          <span class="skill-tag bright">CSS</span>
+          <span class="skill-tag bright">HTML</span>
+          <span class="skill-tag bright">JavaScript</span>
+          <span class="skill-tag bright">C</span>
+          <span class="skill-tag bright">Python</span>
+          <!-- Repeat for seamless loop: duplicate the above sequence exactly once -->
+          <span class="skill-tag bright">Web Forms</span>
+          <span class="skill-tag bright">Flexbox / Grid</span>
+          <span class="skill-tag bright">VS Code</span>
+          <span class="skill-tag bright">Digital Privacy</span>
+          <span class="skill-tag bright">Web Development</span>
+          <span class="skill-tag bright">Team Collaboration</span>
+          <span class="skill-tag bright">Problem Solving</span>
+          <span class="skill-tag bright">Hackathon Builder</span>
+          <span class="skill-tag bright">API Integration</span>
+          <span class="skill-tag bright">Voice AI</span>
+          <span class="skill-tag bright">Operating Systems</span>
+          <span class="skill-tag bright">AI and ML</span>
+          <span class="skill-tag bright">Cybersecurity</span>
+          <span class="skill-tag bright">DOM Manipulation</span>
+          <span class="skill-tag bright">Responsive Design</span>
+          <span class="skill-tag bright">Terminal CLI</span>
+          <span class="skill-tag bright">GitHub</span>
+          <span class="skill-tag bright">Git</span>
+          <span class="skill-tag bright">CSS</span>
+          <span class="skill-tag bright">HTML</span>
+          <span class="skill-tag bright">JavaScript</span>
+          <span class="skill-tag bright">C</span>
+          <span class="skill-tag bright">Python</span>
+        </div>
+      </div>
+      <div class="skill-stream-row infinite-skill-stream-row row3">
+        <div class="skill-stream-track infinite-skill-stream-track">
+          <span class="skill-tag bright">AI and ML</span>
+          <span class="skill-tag bright">CSS</span>
+          <span class="skill-tag bright">Python</span>
+          <span class="skill-tag bright">Web Development</span>
+          <span class="skill-tag bright">C</span>
+          <span class="skill-tag bright">DOM Manipulation</span>
+          <span class="skill-tag bright">GitHub</span>
+          <span class="skill-tag bright">Git</span>
+          <span class="skill-tag bright">JavaScript</span>
+          <span class="skill-tag bright">HTML</span>
+          <span class="skill-tag bright">Flexbox / Grid</span>
+          <span class="skill-tag bright">Web Forms</span>
+          <span class="skill-tag bright">Digital Privacy</span>
+          <span class="skill-tag bright">Team Collaboration</span>
+          <span class="skill-tag bright">Problem Solving</span>
+          <span class="skill-tag bright">Hackathon Builder</span>
+          <span class="skill-tag bright">API Integration</span>
+          <span class="skill-tag bright">Voice AI</span>
+          <span class="skill-tag bright">Operating Systems</span>
+          <span class="skill-tag bright">Terminal CLI</span>
+          <span class="skill-tag bright">Cybersecurity</span>
+          <span class="skill-tag bright">Responsive Design</span>
+          <span class="skill-tag bright">VS Code</span>
+          <!-- Repeat for seamless loop: duplicate the above sequence exactly once -->
+          <span class="skill-tag bright">AI and ML</span>
+          <span class="skill-tag bright">CSS</span>
+          <span class="skill-tag bright">Python</span>
+          <span class="skill-tag bright">Web Development</span>
+          <span class="skill-tag bright">C</span>
+          <span class="skill-tag bright">DOM Manipulation</span>
+          <span class="skill-tag bright">GitHub</span>
+          <span class="skill-tag bright">Git</span>
+          <span class="skill-tag bright">JavaScript</span>
+          <span class="skill-tag bright">HTML</span>
+          <span class="skill-tag bright">Flexbox / Grid</span>
+          <span class="skill-tag bright">Web Forms</span>
+          <span class="skill-tag bright">Digital Privacy</span>
+          <span class="skill-tag bright">Team Collaboration</span>
+          <span class="skill-tag bright">Problem Solving</span>
+          <span class="skill-tag bright">Hackathon Builder</span>
+          <span class="skill-tag bright">API Integration</span>
+          <span class="skill-tag bright">Voice AI</span>
+          <span class="skill-tag bright">Operating Systems</span>
+          <span class="skill-tag bright">Terminal CLI</span>
+          <span class="skill-tag bright">Cybersecurity</span>
+          <span class="skill-tag bright">Responsive Design</span>
+          <span class="skill-tag bright">VS Code</span>
+        </div>
+      </div>
+  </section>
+
+
+  <!-- ===== RESUME ===== -->
+
+
+
+  <!-- ===== PROJECTS ===== -->
+  <section id="projects" class="section section-bg-card">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">03 / projects</p>
+        <h2 class="section-title">What I've Built</h2>
+      </div>
+      <div class="projects-grid">
+
+        <div class="project-card" data-index="0">
+          <div class="project-top">
+            <div class="project-icon">&#x1F4DD;</div>
+            <div class="project-links">
+              <a href="https://kadys-english.pages.dev/" class="icon-link" title="Visit Site" aria-label="Visit Site" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">Freelance English Teacher Site</h3>
+          <p class="project-desc">
+            A business website built for a freelance English teacher to advertise
+            their services. Features a clean landing page, a services section, and
+            a contact form my first project built for a real client.
+          </p>
+          <div class="project-tech">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+          </div>
+        </div>
+
+        <div class="project-card" data-index="1">
+          <div class="project-top">
+            <div class="project-icon">&#x1F9D1;&#x200D;&#x1F4BB;</div>
+            <div class="project-links">
+              <a href="https://github.com/carlmasters02" class="icon-link" title="GitHub" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              </a>
+            </div>
+          </div>
+          <h3 class="project-title">This Portfolio</h3>
+          <p class="project-desc">
+            Designed and coded from scratch to practice modern HTML, CSS, and
+            vanilla JavaScript animations, responsive layout, and all. A project
+            that's also the thing showing you the project.
+          </p>
+          <div class="project-tech">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+          </div>
+        </div>
+
+        <div class="project-card" data-index="2">
+          <div class="project-top">
+            <div class="project-icon">&#x1F37D;&#xFE0F;</div>
+          </div>
+          <h3 class="project-title">TabeTalk Beta (Builders Weekend 2026)</h3>
+          <p class="project-desc">
+            Built with a 5-person team at Builders Weekend 2026, this AI-powered dining app
+            uses voice samples and real-time voice recognition to track who ordered what,
+            then auto-assigns check items after the bill is scanned so each guest can pay
+            their share seamlessly.
+          </p>
+          <div class="project-tech">
+            <span>Voice AI</span><span>APIs</span><span>Real-time Processing</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EDUCATION ===== -->
+  <section id="education" class="section section-bg-card">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">04 / my background</p>
+        <h2 class="section-title">My Background</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">2017 — 2021</span>
+            <h3>High School Diploma</h3>
+            <p class="timeline-org">Lake Minneola High School &mdash; Minneola, Florida, USA</p>
+            <p>Completed a standard high school curriculum at <a href="https://lmh.lake.k12.fl.us/" target="_blank" rel="noopener noreferrer" class="radar-link"><strong style="color:#00ff41">Lake Minneola High School</strong></a> with coursework across core academic disciplines. Built foundational skills in mathematics, English, and the sciences while developing the study habits and work ethic that carry into everything since.</p>
+            <div class="timeline-tags">
+              <span>Mathematics</span>
+              <span>English</span>
+              <span>Science</span>
+              <span>Critical Thinking</span>
+              <span>Time Management</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">2021 — 2025</span>
+            <h3>United States Marine Corps</h3>
+            <p class="timeline-org">0842 &mdash; Field Artillery Radar Operator &nbsp;|&nbsp; Camp Hansen, Okinawa, Japan &amp; Camp Lejeune, North Carolina, USA</p>
+            <p>Served four years as a <a href="https://www.cool.osd.mil/usmc/moc/index.html?moc=0842" target="_blank" rel="noopener noreferrer" class="radar-link"><strong style="color:#00ff41">Field Artillery Radar Operator</strong></a>, operating the <a href="https://www.northropgrumman.com/what-we-do/mission-solutions/radars/an-tps-80-ground-air-task-oriented-radar-g-ator" target="_blank" rel="noopener noreferrer" class="radar-link">AN/TPS-80 Ground/Air Task Oriented Radar</a>, <a href="https://www.srcinc.com/innovation/radar-counterfire.html" target="_blank" rel="noopener noreferrer" class="radar-link">AN/TPQ-48 Lightweight Counter Mortar Radar</a>, and <a href="https://raytheon.mediaroom.com/index.php?s=43&item=1451" target="_blank" rel="noopener noreferrer" class="radar-link">AN/TPQ-46 Firefinder Radar</a> (now retired). Worked as part of a cohesive team under demanding operational conditions and strict time constraints, contributing to the successful tracking of thousands of artillery munitions and delivering critical battlefield intelligence directly to commanders.</p>
+            <p style="margin-top:0.75rem;">Concurrently held a secondary billet as a <a href="https://www.hqmc.marines.mil/c4/cy/kmi/" target="_blank" rel="noopener noreferrer" class="radar-link"><strong style="color:#00ff41">Key Management Infrastructure (KMI) Custodian</strong></a>, responsible for the secure handling, safeguarding, loading, and operational use of highly sensitive military cryptographic keys and associated intelligence materials.</p>
+            <p style="margin-top:0.75rem;">Selected to attend two formal military schools, earning qualifications as both a <a href="https://www.trngcmd.marines.mil/Portals/207/M02M859%20CMC%20Welcome%20Aboard%2015-Jul-2019.pdf" target="_blank" rel="noopener noreferrer" class="radar-link"><strong style="color:#00ff41">Combat Marksmanship Coach (CMC)</strong></a> and a <a href="https://www.trngcmd.marines.mil/Portals/207/M02M819%20CMT%20Welcome%20Aboard%2015-Jul-2019.pdf" target="_blank" rel="noopener noreferrer" class="radar-link"><strong style="color:#00ff41">Combat Marksmanship Trainer (CMT)</strong></a>. As a CMC, provided individualized coaching to improve Marines' fundamental rifle and pistol proficiency. As a CMT, operated full courses of fire, developed training curricula, and advanced modern marksmanship standards across the unit.</p>
+            <div class="timeline-tags">
+              <span>Critical Thinking</span>
+              <span>Leadership</span>
+              <span>Teamwork</span>
+              <span>Discipline</span>
+              <span>Radar Employment &amp; Maintenance</span>
+              <span>Instructional Skills</span>
+              <span>Cryptographic Key Management</span>
+              <span>Operational Security</span>
+              <span>High-Pressure Decision Making</span>
+              <span>Curriculum Development</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">2025 — Present</span>
+            <h3>B.S. Computer Science</h3>
+            <p class="timeline-org">Temple University Japan &mdash; Tokyo, Japan</p>
+            <p>First-year coursework covering programming fundamentals in Python, C, and Java,
+              introductory computer science theory, and core math for <a href="https://www.tuj.ac.jp/ug/academics/academic-requirements/major-minor-requirements/cs/computer-science-bs" target="_blank" rel="noopener noreferrer" class="radar-link"><strong style="color:#00ff41">CS</strong></a> at <a href="https://www.tuj.ac.jp/" target="_blank" rel="noopener noreferrer" class="radar-link"><strong style="color:#00ff41">Temple University Japan</strong></a>. Learning
+              to think like an engineer from the ground up.</p>
+            <div class="timeline-tags">
+              <span>Python</span>
+              <span>C</span>
+              <span>Java</span>
+              <span>Algorithms &amp; Data Structures</span>
+              <span>Discrete Mathematics</span>
+              <span>Object-Oriented Programming</span>
+              <span>Version Control (Git)</span>
+              <span>Problem Solving</span>
+              <span>Tokyo Campus</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">March 2026</span>
+            <h3>Builders Weekend 2026 Hackathon</h3>
+            <p class="timeline-org">Shibuya, Tokyo, Japan</p>
+            <p>Built an AI-powered dining app that removes the chaos of splitting restaurant bills.
+               Guests sign in, provide a voice sample, and the app listens in real time during ordering
+               to identify who ordered each item. When the check arrives, the host scans the bill,
+               costs are assigned automatically, and everyone pays their share hands-free.</p>
+            <div class="hackathon-boxes">
+              <article class="hackathon-box">
+                <h4>Team</h4>
+                <p>Carl Masters, Bhushith Gujjala Hari, Kseniya Chadovich, Kevin Beutler, and Fangyan Fu.</p>
+              </article>
+              <article class="hackathon-box">
+                <h4>Tech & APIs</h4>
+                <p>Used multiple programming languages and several API keys to integrate voice and payment workflows.</p>
+              </article>
+              <article class="hackathon-box">
+                <h4>Sponsor Integrations</h4>
+                <p>Open Network Labs, Lovable, Supercell, VoiceOS, RevenueCat, and ElevenLabs.</p>
+              </article>
+              <article class="hackathon-box">
+                <h4>Built By</h4>
+                <p>Fully developed by a crew of students from Temple University Japan.</p>
+              </article>
+            </div>
+            <div class="timeline-tags">
+              <span>Voice AI</span>
+              <span>Real-time Recognition</span>
+              <span>Bill Splitting Automation</span>
+              <span>API Integration</span>
+              <span>Payment Workflows</span>
+              <span>Rapid Prototyping</span>
+              <span>Cross-functional Teamwork</span>
+              <span>Product Design</span>
+              <span>Deadline Management</span>
+              <span>Team Collaboration</span>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-date">March 2026</span>
+            <h3>UI/UX Hackathon &mdash; 1st Place</h3>
+            <p class="timeline-org">Temple University Japan &mdash; Tokyo, Japan</p>
+            <p>Competed with a team in a UI/UX-focused hackathon hosted by Temple
+               University Japan. Our team took first place by designing and prototyping
+               a clean, user-centered interface concept under a tight time constraint.</p>
+            <div class="timeline-tags">
+              <span>UI/UX Design</span>
+              <span>Prototyping</span>
+              <span>User-Centered Design</span>
+              <span>Wireframing</span>
+              <span>Visual Hierarchy</span>
+              <span>Iterative Design</span>
+              <span>Presentation Skills</span>
+              <span>Competitive Problem Solving</span>
+              <span>Teamwork</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timeline Event Modal -->
+    <div class="timeline-event-modal" id="timelineEventModal" style="display:none;">
+      <div class="timeline-event-modal-content">
+        <button class="timeline-event-modal-close" id="timelineEventModalClose" aria-label="Close">&times;</button>
+        <div class="timeline-event-modal-body" id="timelineEventModalBody"></div>
+      </div>
+    </div>
+
+  </section>
+
+      <!-- ===== CERTIFICATIONS ===== -->
+      <section id="certifications" class="section section-bg-card">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-label">05 / certifications</p>
+            <h2 class="section-title" style="color:#00ff41; font-size:2.6rem; font-weight:900; letter-spacing:0.08em; text-transform:uppercase;">CERTIFICATIONS</h2>
+          </div>
+          <div class="cert-tabs">
+            <button class="cert-tab active" data-category="All">ALL</button>
+            <button class="cert-tab" data-category="Google">GOOGLE</button>
+            <button class="cert-tab" data-category="CS50">CS50</button>
+            <button class="cert-tab" data-category="CompTIA">COMPTIA</button>
+            <button class="cert-tab" data-category="Other">OTHER</button>
+          </div>
+          <!-- Hamburger for cert categories (mobile only) -->
+          <div class="cert-tabs-hamburger" style="display:none; position:relative;">
+            <button id="certTabsHamburgerBtn" aria-label="Show categories" style="background:none; border:none; color:#00ff41; font-size:2rem; padding:0.5rem 1.2rem; cursor:pointer;">
+              &#9776;
+            </button>
+            <div class="cert-tabs-dropdown" id="certTabsDropdown">
+              <button class="cert-tab-dropdown active" data-category="All">ALL</button>
+              <button class="cert-tab-dropdown" data-category="Google">GOOGLE</button>
+              <button class="cert-tab-dropdown" data-category="CS50">CS50</button>
+              <button class="cert-tab-dropdown" data-category="CompTIA">COMPTIA</button>
+              <button class="cert-tab-dropdown" data-category="Other">OTHER</button>
+            </div>
+          </div>
+          <div class="cert-grid" id="certGrid">
+            <!-- Certificate cards will be rendered here by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== RESUME ===== -->
+      <section id="resume" class="section section-bg-card">
+        <div class="container">
+          <div class="section-header">
+            <p class="section-label">06 / resume</p>
+            <h2 class="section-title">My Resume</h2>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+            <div class="resume-card-glow" style="overflow:hidden; padding:0; max-width:900px; width:100%;">
+              <img src="resume_preview.jpg" alt="Resume Preview" style="width:100%;height:auto;display:block;border:none;" />
+            </div>
+            <a id="downloadResumeBtn" href="resume.pdf" download="resume.pdf" class="btn-hero-primary" style="margin-top:2.2rem;">DOWNLOAD RESUME</a>
+          </div>
+        </div>
+        <style>
+          .resume-card-glow {
+            background: #181c1b;
+            border-radius: 1.5rem;
+            box-shadow: 0 0 32px 8px #00ff7b55, 0 0 0 3px #00ff41;
+            border: 2px solid #00ff41;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            min-height: 0;
+            box-sizing: border-box;
+            overflow: hidden;
+          }
+          .resume-iframe-clean {
+            width: 100%;
+            height: auto;
+            border: none;
+            background: #181c1b;
+            overflow: hidden;
+            box-shadow: none;
+            display: block;
+            min-width: 0;
+            max-width: 100%;
+          }
+          .resume-download-glow {
+            background: #00ff41 !important;
+            color: #181c1b !important;
+            border: 2px solid #00ff41;
+            border-radius: 0.8rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            padding: 0.9rem 2.2rem;
+            box-shadow: 0 0 16px 4px #00ff7b55;
+            transition: box-shadow 0.2s, background 0.2s, color 0.2s;
+            animation: resume-glow-pulse 1.5s infinite alternate;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 2.2rem;
+            display: inline-block;
+          }
+          .resume-download-glow:hover {
+            background: #00ff41 !important;
+            color: #181c1b !important;
+            box-shadow: 0 0 32px 8px #00ff41cc;
+          }
+          @keyframes resume-glow-pulse {
+            0% { box-shadow: 0 0 16px 4px #00ff7b55; }
+            100% { box-shadow: 0 0 32px 12px #00ff41cc; }
+          }
+        </style>
+      </section>
+
+  <!-- ===== BLOG ===== -->
+  <section id="blog" class="section section-bg-card">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-label">07 / blog</p>
+        <h2 class="section-title">My Articles</h2>
+      </div>
+      <div class="blog-grid">
+
+        <div class="blog-card">
+          <span class="blog-tag">Career Advice</span>
+          <h3 class="blog-card-title">How to Write a Resume That Actually Gets Read</h3>
+          <p class="blog-card-preview">Most resumes never make it past the first 10 seconds. Here's what separates the ones that do: format, phrasing, and the one-page rule.</p>
+          <a href="article-resume.html" class="blog-read-more">READ MORE</a>
+        </div>
+
+        <div class="blog-card">
+          <span class="blog-tag">Cybersecurity</span>
+          <h3 class="blog-card-title">Everyday Cybersecurity Habits That Actually Matter</h3>
+          <p class="blog-card-preview">You don't need to be a security expert to protect yourself online. These five habits cover 90% of real-world threats most people face.</p>
+          <a href="article-cybersecurity.html" class="blog-read-more">READ MORE</a>
+        </div>
+
+        <div class="blog-card">
+          <span class="blog-tag">Privacy</span>
+          <h3 class="blog-card-title">The Privacy Stack: Open Source and Encrypted Alternatives for Every App You Use</h3>
+          <p class="blog-card-preview">Big Tech apps are convenient, but they come at a cost. These privacy-respecting swaps are just as good, sometimes better.</p>
+          <a href="article-privacy.html" class="blog-read-more">READ MORE</a>
+        </div>
+
+      </div>
+    </div>
+    <style>
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-top: 2.5rem;
+      }
+      .blog-card {
+        background: linear-gradient(135deg, #101c13 60%, #0a2e1a 100%);
+        border: 2px solid rgba(0,255,65,0.32);
+        border-radius: 1.3rem;
+        box-shadow: 0 0 0 0 #00ff41, 0 2px 16px 0 rgba(0,255,65,0.08), 0 2px 24px 0 rgba(0,0,0,0.18);
+        padding: 2rem 1.7rem 1.7rem 1.7rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        transition: border-color 0.22s, box-shadow 0.22s, transform 0.18s;
+      }
+      .blog-card:hover {
+        border-color: #00ff41;
+        box-shadow: 0 0 24px 4px #00ff41cc, 0 8px 40px 0 rgba(0,255,65,0.18);
+        filter: brightness(1.08) saturate(1.15);
+        transform: translateY(-7px) scale(1.035);
+        z-index: 2;
+      }
+      .blog-tag {
+        display: inline-block;
+        background: rgba(0,255,65,0.12);
+        color: #00ff41;
+        border: 1px solid rgba(0,255,65,0.4);
+        border-radius: 999px;
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 0.22em 0.85em;
+        width: fit-content;
+      }
+      .blog-card-title {
+        color: #ffffff;
+        font-size: 1.08rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin: 0;
+      }
+      .blog-card-preview {
+        color: rgba(255,255,255,0.55);
+        font-size: 0.93rem;
+        line-height: 1.6;
+        margin: 0;
+        flex: 1;
+      }
+      .blog-card-date {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        color: #00cc33;
+        letter-spacing: 0.06em;
+      }
+      .blog-read-more {
+        display: inline-block;
+        margin-top: 0.25rem;
+        padding: 0.55em 1.4em;
+        border: 2px solid #00ff41;
+        border-radius: 0.6rem;
+        color: #00ff41;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        width: fit-content;
+      }
+      .blog-read-more:hover {
+        background: rgba(0,255,65,0.10);
+        color: #00ff41;
+        border-color: #00ff41;
+        box-shadow: 0 0 18px 4px rgba(0,255,65,0.30);
+        transform: translateY(-2px) scale(1.04);
+      }
+      @media (max-width: 900px) {
+        .blog-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+      }
+      @media (max-width: 720px) {
+        .blog-card { padding: 1.5rem 1.2rem 1.2rem; gap: 0.75rem; }
+        .blog-card:hover { transform: translateY(-4px) scale(1.02); }
+      }
+      @media (max-width: 580px) {
+        .blog-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+      }
+      @media (max-width: 480px) {
+        .blog-card { padding: 1.2rem 1rem 1rem; }
+        .blog-card-title { font-size: 1rem; }
+        .blog-card-preview { font-size: 0.88rem; }
+        .blog-read-more { width: 100%; text-align: center; box-sizing: border-box; }
+      }
+      @media (max-width: 360px) {
+        .blog-card { padding: 1rem 0.85rem; }
+        .blog-card-title { font-size: 0.95rem; }
+        .blog-tag { font-size: 0.65rem; }
+      }
+    </style>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title contact-title-centered">Let's Talk</h2>
+      </div>
+      <div class="contact-wrapper">
+        <p class="contact-lead">
+          I'm actively looking for internship and entry-level opportunities.
+          Whether you have a role, a project, or just want to connect my inbox is open.
+        </p>
+        <form class="contact-form" id="contactForm" action="https://formspree.io/f/xqeyyjop" method="POST" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Internship Opportunity" />
+          </div>
+          <input type="hidden" name="_subject" value="New portfolio contact submission" />
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell me about it..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">Send Message</button>
+          <p class="form-status" id="formStatus"></p>
+        </form>
+        <div class="contact-links contact-icons">
+          <a href="mailto:carl.masters.professional@protonmail.com" class="contact-icon-btn" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+          </a>
+          <a href="https://github.com/carlmasters02" class="contact-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/carl-masters-724951297/" class="contact-icon-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+        </div>
+        <p id="tokyo-time" style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:#39ff14;font-weight:bold;margin-top:1.5rem;letter-spacing:0.05em;-webkit-font-smoothing:antialiased;font-smooth:always;"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <p>Designed &amp; Built by <span class="accent">Carl Masters</span></p>
+      <p class="footer-sub">© 2026 &mdash; Open to opportunities</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button id="backToTopBtn" aria-label="Back to top">
+    <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="14" cy="14" r="13" stroke="#00ff7b" stroke-width="2" fill="none"/>
+      <path d="M14 20V8" stroke="#00ff7b" stroke-width="2" stroke-linecap="round"/>
+      <path d="M9 13l5-5 5 5" stroke="#00ff7b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <script src="script.js"></script>
+    <script>
+      // Skill definitions
+      const skillDefinitions = {
+        'Python': 'Developed robust automation scripts, data analysis tools, and web applications using Python. Experienced in leveraging libraries such as Pandas, Flask, and NumPy for real-world projects.',
+        'C': 'Built efficient, low-level programs and contributed to systems programming assignments. Proficient in memory management, pointers, and debugging complex C code.',
+        'JavaScript': 'Created dynamic, interactive web experiences with modern JavaScript. Skilled in DOM manipulation, asynchronous programming, and integrating APIs for responsive UIs.',
+        'HTML': 'Structured accessible, semantic web pages and applications. Strong understanding of HTML5 standards and best practices for SEO and usability.',
+        'CSS': 'Designed visually appealing, responsive layouts using advanced CSS techniques including Flexbox, Grid, and custom animations.',
+        'Git': 'Managed source code and collaborated on projects using Git. Experienced with branching, merging, and resolving conflicts in team environments.',
+        'GitHub': 'Utilized GitHub for version control, code reviews, and project management. Familiar with workflows, pull requests, and open-source collaboration.',
+        'Terminal CLI': 'Efficiently navigates and automates tasks in Unix/Linux environments. Comfortable with shell scripting, process management, and developer tooling.',
+        'Responsive Design': 'Engineered mobile-first, adaptive interfaces that deliver seamless experiences across devices. Applies best practices for accessibility and performance.',
+        'DOM Manipulation': 'Expert in modifying and interacting with web page elements programmatically to create engaging, real-time user interfaces.',
+        'Cybersecurity': 'Conducted research and implemented security best practices to safeguard applications and data. Knowledgeable in threat modeling, encryption, and secure coding.',
+        'AI and ML': 'Applied machine learning algorithms and AI concepts to solve practical problems. Experience with model training, evaluation, and deployment.',
+        'Operating Systems': 'Studied and worked with OS concepts including process scheduling, memory management, and file systems. Practical experience with Linux and Windows.',
+        'Voice AI': 'Explored voice recognition and synthesis technologies. Built prototypes integrating speech-to-text and text-to-speech APIs.',
+        'API Integration': 'Integrated third-party APIs to extend application functionality. Skilled in RESTful design, authentication, and data exchange.',
+        'Hackathon Builder': 'Demonstrated rapid prototyping and teamwork in high-pressure hackathon settings. Delivered innovative solutions under tight deadlines.',
+        'Problem Solving': 'Consistently approaches challenges analytically, breaking down complex issues and delivering effective, creative solutions.',
+        'Tokyo Japan': 'Adapted to international environments, collaborating with diverse teams and engaging with Japanese culture and language.',
+        'Team Collaboration': 'Thrives in collaborative settings, contributing ideas and supporting peers to achieve shared project goals.',
+        'Web Development': 'Designed, developed, and deployed full-stack web applications. Experienced with modern frameworks and deployment pipelines.',
+        'Digital Privacy': 'Advocates for and implements strong privacy measures in all digital projects. Familiar with GDPR and data protection strategies.',
+        'VS Code': 'Expert user of Visual Studio Code, leveraging extensions and customizations to maximize productivity and code quality.',
+        'Flexbox / Grid': 'Utilized CSS Flexbox and Grid to create complex, responsive layouts that adapt to any screen size.',
+        'Web Forms': 'Developed accessible, user-friendly web forms with validation and dynamic feedback for optimal user experience.',
+
+        // --- Timeline tag descriptions ---
+        // High School
+        'Mathematics': 'Built a strong foundation in mathematics through algebra, geometry, and pre-calculus, providing the quantitative reasoning skills essential for computer science and engineering.',
+        'English': 'Developed strong written and verbal communication skills through essay writing, literature analysis, and public speaking — abilities that translate directly into technical documentation and team collaboration.',
+        'Science': 'Studied biology, chemistry, and physics, building the analytical mindset and hypothesis-driven thinking that underpins problem solving in technical fields.',
+        'Critical Thinking': 'Developed the ability to analyze complex situations, identify root causes, and reason through to effective solutions — a skill applied equally in academic study, military operations, and software development.',
+        'Time Management': 'Consistently balanced competing priorities across coursework, extracurriculars, and personal responsibilities, developing the organizational discipline carried into every role since.',
+
+        // USMC
+        'Leadership': 'Led and mentored fellow Marines in high-stakes operational environments. Responsible for guiding team performance, maintaining standards, and ensuring mission success under pressure.',
+        'Teamwork': 'Operated as a core member of a cohesive military unit, where coordinated execution and mutual accountability were not optional — they were mission-critical.',
+        'Discipline': 'Instilled with the rigorous personal and professional discipline of the United States Marine Corps, establishing standards of reliability, precision, and commitment that define every undertaking.',
+        'Radar Employment & Maintenance': 'Trained and experienced in the full operational lifecycle of military counterfire and ground surveillance radar systems — from site selection and emplacement to calibration, operation, and displacement under field conditions.',
+        'Instructional Skills': 'Formally trained and certified to teach, coach, and evaluate other Marines. Delivered structured instruction in both classroom and live-fire environments, adapting to individual learning needs.',
+        'Cryptographic Key Management': 'Held a secondary billet as a Key Management Infrastructure (KMI) Custodian, responsible for the secure handling, accountability, loading, and destruction of highly sensitive military cryptographic keying material in accordance with strict NSA-mandated procedures.',
+        'Operational Security': 'Practiced and enforced OPSEC across all radar and intelligence operations, ensuring sensitive battlefield data, equipment, and personnel were protected from adversarial exploitation.',
+        'High-Pressure Decision Making': 'Routinely made time-critical decisions in fast-moving, high-consequence operational environments — tracking live fire missions, managing radar assets, and coordinating counterfire data with minimal margin for error.',
+        'Curriculum Development': 'Designed and structured marksmanship training curricula as a certified Combat Marksmanship Trainer, tailoring programs of instruction to unit needs and Marine Corps standards.',
+
+        // B.S. Computer Science
+        'Python': 'Developed automation scripts, data tools, and web applications using Python. Experienced with core libraries and applying Python to solve practical programming problems.',
+        'C': 'Built efficient, low-level programs with a focus on memory management, pointers, and systems-level thinking. Used extensively in coursework and personal projects.',
+        'Java': 'Applied object-oriented principles through Java coursework, building familiarity with class hierarchies, interfaces, and foundational design patterns.',
+        'Algorithms & Data Structures': 'Studied the core building blocks of efficient software — sorting, searching, recursion, trees, graphs, and complexity analysis — forming the theoretical backbone of computer science.',
+        'Discrete Mathematics': 'Completed coursework in logic, sets, proofs, combinatorics, and graph theory — the mathematical language that underlies algorithms, cryptography, and computer architecture.',
+        'Object-Oriented Programming': 'Applied OOP principles including encapsulation, inheritance, and polymorphism to design modular, maintainable software across multiple languages.',
+        'Version Control (Git)': 'Used Git for source control across academic and personal projects. Comfortable with branching, merging, commits, and collaborative workflows on GitHub.',
+        'Problem Solving': 'Approaches technical challenges methodically — breaking down problems, testing assumptions, and iterating toward clean, effective solutions.',
+        'Tokyo Campus': 'Pursuing a Computer Science degree at Temple University Japan in Tokyo, gaining both technical education and the perspective that comes with studying internationally.',
+
+        // Builders Weekend 2026
+        'Voice AI': 'Integrated voice recognition and speaker identification technologies to build a real-time audio processing pipeline capable of identifying individual speakers during live restaurant ordering.',
+        'Real-time Recognition': 'Built systems that process audio input in real time, matching spoken orders to individual users on the fly without human intervention.',
+        'Bill Splitting Automation': 'Designed the core logic of an automated dining payment system that tracks what each person ordered and calculates individual totals without manual input at checkout.',
+        'API Integration': 'Integrated multiple third-party APIs — including voice, payment, and AI services — into a unified application workflow under hackathon time pressure.',
+        'Payment Workflows': 'Implemented end-to-end payment processing flows, enabling seamless per-person billing tied directly to voice-recognized order data.',
+        'Rapid Prototyping': 'Delivered a fully functional product concept within the tight constraints of a competitive hackathon, prioritizing core functionality and demo readiness.',
+        'Cross-functional Teamwork': 'Collaborated with teammates across different skill sets and backgrounds, dividing responsibilities efficiently to ship a cohesive product under deadline.',
+        'Product Design': 'Contributed to the overall product vision, user flow, and feature set of a novel AI dining application, balancing technical feasibility with a compelling user experience.',
+        'Deadline Management': 'Executed under strict hackathon time limits, making fast prioritization calls to ensure a working, presentable product by the submission deadline.',
+        'Team Collaboration': 'Worked closely with a multi-person team to build, test, and present a fully functioning AI application — coordinating across design, development, and integration tasks.',
+
+        // UI/UX Hackathon
+        'UI/UX Design': 'Applied user interface and user experience design principles to create intuitive, visually clean interfaces. Focused on reducing friction and improving the overall user journey.',
+        'Prototyping': 'Built interactive prototypes to rapidly validate design concepts and gather feedback before committing to final implementation.',
+        'User-Centered Design': 'Placed the end user at the center of every design decision — researching user needs, mapping flows, and iterating on feedback to produce interfaces people actually want to use.',
+        'Wireframing': 'Created low and mid-fidelity wireframes to establish layout, structure, and user flow before applying visual design — saving time and aligning the team early.',
+        'Visual Hierarchy': 'Applied principles of visual weight, contrast, spacing, and typography to guide the user\'s eye and communicate information clearly without clutter.',
+        'Iterative Design': 'Refined designs through continuous feedback cycles, improving usability and aesthetics with each iteration rather than locking in a single approach.',
+        'Presentation Skills': 'Presented the team\'s design concept and rationale clearly and confidently to judges, articulating design decisions and demonstrating the prototype under competitive conditions.',
+        'Competitive Problem Solving': 'Thrived in a competitive, time-boxed environment by staying focused, adapting quickly to constraints, and delivering a polished solution that earned first place.'
+      };
+
+      // Make all timeline tag bubbles clickable via the existing modal
+      document.querySelectorAll('.timeline-tags span').forEach(function(span) {
+        span.classList.add('skill-tag');
+      });
+
+      // ── Timeline Event Modal ──
+      const timelineEventModal = document.getElementById('timelineEventModal');
+      const timelineEventModalClose = document.getElementById('timelineEventModalClose');
+      const timelineEventModalBody = document.getElementById('timelineEventModalBody');
+
+      function closeTimelineModal() {
+        timelineEventModal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('#education .timeline-item').forEach(function(item) {
+        item.addEventListener('click', function(e) {
+          if (e.target.closest('a')) return;
+          if (e.target.closest('.skill-tag')) return;
+          const content = item.querySelector('.timeline-content');
+          timelineEventModalBody.innerHTML = content.innerHTML;
+          timelineEventModalBody.querySelectorAll('.timeline-tags span').forEach(function(span) {
+            span.classList.add('skill-tag');
+          });
+          timelineEventModal.style.display = 'flex';
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      timelineEventModalClose.addEventListener('click', closeTimelineModal);
+      timelineEventModal.addEventListener('click', function(e) {
+        if (e.target === timelineEventModal) closeTimelineModal();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && timelineEventModal.style.display === 'flex') closeTimelineModal();
+      });
+
+      // Modal elements
+      const modal = document.getElementById('skillCardModal');
+      const closeBtn = document.getElementById('skillCardClose');
+      const titleEl = document.getElementById('skillCardTitle');
+      const descEl = document.getElementById('skillCardDesc');
+
+      // Open card on skill click
+      document.addEventListener('click', function(e) {
+        const tag = e.target.closest('.skill-tag');
+        if (tag) {
+          const skill = tag.textContent.trim();
+          titleEl.textContent = skill;
+          descEl.textContent = skillDefinitions[skill] || 'No description available.';
+          modal.classList.add('active');
+        }
+      });
+
+      // Close card
+      closeBtn.addEventListener('click', function() {
+        modal.classList.remove('active');
+      });
+      // Close on background click
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          modal.classList.remove('active');
+        }
+      });
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          modal.classList.remove('active');
+        }
+      });
+    </script>
+    <script>
+      (function() {
+        function updateTokyoTime() {
+          var el = document.getElementById('tokyo-time');
+          if (!el) return;
+          var now = new Date();
+          var timeStr = now.toLocaleTimeString('en-GB', { timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          el.textContent = 'TOKYO TIME (JST): ' + timeStr;
+        }
+        updateTokyoTime();
+        setInterval(updateTokyoTime, 1000);
+      })();
+    </script>
+</body>
+</html>

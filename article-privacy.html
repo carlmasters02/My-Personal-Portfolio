@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Privacy Stack | Carl Masters</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #0a0f0b; color: #e0e0e0; }
+    .article-page { max-width: 780px; margin: 0 auto; padding: 7rem 1.5rem 4rem; }
+    .article-back { display: inline-flex; align-items: center; gap: 0.5em; font-family: var(--font-mono); font-size: 0.82rem; color: #00ff41; text-decoration: none; letter-spacing: 0.06em; margin-bottom: 2.5rem; transition: opacity 0.2s; }
+    .article-back:hover { opacity: 0.7; }
+    .article-tag { display: inline-block; background: rgba(0,255,65,0.12); color: #00ff41; border: 1px solid rgba(0,255,65,0.4); border-radius: 999px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.22em 0.85em; margin-bottom: 1.2rem; }
+    .article-title { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; color: #ffffff; line-height: 1.25; margin-bottom: 0.75rem; border-bottom: 4px solid #00ff41; display: inline-block; padding-bottom: 0.1em; }
+    .article-date { font-family: var(--font-mono); font-size: 0.78rem; color: #00cc33; letter-spacing: 0.06em; margin: 1.2rem 0 2.2rem; display: block; }
+    .article-body h2 { font-size: 1.25rem; font-weight: 700; color: #00ff41; margin: 2.2rem 0 0.7rem; font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+    .article-body p { color: rgba(255,255,255,0.82); line-height: 1.8; margin-bottom: 1.2rem; font-size: 1.02rem; }
+    .article-body ul { color: rgba(255,255,255,0.82); line-height: 1.8; margin: 0 0 1.2rem 1.5rem; font-size: 1.02rem; }
+    .article-body ul li { margin-bottom: 0.45rem; }
+    .article-body strong { color: #ffffff; }
+    .swap-label { display: inline-block; font-family: var(--font-mono); font-size: 0.72rem; color: #0a0f0b; background: #00ff41; border-radius: 4px; padding: 0.1em 0.55em; font-weight: 700; letter-spacing: 0.04em; margin-right: 0.4em; vertical-align: middle; }
+    .disqus-wrap { margin-top: 4rem; background: linear-gradient(135deg, #101c13 60%, #0a2e1a 100%); border: 2px solid rgba(0,255,65,0.32); border-radius: 1.3rem; padding: 2.5rem 2rem; }
+    .disqus-wrap h3 { font-family: var(--font-mono); font-size: 0.9rem; color: #00ff41; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
+    @media (max-width: 900px) {
+      .article-page { padding: 6rem 1.5rem 3.5rem; }
+    }
+    @media (max-width: 720px) {
+      .article-page { padding: 5.5rem 1.25rem 3rem; }
+      .disqus-wrap { padding: 1.8rem 1.25rem; }
+    }
+    @media (max-width: 480px) {
+      .article-page { padding: 5rem 1rem 2.5rem; }
+      .article-body p, .article-body ul { font-size: 0.95rem; }
+      .article-body ul { margin-left: 1.1rem; }
+      .article-body h2 { font-size: 1.05rem; }
+      .disqus-wrap { padding: 1.4rem 1rem; }
+      .article-back { font-size: 0.78rem; }
+    }
+    @media (max-width: 360px) {
+      .article-page { padding: 4.5rem 0.8rem 2rem; }
+      .article-body p, .article-body ul { font-size: 0.9rem; }
+      .article-body ul { margin-left: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <div id="custom-cursor"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Home">
+        <span class="logo-cm">
+          <span class="logo-cm-text">CM</span><span class="logo-cursor" aria-hidden="true"></span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#education">Education</a></li>
+        <li><a href="index.html#certifications">Certifications</a></li>
+        <li><a href="index.html#resume">Resume</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="article-page">
+    <a href="index.html#blog" class="article-back">&#8592; Back to Blog</a>
+    <span class="article-tag">Privacy</span>
+    <h1 class="article-title">The Privacy Stack: Open Source and Encrypted Alternatives for Every App You Use</h1>
+
+    <div class="article-body">
+      <p>Every app you use daily is collecting data about you. Sometimes that data funds the business model directly. Your behavior is the product. Other times it's an accident waiting to happen, sitting in a database until the inevitable breach. The good news is that for almost every mainstream app, there's a privacy-respecting alternative that's just as usable, and in many cases better. Here's the stack I recommend.</p>
+
+      <h2>Signal → Instead of WhatsApp or SMS</h2>
+      <p><span class="swap-label">SWAP</span> <strong>WhatsApp</strong> is owned by Meta and, while it does use end-to-end encryption for message content, it collects extensive metadata: who you talk to, how often, when, and from where. That metadata is shared with Meta's advertising infrastructure.</p>
+      <p><strong>Signal</strong> is the gold standard for private messaging. It uses the same encryption protocol WhatsApp is built on (Signal Protocol), but it collects almost no metadata. The app is open source, non-profit, and funded by donations. Your contacts, message history, and conversation patterns stay on your device. Signal also supports disappearing messages, note-to-self, and voice and video calls. If everyone in your circle switched, it would be a strict upgrade in every way.</p>
+
+      <h2>Firefox or Brave → Instead of Chrome</h2>
+      <p><span class="swap-label">SWAP</span> Chrome is Google's product, built to keep you in Google's ecosystem. It reports browsing data back to Google servers and has progressively weakened ad-blocking capabilities as the company pushes its Privacy Sandbox model.</p>
+      <p><strong>Firefox</strong> is open source, maintained by the non-profit Mozilla Foundation, and highly configurable. With extensions like uBlock Origin and Privacy Badger, it's one of the most private browsers available. <strong>Brave</strong> is Chromium-based (so Chrome extensions work) but ships with aggressive ad and tracker blocking by default, requiring zero configuration to get meaningful privacy. Both are excellent choices depending on your preference for control versus simplicity.</p>
+
+      <h2>DuckDuckGo → Instead of Google Search</h2>
+      <p><span class="swap-label">SWAP</span> Google Search builds a detailed profile of your interests, politics, health concerns, and purchasing intent based on your search history. That profile is used to serve targeted ads and can be subpoenaed by law enforcement.</p>
+      <p><strong>DuckDuckGo</strong> doesn't store your search history, doesn't build user profiles, and doesn't track you across sessions. Results are solid for the majority of everyday searches. For edge cases where you need Google's depth, you can prefix any DuckDuckGo query with <code>!g</code> to redirect it to Google, keeping it as a fallback rather than your default. <strong>Brave Search</strong> is a newer alternative with its own independent index and strong privacy guarantees.</p>
+
+      <h2>ProtonMail → Instead of Gmail</h2>
+      <p><span class="swap-label">SWAP</span> Gmail scans your emails to serve relevant ads and build your profile. As a Google product, all your email is connected to your Google account: searches, location, and browsing are all linked together.</p>
+      <p><strong>ProtonMail</strong> is based in Switzerland (strong privacy laws), end-to-end encrypts emails between Proton users, and zero-knowledge encrypts your mailbox so even Proton staff cannot read your emails. The free tier gives you 1GB and one address, which is plenty for a privacy-focused secondary inbox. The paid plan is comparable to Gmail in features and includes a custom domain. If you're starting fresh, Proton is the clear choice for a private email provider.</p>
+
+      <h2>Standard Notes → Instead of Google Keep or Apple Notes</h2>
+      <p><span class="swap-label">SWAP</span> Notes apps store some of your most sensitive thoughts: passwords jotted down, medical concerns, private journal entries, financial figures. Google Keep and Apple Notes are not end-to-end encrypted, meaning the company can read your notes and is obligated to hand them over if served a warrant.</p>
+      <p><strong>Standard Notes</strong> is end-to-end encrypted, open source, and cross-platform (iOS, Android, Windows, Mac, Linux, and web). Your notes are encrypted before they ever leave your device. The free tier covers unlimited notes synced across devices. It's minimal by design, which keeps it fast and focused.</p>
+
+      <h2>Proton Drive → Instead of Google Drive or Dropbox</h2>
+      <p><span class="swap-label">SWAP</span> Google Drive, Dropbox, and iCloud all store your files in a readable format on their servers. They can access your files, serve them to advertisers, or hand them to law enforcement on request. If their servers are breached, your files are exposed.</p>
+      <p><strong>Proton Drive</strong> end-to-end encrypts all files before upload. Only you hold the keys. The free tier provides 1GB of encrypted storage. For a full suite, Proton One bundles Mail, Drive, Calendar, and VPN in one subscription, making it a genuine Google Workspace replacement with privacy as the foundation.</p>
+
+      <p>You don't have to switch everything at once. Start with the one that handles your most sensitive data, probably your email or messaging, and go from there. Each swap you make reduces the surface area of your digital footprint. Over time, you build a stack that works for you without selling you in the process.</p>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
