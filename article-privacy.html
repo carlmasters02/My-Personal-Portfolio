@@ -45,7 +45,25 @@
       .article-body p, .article-body ul { font-size: 0.9rem; }
       .article-body ul { margin-left: 0.9rem; }
     }
+    /* ── Comments section ── */
+    .comments-section { margin-top: 4rem; }
+    .comment-card { background: #0b1a0e; border: 1px solid rgba(0,255,65,0.18); border-radius: 0.8rem; padding: 1.2rem 1.4rem; margin-bottom: 0.85rem; }
+    .comment-author { font-family: var(--font-mono); font-size: 0.88rem; color: #00ff41; font-weight: 600; margin-bottom: 0.2rem; }
+    .comment-date { font-family: var(--font-mono); font-size: 0.7rem; color: rgba(0,204,51,0.5); margin-bottom: 0.55rem; }
+    .comment-message { color: rgba(255,255,255,0.85); font-size: 0.97rem; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+    .comments-empty, .comments-loading { font-family: var(--font-mono); font-size: 0.8rem; color: rgba(0,204,51,0.45); margin-bottom: 1.5rem; }
+    .comment-form-wrap { margin-top: 2rem; background: #0b1a0e; border: 1px solid rgba(0,255,65,0.18); border-radius: 0.8rem; padding: 1.6rem 1.6rem 1.4rem; }
+    .comments-heading { font-family: var(--font-mono); font-size: 0.78rem; color: #00ff41; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.3rem; }
+    .comment-form-label { font-family: var(--font-mono); font-size: 0.72rem; color: #00cc33; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.4rem; }
+    .comment-form-input, .comment-form-textarea { width: 100%; background: #060e07; border: 1px solid rgba(0,255,65,0.2); border-radius: 0.4rem; padding: 0.65rem 0.85rem; color: #e0e0e0; font-family: var(--font-mono); font-size: 0.88rem; margin-bottom: 1rem; box-sizing: border-box; transition: border-color 0.2s; }
+    .comment-form-input:focus, .comment-form-textarea:focus { outline: none; border-color: rgba(0,255,65,0.55); }
+    .comment-form-textarea { resize: vertical; min-height: 90px; }
+    .comment-form-error { color: #ff6b35; font-family: var(--font-mono); font-size: 0.78rem; margin-bottom: 0.7rem; }
+    .comment-submit-btn { background: transparent; border: 1.5px solid #00ff41; color: #00ff41; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.6rem; border-radius: 0.35rem; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .comment-submit-btn:hover:not(:disabled) { background: rgba(0,255,65,0.1); }
+    .comment-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 </head>
 <body>
   <div id="custom-cursor"></div>
@@ -237,6 +255,106 @@
       <p>Each change you make reduces the surface area of your digital footprint. Each tool you replace with a privacy-respecting alternative is one fewer company with access to your life. Over time, these choices compound. You build a stack that is genuinely yours, tools that work for you instead of tools that work on you. Privacy is not paranoia. It is ownership. And it is well within reach.</p>
     </div>
 
+    <section class="comments-section">
+      <div id="comments-list"><p class="comments-loading">Loading transmissions...</p></div>
+      <div class="comment-form-wrap">
+        <p class="comments-heading">LEAVE A TRANSMISSION</p>
+        <form id="comment-form" novalidate>
+          <label class="comment-form-label" for="comment-name">Name</label>
+          <input class="comment-form-input" type="text" id="comment-name" placeholder="Your name" autocomplete="name" required />
+          <label class="comment-form-label" for="comment-message">Message</label>
+          <textarea class="comment-form-textarea" id="comment-message" placeholder="Your message..." rows="4" required></textarea>
+          <p class="comment-form-error" id="comment-form-error" style="display:none;"></p>
+          <button class="comment-submit-btn" type="submit" id="comment-submit-btn">TRANSMIT</button>
+        </form>
+      </div>
+    </section>
+    <script>
+    (function () {
+      var SUPABASE_URL     = 'https://almaryxwnlesmhqspgde.supabase.co';
+      var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFsbWFyeXh3bmxlc21ocXNwZ2RlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3MjE2ODQsImV4cCI6MjA4ODI5NzY4NH0.Iuz6OcK1-D--JTuluaGHEqh9gORmEwxBGbPddJJaqhY';
+      var POST_SLUG        = 'article-privacy';
+
+      var listEl = document.getElementById('comments-list');
+      var form   = document.getElementById('comment-form');
+      var nameEl = document.getElementById('comment-name');
+      var msgEl  = document.getElementById('comment-message');
+      var errEl  = document.getElementById('comment-form-error');
+      var btn    = document.getElementById('comment-submit-btn');
+
+      // Guard: verify Supabase CDN loaded before doing anything
+      if (typeof window.supabase === 'undefined') {
+        console.error('[Comments] Supabase CDN failed to load — window.supabase is undefined.');
+        listEl.innerHTML = '<p class="comments-empty">Could not initialize comments. Please refresh the page.</p>';
+        return;
+      }
+
+      var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log('[Comments] Supabase client initialized for slug:', POST_SLUG);
+
+      function esc(s) {
+        return String(s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      async function load() {
+        listEl.innerHTML = '<p class="comments-loading">Loading transmissions...</p>';
+        var res = await client
+          .from('comments')
+          .select('id,name,message,created_at')
+          .eq('post_slug', POST_SLUG)
+          .order('created_at', { ascending: true });
+        if (res.error) {
+          console.error('[Comments] fetch error:', res.error);
+          listEl.innerHTML = '<p class="comments-empty">Could not load comments. Please refresh the page.</p>';
+          return;
+        }
+        console.log('[Comments] fetched', res.data ? res.data.length : 0, 'comments');
+        if (!res.data || res.data.length === 0) {
+          listEl.innerHTML = '<p class="comments-empty">No transmissions yet. Be the first to leave a comment.</p>';
+          return;
+        }
+        listEl.innerHTML = res.data.map(function (c) {
+          var d  = new Date(c.created_at);
+          var ds = d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                 + ' \u00b7 '
+                 + d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+          return '<div class="comment-card">'
+            + '<div class="comment-author">' + esc(c.name) + '</div>'
+            + '<div class="comment-date">' + ds + '</div>'
+            + '<div class="comment-message">' + esc(c.message) + '</div>'
+            + '</div>';
+        }).join('');
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errEl.style.display = 'none';
+        var name = nameEl.value.trim();
+        var msg  = msgEl.value.trim();
+        if (!name || !msg) return;
+        btn.disabled = true;
+        btn.textContent = 'TRANSMITTING\u2026';
+        var res = await client
+          .from('comments')
+          .insert([{ post_slug: POST_SLUG, name: name, message: msg }]);
+        btn.disabled = false;
+        btn.textContent = 'TRANSMIT';
+        if (res.error) {
+          console.error('[Comments] insert error:', res.error);
+          errEl.textContent = 'Transmission failed \u2014 could not post your comment. Please try again.';
+          errEl.style.display = 'block';
+          return;
+        }
+        nameEl.value = '';
+        msgEl.value  = '';
+        await load();
+      });
+
+      load();
+    })();
+    </script>
   </main>
 
   <script src="script.js"></script>
