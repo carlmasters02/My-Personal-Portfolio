@@ -256,16 +256,16 @@
     </div>
 
     <section class="comments-section">
-      <div id="comments-list"><p class="comments-loading">Loading transmissions...</p></div>
+      <div id="comments-list"><p class="comments-loading">Loading comments...</p></div>
       <div class="comment-form-wrap">
-        <p class="comments-heading">LEAVE A TRANSMISSION</p>
+        <p class="comments-heading">LEAVE A COMMENT</p>
         <form id="comment-form" novalidate>
           <label class="comment-form-label" for="comment-name">Name</label>
           <input class="comment-form-input" type="text" id="comment-name" placeholder="Your name" autocomplete="name" required />
           <label class="comment-form-label" for="comment-message">Message</label>
           <textarea class="comment-form-textarea" id="comment-message" placeholder="Your message..." rows="4" required></textarea>
           <p class="comment-form-error" id="comment-form-error" style="display:none;"></p>
-          <button class="comment-submit-btn" type="submit" id="comment-submit-btn">TRANSMIT</button>
+          <button class="comment-submit-btn" type="submit" id="comment-submit-btn">POST COMMENT</button>
         </form>
       </div>
     </section>
@@ -299,7 +299,7 @@
       }
 
       async function load() {
-        listEl.innerHTML = '<p class="comments-loading">Loading transmissions...</p>';
+        listEl.innerHTML = '<p class="comments-loading">Loading comments...</p>';
         var res = await client
           .from('comments')
           .select('id,name,message,created_at')
@@ -312,7 +312,7 @@
         }
         console.log('[Comments] fetched', res.data ? res.data.length : 0, 'comments');
         if (!res.data || res.data.length === 0) {
-          listEl.innerHTML = '<p class="comments-empty">No transmissions yet. Be the first to leave a comment.</p>';
+          listEl.innerHTML = '<p class="comments-empty">No comments yet. Be the first to leave one.</p>';
           return;
         }
         listEl.innerHTML = res.data.map(function (c) {
@@ -335,15 +335,15 @@
         var msg  = msgEl.value.trim();
         if (!name || !msg) return;
         btn.disabled = true;
-        btn.textContent = 'TRANSMITTING\u2026';
+        btn.textContent = 'POSTING\u2026';
         var res = await client
           .from('comments')
           .insert([{ post_slug: POST_SLUG, name: name, message: msg }]);
         btn.disabled = false;
-        btn.textContent = 'TRANSMIT';
+        btn.textContent = 'POST COMMENT';
         if (res.error) {
           console.error('[Comments] insert error:', res.error);
-          errEl.textContent = 'Transmission failed \u2014 could not post your comment. Please try again.';
+          errEl.textContent = 'Comment could not be posted. Please try again.';
           errEl.style.display = 'block';
           return;
         }
