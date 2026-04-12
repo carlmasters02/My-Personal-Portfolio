@@ -22,21 +22,17 @@
     .article-body ul { color: rgba(255,255,255,0.82); line-height: 1.8; margin: 0 0 1.2rem 1.5rem; font-size: 1.02rem; }
     .article-body ul li { margin-bottom: 0.45rem; }
     .article-body strong { color: #ffffff; }
-    .disqus-wrap { margin-top: 4rem; background: linear-gradient(135deg, #101c13 60%, #0a2e1a 100%); border: 2px solid rgba(0,255,65,0.32); border-radius: 1.3rem; padding: 2.5rem 2rem; }
-    .disqus-wrap h3 { font-family: var(--font-mono); font-size: 0.9rem; color: #00ff41; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.5rem; }
     @media (max-width: 900px) {
       .article-page { padding: 6rem 1.5rem 3.5rem; }
     }
     @media (max-width: 720px) {
       .article-page { padding: 5.5rem 1.25rem 3rem; }
-      .disqus-wrap { padding: 1.8rem 1.25rem; }
     }
     @media (max-width: 480px) {
       .article-page { padding: 5rem 1rem 2.5rem; }
       .article-body p, .article-body ul { font-size: 0.95rem; }
       .article-body ul { margin-left: 1.1rem; }
       .article-body h2 { font-size: 1.05rem; }
-      .disqus-wrap { padding: 1.4rem 1rem; }
       .article-back { font-size: 0.78rem; }
     }
     @media (max-width: 360px) {
@@ -107,7 +103,7 @@
 
       <p>Consider a six-character password made entirely of lowercase letters. There are 26 possible characters for each position, giving roughly 300 million possible combinations. That sounds like a lot until you realize that modern computers can test billions of password combinations per second. A six-character lowercase password falls in under a second. Add uppercase letters and you double the character set to 52, which meaningfully increases the combinations but still falls quickly at short lengths. Add numbers and symbols and you push the character set closer to 95, which helps further. But length is where the real power is.</p>
 
-      <p>A 16-character password using only random lowercase words is exponentially harder to crack than an 8-character password packed with symbols and numbers. This is because each additional character multiplies the total number of combinations by the size of the character set. Length does not add to the difficulty, it multiplies it. A short complex password and a long simple one are not in the same ballpark. They are not even in the same universe when it comes to crack time.</p>
+      <p>A 16-character password using only random lowercase letters is exponentially harder to crack than an 8-character password packed with symbols and numbers. This is because each additional character multiplies the total number of combinations by the size of the character set. Length does not add to the difficulty, it multiplies it. A short complex password and a long simple one are not in the same ballpark. They are not even in the same universe when it comes to crack time.</p>
 
       <p>This is the logic behind passphrases. A passphrase is a string of four or more random, unrelated words strung together, such as "correct horse battery staple." That phrase is easy to remember and yet has an astronomically large number of possible combinations when chosen from a large word list. It is also more resistant to attacks than a short complex string precisely because of its length. Passphrases are both more secure and more memorable than the conventional short-but-complex password advice that has dominated security guidance for decades and is now largely considered outdated.</p>
 
@@ -125,7 +121,7 @@
 
       <p><strong>1Password</strong> is the premium option with the most polished experience across platforms. Its apps are well-designed, its browser integration is smooth, and it includes features that go beyond basic password storage. One standout is Travel Mode, which lets you hide sensitive vaults when crossing international borders so that a device search cannot expose everything you store. It has strong family and business plan options and is a particularly good fit for users who want the best possible interface and are willing to pay for it. There is no free tier, but the subscription cost is reasonable for the quality of the product.</p>
 
-      <p><strong>Dashlane</strong> is another premium option that bundles additional security tools directly into the password manager subscription. It includes a built-in VPN for secure browsing and a dark web monitoring feature that scans known breach databases and alerts you if your email or credentials appear in a leak. This makes it a more comprehensive security package than a standalone password manager, at a higher price point. It is a strong option for users who want multiple security tools consolidated in one subscription.</p>
+      <p><strong>Dashlane</strong> is another premium option that bundles additional security tools directly into the password manager subscription. It includes a dark web monitoring feature that scans known breach databases and alerts you if your email or credentials appear in a leak, along with detailed password health reports that surface weak, reused, or compromised passwords across your vault. It is a strong option for users who want breach monitoring and password management consolidated in one polished product.</p>
 
       <p><strong>Proton Pass</strong> is made by the same team behind ProtonMail and ProtonVPN and fits naturally into the broader Proton privacy ecosystem. It is open source, end-to-end encrypted, and has a solid free tier that covers the core use case. For users who are already using Proton for email, VPN, or cloud storage, adding Proton Pass keeps all security tools under one trusted, privacy-first provider. It is a particularly good fit for users who care about data minimization and want to avoid spreading their sensitive information across multiple companies.</p>
 
@@ -141,7 +137,7 @@
 
       <p><strong>Aegis Authenticator</strong> is the top recommendation for Android users. It is free, open source, and stores your 2FA accounts in an encrypted local database that you control. It supports backup and restore, so switching phones does not mean losing all your codes. The interface is clean and practical. For anyone on Android who wants the most trustworthy and transparent authenticator available, Aegis is the right choice.</p>
 
-      <p><strong>Raivo OTP</strong> is the equivalent recommendation for iPhone users. It is free, open source, and stores codes locally on the device with support for encrypted iCloud backups, making it easy to restore when switching iPhones. It is straightforward, reliable, and does exactly what an authenticator needs to do without unnecessary complexity.</p>
+      <p><strong>2FAS</strong> is the top recommendation for iPhone users and is also available on Android. It is free, open source, and stores codes locally on the device with support for iCloud backups on iOS, making it straightforward to restore when switching phones. The interface is clean and focused, the codebase is publicly auditable, and it has earned a strong reputation in the security community as a trustworthy, no-frills authenticator.</p>
 
       <p><strong>Proton Authenticator</strong> is made by the same team behind ProtonMail and ProtonVPN and is a solid choice for users who are already invested in the Proton ecosystem. It is built around the same privacy-first principles as the rest of the Proton suite and integrates naturally if you are consolidating your security tools under one provider.</p>
 
@@ -251,7 +247,7 @@
 
       // Guard: verify Supabase CDN loaded before doing anything
       if (typeof window.supabase === 'undefined') {
-        console.error('[Comments] Supabase CDN failed to load — window.supabase is undefined.');
+        console.error('[Comments] Supabase CDN failed to load. window.supabase is undefined.');
         listEl.innerHTML = '<p class="comments-empty">Could not initialize comments. Please refresh the page.</p>';
         return;
       }
