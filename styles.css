@@ -665,13 +665,29 @@ body.cursor-none, body.cursor-none *, body.cursor-none *:hover, body.cursor-none
     height: 60px;
   }
 }
-/* Consistent font for Send Message button */
+/* Send Message button — matches READ MORE outline style */
 .contact-form .btn,
 .contact-form .btn-primary,
 .contact-form button[type="submit"] {
   font-family: 'Share Tech Mono', monospace !important;
   font-size: 1.05rem;
   letter-spacing: 0.18em;
+  background: transparent !important;
+  color: #00ff41 !important;
+  border: 2px solid #00ff41 !important;
+  box-shadow: none !important;
+  border-radius: 0.6rem;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.18s;
+}
+.contact-form .btn:hover,
+.contact-form .btn-primary:hover,
+.contact-form button[type="submit"]:hover {
+  background: rgba(0,255,65,0.10) !important;
+  color: #00ff41 !important;
+  border-color: #00ff41 !important;
+  box-shadow: 0 0 18px 4px rgba(0,255,65,0.30) !important;
+  transform: translateY(-2px) scale(1.02);
 }
 /* Contact icon buttons: 3 centered circles with only the icon */
 .contact-icons {
