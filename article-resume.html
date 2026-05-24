@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' fonts.googleapis.com 'unsafe-inline'; font-src fonts.gstatic.com; connect-src https://almaryxwnlesmhqspgde.supabase.co; img-src 'self' data:; frame-src 'none'; object-src 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How to Write a Resume That Actually Gets Read | Carl Masters</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -58,7 +59,7 @@
     .comment-submit-btn:hover:not(:disabled) { background: rgba(0,255,65,0.1); }
     .comment-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" integrity="sha384-dzQgxMPp/h+N0t5qDf6Bp516wKZr3pXgGMpA7/ZM6tiWkqYo90N060L03dxnZ8Tf" crossorigin="anonymous"></script>
 </head>
 <body>
   <div id="custom-cursor"></div>
@@ -235,6 +236,7 @@
           <label class="comment-form-label" for="comment-message">Message</label>
           <textarea class="comment-form-textarea" id="comment-message" placeholder="Your message..." rows="4" required></textarea>
           <p class="comment-form-error" id="comment-form-error" style="display:none;"></p>
+          <input type="text" id="comment-hp" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;border:0;padding:0;" />
           <button class="comment-submit-btn" type="submit" id="comment-submit-btn">POST COMMENT</button>
         </form>
       </div>
@@ -304,6 +306,8 @@
         var name = nameEl.value.trim();
         var msg  = msgEl.value.trim();
         if (!name || !msg) return;
+        var hp = document.getElementById('comment-hp');
+        if (hp && hp.value.length > 0) return;
         btn.disabled = true;
         btn.textContent = 'POSTING\u2026';
         var res = await client

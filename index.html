@@ -1,79 +1,8 @@
-    <style>
-      /* Skill Card Modal Styles */
-      .skill-card-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0,0,0,0.55);
-        z-index: 1000;
-        align-items: center;
-        justify-content: center;
-      }
-      .skill-card-modal.active {
-        display: flex;
-      }
-      .skill-card {
-        background: #181f1b;
-        color: #b6ffb0;
-        border-radius: 1.2rem;
-        box-shadow: 0 0 32px 8px #00ff7b55;
-        padding: 2.5rem 2.5rem 2rem 2.5rem;
-        min-width: 320px;
-        max-width: 90vw;
-        font-family: 'Fira Mono', 'Consolas', monospace;
-        text-align: center;
-        position: relative;
-        animation: pop-in 0.18s cubic-bezier(.5,1.8,.7,1.1);
-      }
-      .skill-card-title {
-        font-size: 2rem;
-        font-weight: bold;
-        margin-bottom: 1.2rem;
-        letter-spacing: 0.04em;
-      }
-      .skill-card-desc {
-        font-size: 1.15rem;
-        color: #eaffea;
-      }
-      .skill-card-close {
-        position: absolute;
-        top: 0.7rem;
-        right: 1.2rem;
-        font-size: 1.7rem;
-        color: #b6ffb0;
-        background: none;
-        border: none;
-        cursor: pointer;
-        transition: color 0.15s;
-      }
-      .skill-card-close:hover {
-        color: #00ff7b;
-      }
-      @media (max-width: 600px) {
-        .skill-card {
-          padding: 2rem 1.2rem 1.5rem 1.2rem;
-          min-width: 0;
-          max-width: 94vw;
-        }
-        .skill-card-title {
-          font-size: 1.5rem;
-        }
-        .skill-card-desc {
-          font-size: 1rem;
-        }
-      }
-      @keyframes pop-in {
-        0% { transform: scale(0.85); opacity: 0; }
-        100% { transform: scale(1); opacity: 1; }
-      }
-    </style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' fonts.googleapis.com 'unsafe-inline'; font-src fonts.gstatic.com; connect-src https://formspree.io; img-src 'self' data: blob:; frame-src 'none'; object-src 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carl Masters | Computer Science</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -82,6 +11,78 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* Skill Card Modal Styles */
+    .skill-card-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .skill-card-modal.active {
+      display: flex;
+    }
+    .skill-card {
+      background: #181f1b;
+      color: #b6ffb0;
+      border-radius: 1.2rem;
+      box-shadow: 0 0 32px 8px #00ff7b55;
+      padding: 2.5rem 2.5rem 2rem 2.5rem;
+      min-width: 320px;
+      max-width: 90vw;
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      text-align: center;
+      position: relative;
+      animation: pop-in 0.18s cubic-bezier(.5,1.8,.7,1.1);
+    }
+    .skill-card-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.04em;
+    }
+    .skill-card-desc {
+      font-size: 1.15rem;
+      color: #eaffea;
+    }
+    .skill-card-close {
+      position: absolute;
+      top: 0.7rem;
+      right: 1.2rem;
+      font-size: 1.7rem;
+      color: #b6ffb0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+    .skill-card-close:hover {
+      color: #00ff7b;
+    }
+    @media (max-width: 600px) {
+      .skill-card {
+        padding: 2rem 1.2rem 1.5rem 1.2rem;
+        min-width: 0;
+        max-width: 94vw;
+      }
+      .skill-card-title {
+        font-size: 1.5rem;
+      }
+      .skill-card-desc {
+        font-size: 1rem;
+      }
+    }
+    @keyframes pop-in {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
 </head>
 <body>
   <div id="custom-cursor"></div>
@@ -1084,7 +1085,7 @@
           if (e.target.closest('a')) return;
           if (e.target.closest('.skill-tag')) return;
           const content = item.querySelector('.timeline-content');
-          timelineEventModalBody.innerHTML = content.innerHTML;
+          timelineEventModalBody.replaceChildren(...Array.from(content.childNodes).map(n => n.cloneNode(true)));
           timelineEventModalBody.querySelectorAll('.timeline-tags span').forEach(function(span) {
             span.classList.add('skill-tag');
           });
