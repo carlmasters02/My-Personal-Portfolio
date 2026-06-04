@@ -526,7 +526,7 @@ document.addEventListener('DOMContentLoaded', function () {
         printLine('location  - show current location');
         setTimeout(showInput, 320);
       } else if (lc === 'about') {
-        printLine('Carl Masters: Computer Science student, web developer, and cybersecurity enthusiast.');
+        printLine('Carl Masters: Cybersecurity student, aspiring SOC analyst, and digital privacy advocate.');
         setTimeout(showInput, 320);
       } else if (lc === 'clear') {
         clearTerminal();
@@ -635,20 +635,11 @@ document.addEventListener('DOMContentLoaded', function () {
   function revealSectionWithBinary(section) {
     if (revealedSections.has(section)) return;
     revealedSections.add(section);
-    // Safety: always show content after timeout
-    let failSafeTimeout;
     try {
-      // Hide content
-      const children = Array.from(section.children);
-      children.forEach(child => {
-        child.style.transition = 'opacity 0.08s';
-        child.style.opacity = '0';
-      });
-      // Overlay
+      // Overlay sits on top — children stay visible underneath, avoiding opacity glitches
       section.style.position = 'relative';
       const overlay = createBinaryOverlay(section);
       section.appendChild(overlay);
-      // Fill overlay with binary
       const [rows, cols] = getSectionRowsCols(section);
       let running = true;
       let flashes = 0;
@@ -661,24 +652,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
       flash();
-      // End burst after random duration
       const duration = Math.floor(binaryMin + Math.random() * (binaryMax - binaryMin));
-      failSafeTimeout = setTimeout(() => {
+      setTimeout(() => {
         running = false;
         overlay.style.opacity = '0';
         setTimeout(() => {
           if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-        }, 120);
-        children.forEach(child => {
-          child.style.opacity = '1';
-        });
+        }, 150);
       }, duration);
     } catch (e) {
-      // On error, show content immediately
-      if (failSafeTimeout) clearTimeout(failSafeTimeout);
-      Array.from(section.children).forEach(child => {
-        child.style.opacity = '1';
-      });
+      // Remove any stuck overlay so content is never hidden
+      const stuck = section.querySelector('.binary-burst-overlay');
+      if (stuck && stuck.parentNode) stuck.parentNode.removeChild(stuck);
     }
   }
 
@@ -738,15 +723,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
   let cursorX = mouseX, cursorY = mouseY;
-  let trailDots = [];
-  const maxTrail = 15;
 
-  // Animate cursor dot with lag
+  // Use transform instead of left/top to avoid layout reflows every frame
   function animateCursor() {
     cursorX += (mouseX - cursorX) * 0.22;
     cursorY += (mouseY - cursorY) * 0.22;
-    cursor.style.left = cursorX + 'px';
-    cursor.style.top = cursorY + 'px';
+    cursor.style.transform = `translate3d(${cursorX - 5}px, ${cursorY - 5}px, 0)`;
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
@@ -755,25 +737,23 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('mousemove', function (e) {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    // Trail dot
+    // Trail dot — positioned via transform to avoid layout reflow
     const dot = document.createElement('div');
     dot.className = 'cursor-trail-dot';
-    dot.style.left = mouseX + 'px';
-    dot.style.top = mouseY + 'px';
+    const tx = mouseX - 2.5;
+    const ty = mouseY - 2.5;
+    dot.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
     document.body.appendChild(dot);
-    // Animate fade and shrink
-    setTimeout(() => {
-      dot.style.opacity = '0';
-      dot.style.transform = 'translate(-50%, -50%) scale(0.2)';
-    }, 10);
+    // Double rAF ensures initial paint before transition starts
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        dot.style.opacity = '0';
+        dot.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(0.2)`;
+      });
+    });
     setTimeout(() => {
       if (dot.parentNode) dot.parentNode.removeChild(dot);
-    }, 510);
-    trailDots.push(dot);
-    if (trailDots.length > maxTrail) {
-      const old = trailDots.shift();
-      if (old && old.parentNode) old.parentNode.removeChild(old);
-    }
+    }, 550);
   });
 
   // Radar ping on click
@@ -942,20 +922,17 @@ document.addEventListener('DOMContentLoaded', function () {
 // === HERO SECTION TYPING ANIMATION ===
 document.addEventListener('DOMContentLoaded', function() {
   const typingElement = document.querySelector('.hero-typing');
-  const cursorElement = document.createElement('span');
-  cursorElement.className = 'typing-cursor';
-  cursorElement.textContent = '|';
-  if (typingElement) typingElement.appendChild(cursorElement);
+  // .typing-cursor already exists in the HTML markup — no duplicate needed
 
   const phrases = [
-    'COMPUTER SCIENCE STUDENT',
+    'CYBERSECURITY STUDENT',
     'INTERNATIONAL STUDENT',
     'CYBERSECURITY RESEARCHER',
     'DATA PRIVACY ENTHUSIAST',
     'WEB DEVELOPER',
     'PROBLEM SOLVER',
-    'ASPIRING CYBERSECURITY ANALYST',
-    'ASPIRING SOFTWARE ENGINEER'
+    'ASPIRING SOC ANALYST',
+    'ASPIRING PENETRATION TESTER'
   ];
   let phraseIndex = 0;
   let charIndex = 0;
@@ -989,10 +966,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  // Initialize the span for text
+  // Insert text span before cursor if only the cursor child exists
   if (typingElement && typingElement.childNodes.length === 1) {
     const textSpan = document.createElement('span');
-    typingElement.insertBefore(textSpan, cursorElement);
+    typingElement.insertBefore(textSpan, typingElement.firstChild);
   }
   setTimeout(type, 800);
 });
@@ -1109,14 +1086,15 @@ document.addEventListener('click', e => {
 const roles = [
   'Problem Solver',
   'Web Developer',
-  'CS Student @ TUJ',
-  'Aspiring Engineer',
+  'Cybersecurity Student @ TUJ',
+  'Aspiring SOC Analyst',
   'Always Learning',
 ];
 let roleIndex = 0;
 const roleEl = document.getElementById('rotating-role');
 
 const rotateRole = () => {
+  if (!roleEl) return;
   roleEl.style.opacity = '0';
   setTimeout(() => {
     roleIndex = (roleIndex + 1) % roles.length;
@@ -1186,60 +1164,63 @@ document.querySelectorAll('.stat-number').forEach(el => statObserver.observe(el)
 const form       = document.getElementById('contactForm');
 const formStatus = document.getElementById('formStatus');
 
-form.addEventListener('submit', async (e) => {
-  e.preventDefault();
+if (form) {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  const name    = form.name.value.trim();
-  const email   = form.email.value.trim();
-  const message = form.message.value.trim();
+    const name    = form.name.value.trim();
+    const email   = form.email.value.trim();
+    const message = form.message.value.trim();
 
-  /* Basic validation */
-  if (!name || !email || !message) {
-    setStatus('Please fill in your name, email, and message.', 'error');
-    return;
-  }
-
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(email)) {
-    setStatus('Please enter a valid email address.', 'error');
-    return;
-  }
-
-  const endpoint = form.getAttribute('action') || '';
-  if (!endpoint || endpoint.includes('/yourFormId')) {
-    setStatus('Form not configured yet. Add your Formspree form ID in index.html.', 'error');
-    return;
-  }
-
-  const submitBtn = form.querySelector('[type="submit"]');
-  submitBtn.textContent = 'Sending…';
-  submitBtn.disabled    = true;
-
-  try {
-    const formData = new FormData(form);
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      setStatus('Message sent! I\'ll get back to you soon.', 'success');
-      form.reset();
-    } else {
-      setStatus('Could not send message. Please try again in a moment.', 'error');
+    /* Basic validation */
+    if (!name || !email || !message) {
+      setStatus('Please fill in your name, email, and message.', 'error');
+      return;
     }
-  } catch (error) {
-    setStatus('Network error. Please check your connection and try again.', 'error');
-  } finally {
-    submitBtn.textContent = 'Send Message';
-    submitBtn.disabled    = false;
-  }
-});
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      setStatus('Please enter a valid email address.', 'error');
+      return;
+    }
+
+    const endpoint = form.getAttribute('action') || '';
+    if (!endpoint || endpoint.includes('/yourFormId')) {
+      setStatus('Form not configured yet. Add your Formspree form ID in index.html.', 'error');
+      return;
+    }
+
+    const submitBtn = form.querySelector('[type="submit"]');
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled    = true;
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        setStatus('Message sent! I\'ll get back to you soon.', 'success');
+        form.reset();
+      } else {
+        setStatus('Could not send message. Please try again in a moment.', 'error');
+      }
+    } catch (error) {
+      setStatus('Network error. Please check your connection and try again.', 'error');
+    } finally {
+      submitBtn.textContent = 'Send Message';
+      submitBtn.disabled    = false;
+    }
+  });
+}
 
 function setStatus(msg, type) {
+  if (!formStatus) return;
   formStatus.textContent  = msg;
   formStatus.className    = `form-status ${type}`;
 }
