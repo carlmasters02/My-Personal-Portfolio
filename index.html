@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' fonts.googleapis.com 'unsafe-inline'; font-src fonts.gstatic.com; connect-src https://formspree.io; img-src 'self' data: blob:; frame-src 'none'; object-src 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' fonts.googleapis.com 'unsafe-inline'; font-src fonts.gstatic.com; connect-src 'self' https://formspree.io; img-src 'self' data: blob:; frame-src 'none'; object-src 'none'; worker-src blob: https://cdnjs.cloudflare.com" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carl Masters | Cybersecurity</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
@@ -716,13 +716,27 @@
             <h2 class="section-title">My Resume</h2>
           </div>
           <div style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
-            <div class="resume-card-glow" style="overflow:hidden; padding:0; max-width:900px; width:100%;">
-              <img src="resume_preview.jpg" alt="Resume Preview" style="width:100%;height:auto;display:block;border:none;" />
+            <div class="resume-viewer">
+              <button class="resume-nav-btn" id="resumePrevBtn" aria-label="Previous page" disabled>&#8249;</button>
+              <div class="resume-card-glow">
+                <div class="resume-loading" id="resumeLoading">LOADING...</div>
+                <canvas id="resumeCanvas"></canvas>
+              </div>
+              <button class="resume-nav-btn" id="resumeNextBtn" aria-label="Next page" disabled>&#8250;</button>
             </div>
+            <div class="resume-page-indicator" id="resumePageIndicator" aria-live="polite"></div>
             <a id="downloadResumeBtn" href="resume.pdf" download="resume.pdf" class="btn-hero-primary" style="margin-top:2.2rem;">DOWNLOAD RESUME</a>
           </div>
         </div>
         <style>
+          .resume-viewer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            width: 100%;
+            max-width: 1020px;
+          }
           .resume-card-glow {
             background: #181c1b;
             border-radius: 1.5rem;
@@ -735,47 +749,78 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: auto;
-            min-height: 0;
             box-sizing: border-box;
             overflow: hidden;
+            min-height: 300px;
+            position: relative;
           }
-          .resume-iframe-clean {
-            width: 100%;
-            height: auto;
-            border: none;
-            background: #181c1b;
-            overflow: hidden;
-            box-shadow: none;
-            display: block;
-            min-width: 0;
+          .resume-loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            color: #00ff41;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+          }
+          #resumeCanvas {
             max-width: 100%;
+            display: block;
+            position: relative;
+            z-index: 1;
           }
-          .resume-download-glow {
-            background: #00ff41 !important;
-            color: #181c1b !important;
+          .resume-nav-btn {
+            background: rgba(0, 255, 65, 0.08);
             border: 2px solid #00ff41;
-            border-radius: 0.8rem;
-            font-size: 1.2rem;
-            font-weight: 700;
-            letter-spacing: 0.04em;
-            padding: 0.9rem 2.2rem;
-            box-shadow: 0 0 16px 4px #00ff7b55;
-            transition: box-shadow 0.2s, background 0.2s, color 0.2s;
-            animation: resume-glow-pulse 1.5s infinite alternate;
-            text-align: center;
-            text-decoration: none;
-            margin-top: 2.2rem;
-            display: inline-block;
+            color: #00ff41;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+            flex-shrink: 0;
+            padding: 0;
+            line-height: 1;
           }
-          .resume-download-glow:hover {
-            background: #00ff41 !important;
-            color: #181c1b !important;
-            box-shadow: 0 0 32px 8px #00ff41cc;
+          .resume-nav-btn:hover:not(:disabled) {
+            background: rgba(0, 255, 65, 0.2);
+            box-shadow: 0 0 16px 4px #00ff4180;
+            transform: scale(1.1);
+          }
+          .resume-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+          }
+          .resume-page-indicator {
+            margin-top: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            color: #00ff41;
+            letter-spacing: 0.1em;
+            min-height: 1.4em;
+            text-align: center;
           }
           @keyframes resume-glow-pulse {
             0% { box-shadow: 0 0 16px 4px #00ff7b55; }
             100% { box-shadow: 0 0 32px 12px #00ff41cc; }
+          }
+          @media (max-width: 700px) {
+            .resume-nav-btn {
+              width: 36px;
+              height: 36px;
+              min-width: 36px;
+              font-size: 1.5rem;
+            }
+            .resume-viewer {
+              gap: 0.5rem;
+            }
           }
         </style>
       </section>
@@ -986,6 +1031,7 @@
     </svg>
   </button>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" integrity="sha512-q+4liFwdPC/bNdhUpZx6aXDx/h77yEQtn4I1slHydcbZK34nLaR3cAeYSJshoxIOq3mjEf7xJE8YWIUHMn+oCQ==" crossorigin="anonymous"></script>
   <script src="script.js"></script>
     <script>
       // Skill definitions
@@ -1152,6 +1198,113 @@
         }
         updateTokyoTime();
         setInterval(updateTokyoTime, 1000);
+      })();
+    </script>
+    <script>
+      (function () {
+        var canvas = document.getElementById('resumeCanvas');
+        var prevBtn = document.getElementById('resumePrevBtn');
+        var nextBtn = document.getElementById('resumeNextBtn');
+        var pageIndicator = document.getElementById('resumePageIndicator');
+        var loadingEl = document.getElementById('resumeLoading');
+
+        if (!canvas) return;
+
+        var ctx = canvas.getContext('2d');
+        var pdfDoc = null;
+        var currentPage = 1;
+        var totalPages = 0;
+        var rendering = false;
+
+        function clearLoading() {
+          if (loadingEl) loadingEl.style.display = 'none';
+        }
+
+        function showFallback() {
+          clearLoading();
+          canvas.style.display = 'none';
+          var img = document.createElement('img');
+          img.src = 'resume_preview.jpg';
+          img.alt = 'Resume Preview';
+          img.style.cssText = 'width:100%;height:auto;display:block;border:none;position:relative;z-index:1;';
+          canvas.parentElement.insertBefore(img, canvas);
+          if (prevBtn) prevBtn.style.display = 'none';
+          if (nextBtn) nextBtn.style.display = 'none';
+          if (pageIndicator) pageIndicator.style.display = 'none';
+        }
+
+        if (typeof pdfjsLib === 'undefined') {
+          showFallback();
+          return;
+        }
+
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        function renderPage(num) {
+          if (rendering || !pdfDoc) return;
+          rendering = true;
+
+          pdfDoc.getPage(num).then(function (page) {
+            var containerWidth = canvas.parentElement.clientWidth || 860;
+            var viewport = page.getViewport({ scale: 1 });
+            var scale = containerWidth / viewport.width;
+            var scaled = page.getViewport({ scale: scale });
+
+            canvas.width = scaled.width;
+            canvas.height = scaled.height;
+
+            page.render({ canvasContext: ctx, viewport: scaled }).promise.then(function () {
+              rendering = false;
+              clearLoading();
+              updateUI();
+            }).catch(function () { rendering = false; });
+          }).catch(function () { rendering = false; });
+        }
+
+        function updateUI() {
+          if (totalPages <= 1) {
+            pageIndicator.textContent = '';
+            if (prevBtn) prevBtn.style.visibility = 'hidden';
+            if (nextBtn) nextBtn.style.visibility = 'hidden';
+          } else {
+            pageIndicator.textContent = currentPage + ' / ' + totalPages;
+            if (prevBtn) prevBtn.disabled = currentPage <= 1;
+            if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+          }
+        }
+
+        pdfjsLib.getDocument('resume.pdf').promise.then(function (pdf) {
+          pdfDoc = pdf;
+          totalPages = pdf.numPages;
+          renderPage(currentPage);
+        }).catch(showFallback);
+
+        if (prevBtn) {
+          prevBtn.addEventListener('click', function () {
+            if (currentPage > 1 && !rendering) {
+              currentPage--;
+              renderPage(currentPage);
+            }
+          });
+        }
+
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function () {
+            if (currentPage < totalPages && !rendering) {
+              currentPage++;
+              renderPage(currentPage);
+            }
+          });
+        }
+
+        var resizeTimer;
+        window.addEventListener('resize', function () {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function () {
+            if (pdfDoc) renderPage(currentPage);
+          }, 200);
+        });
       })();
     </script>
 </body>
