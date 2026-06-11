@@ -2475,3 +2475,21 @@ img { max-width: 100%; display: block; }
     padding: 3.2rem 0;
   }
 }
+
+.project-url-link {
+  color: #00ff41;
+  position: relative;
+  text-decoration: none;
+}
+
+.project-url-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: #00ff41;
+  border-radius: 99px;
+  transition: width 0.3s;
+}
+
+.project-url-link:hover::after { width: 100%; }
