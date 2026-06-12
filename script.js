@@ -721,27 +721,14 @@ document.addEventListener('DOMContentLoaded', function () {
   if (!cursor) return;
   document.body.classList.add('cursor-none');
 
-  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-  let cursorX = mouseX, cursorY = mouseY;
-
-  // Use transform instead of left/top to avoid layout reflows every frame
-  function animateCursor() {
-    cursorX += (mouseX - cursorX) * 0.22;
-    cursorY += (mouseY - cursorY) * 0.22;
-    cursor.style.transform = `translate3d(${cursorX - 5}px, ${cursorY - 5}px, 0)`;
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-
-  // Mouse move: update target, create trail dot
+  // Mouse move: snap dot to cursor, create trail
   document.addEventListener('mousemove', function (e) {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+    cursor.style.transform = `translate3d(${e.clientX - 5}px, ${e.clientY - 5}px, 0)`;
     // Trail dot — positioned via transform to avoid layout reflow
     const dot = document.createElement('div');
     dot.className = 'cursor-trail-dot';
-    const tx = mouseX - 2.5;
-    const ty = mouseY - 2.5;
+    const tx = e.clientX - 2.5;
+    const ty = e.clientY - 2.5;
     dot.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
     document.body.appendChild(dot);
     // Double rAF ensures initial paint before transition starts
