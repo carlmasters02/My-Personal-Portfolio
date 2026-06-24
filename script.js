@@ -14,14 +14,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const projects = [
     {
       title: 'Freelance English Teacher Site',
-      desc: 'A business website built for a freelance English teacher to advertise their services. Features a clean landing page, a services section, and a contact form — my first project built for a real client.',
+      desc: 'A business website built for a freelance English teacher to advertise their services. Features a clean landing page, a services section, and a contact form. My first project built for a real client.',
       tech: ['HTML', 'CSS', 'JavaScript'],
       link: 'https://kadys-english.pages.dev/',
       icon: '\uD83D\uDCDD'
     },
     {
       title: 'This Portfolio',
-      desc: 'Designed and coded from scratch to practice modern HTML, CSS, and vanilla JavaScript — animations, responsive layout, and all. A project that\'s also the thing showing you the project.',
+      desc: 'Designed and coded from scratch to practice modern HTML, CSS, and vanilla JavaScript, with animations, responsive layout, and all. A project that\'s also the thing showing you the project.',
       tech: ['HTML', 'CSS', 'JavaScript'],
       link: 'https://github.com/carlmasters02',
       icon: '\uD83E\uDDD1\u200D\uD83D\uDCBB'
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
     },
     {
       name: 'SDGs to Startups Hackathon 2026 — 1st Place',
-      desc: 'Built FocusHear in 48 hours — a real-time assistive communication platform giving deaf and hard-of-hearing users the ability to choose whose voice they hear in any environment. Tackled SDG 10: Reduced Inequalities. Features: Selective Listening (tap a face, hear only that person), Sign Language Bridge (ASL fingerspelling via hand tracking), and Chat Mode (voice-enrolled speaker diarization with color-coded log).',
+      desc: 'Built FocusHear in 48 hours, a real-time assistive communication platform giving deaf and hard-of-hearing users the ability to choose whose voice they hear in any environment. Tackled SDG 10: Reduced Inequalities. Features: Selective Listening (tap a face, hear only that person), Sign Language Bridge (ASL fingerspelling via hand tracking), and Chat Mode (voice-enrolled speaker diarization with color-coded log).',
       tags: ['Voice AI', 'Assistive Technology', 'Accessibility', 'ElevenLabs', 'Speaker Diarization', 'Sign Language Bridge'],
       team: 'Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
     },
