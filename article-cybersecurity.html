@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' fonts.googleapis.com 'unsafe-inline'; font-src fonts.gstatic.com; connect-src https://nrwqzxxqivsknkxusdjq.supabase.co; img-src 'self' data:; frame-src 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Everyday Cybersecurity Habits That Actually Matter | Carl Masters</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #0a0f0b; color: #e0e0e0; }
+    .article-page { max-width: 780px; margin: 0 auto; padding: 7rem 1.5rem 4rem; }
+    .article-back { display: inline-flex; align-items: center; gap: 0.5em; font-family: var(--font-mono); font-size: 0.82rem; color: #00ff41; text-decoration: none; letter-spacing: 0.06em; margin-bottom: 2.5rem; transition: opacity 0.2s; }
+    .article-back:hover { opacity: 0.7; }
+    .article-tag { display: inline-block; background: rgba(0,255,65,0.12); color: #00ff41; border: 1px solid rgba(0,255,65,0.4); border-radius: 999px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.22em 0.85em; margin-bottom: 1.2rem; }
+    .article-title { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; color: #ffffff; line-height: 1.25; margin-bottom: 0.75rem; border-bottom: 4px solid #00ff41; display: inline-block; padding-bottom: 0.1em; }
+    .article-date { font-family: var(--font-mono); font-size: 0.78rem; color: #00cc33; letter-spacing: 0.06em; margin: 1.2rem 0 2.2rem; display: block; }
+    .article-body h2 { font-size: 1.25rem; font-weight: 700; color: #00ff41; margin: 2.2rem 0 0.7rem; font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+    .article-body p { color: rgba(255,255,255,0.82); line-height: 1.8; margin-bottom: 1.2rem; font-size: 1.02rem; }
+    .article-body ul { color: rgba(255,255,255,0.82); line-height: 1.8; margin: 0 0 1.2rem 1.5rem; font-size: 1.02rem; }
+    .article-body ul li { margin-bottom: 0.45rem; }
+    .article-body strong { color: #ffffff; }
+    @media (max-width: 900px) {
+      .article-page { padding: 6rem 1.5rem 3.5rem; }
+    }
+    @media (max-width: 720px) {
+      .article-page { padding: 5.5rem 1.25rem 3rem; }
+    }
+    @media (max-width: 480px) {
+      .article-page { padding: 5rem 1rem 2.5rem; }
+      .article-body p, .article-body ul { font-size: 0.95rem; }
+      .article-body ul { margin-left: 1.1rem; }
+      .article-body h2 { font-size: 1.05rem; }
+      .article-back { font-size: 0.78rem; }
+    }
+    @media (max-width: 360px) {
+      .article-page { padding: 4.5rem 0.8rem 2rem; }
+      .article-body p, .article-body ul { font-size: 0.9rem; }
+      .article-body ul { margin-left: 0.9rem; }
+    }
+    /* ── Comments section ── */
+    .comments-section { margin-top: 4rem; }
+    .comment-card { background: #0b1a0e; border: 1px solid rgba(0,255,65,0.18); border-radius: 0.8rem; padding: 1.2rem 1.4rem; margin-bottom: 0.85rem; }
+    .comment-author { font-family: var(--font-mono); font-size: 0.88rem; color: #00ff41; font-weight: 600; margin-bottom: 0.2rem; }
+    .comment-date { font-family: var(--font-mono); font-size: 0.7rem; color: rgba(0,204,51,0.5); margin-bottom: 0.55rem; }
+    .comment-message { color: rgba(255,255,255,0.85); font-size: 0.97rem; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+    .comments-empty, .comments-loading { font-family: var(--font-mono); font-size: 0.8rem; color: rgba(0,204,51,0.45); margin-bottom: 1.5rem; }
+    .comment-form-wrap { margin-top: 2rem; background: #0b1a0e; border: 1px solid rgba(0,255,65,0.18); border-radius: 0.8rem; padding: 1.6rem 1.6rem 1.4rem; }
+    .comments-heading { font-family: var(--font-mono); font-size: 0.78rem; color: #00ff41; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.3rem; }
+    .comment-form-label { font-family: var(--font-mono); font-size: 0.72rem; color: #00cc33; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.4rem; }
+    .comment-form-input, .comment-form-textarea { width: 100%; background: #060e07; border: 1px solid rgba(0,255,65,0.2); border-radius: 0.4rem; padding: 0.65rem 0.85rem; color: #e0e0e0; font-family: var(--font-mono); font-size: 0.88rem; margin-bottom: 1rem; box-sizing: border-box; transition: border-color 0.2s; }
+    .comment-form-input:focus, .comment-form-textarea:focus { outline: none; border-color: rgba(0,255,65,0.55); }
+    .comment-form-textarea { resize: vertical; min-height: 90px; }
+    .comment-form-error { color: #ff6b35; font-family: var(--font-mono); font-size: 0.78rem; margin-bottom: 0.7rem; }
+    .comment-submit-btn { background: transparent; border: 1.5px solid #00ff41; color: #00ff41; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.6rem; border-radius: 0.35rem; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .comment-submit-btn:hover:not(:disabled) { background: rgba(0,255,65,0.1); }
+    .comment-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/dist/umd/supabase.min.js" integrity="sha384-JWEyvHh+lRf0sN/WWY+QTQwX+CyWqmNg4tkc8GQzAMEtR2wGNrCJlvnu1lHD1kDm" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="custom-cursor"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Home">
+        <span class="logo-cm">
+          <span class="logo-cm-text">CM</span><span class="logo-cursor" aria-hidden="true"></span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#education">Education</a></li>
+        <li><a href="index.html#certifications">Certifications</a></li>
+        <li><a href="index.html#resume">Resume</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="article-page">
+    <a href="index.html#blog" class="article-back">&#8592; Back to Blog</a>
+    <span class="article-tag">Cybersecurity</span>
+    <h1 class="article-title">Everyday Cybersecurity Habits That Actually Matter</h1>
+
+    <div class="article-body">
+      <p>Cybersecurity is not a concern reserved for governments, corporations, or people with something to hide. It is a personal responsibility that every internet user carries, whether they know it or not. The average person has dozens of online accounts, stores sensitive information across multiple devices, and connects to networks they have never thought twice about. That combination creates real exposure to real threats, and most of those threats succeed not through sophisticated technical attacks but through basic human habits.</p>
+
+      <p>The uncomfortable truth is that most people are one reused password away from having multiple accounts compromised in a single breach. Most people are one convincing email away from handing their login credentials to an attacker. These are not edge cases. They are the dominant attack vectors in use today, and they work because the habits that enable them are so widespread. The good news is that the habits required to defend against them are just as simple to build. You do not need technical expertise. You need consistency and the right tools.</p>
+
+      <h2>How Strong Passwords Actually Work</h2>
+
+      <p>Most people know their passwords should be strong, but few understand what that actually means or why it matters mathematically. Password strength comes down to one thing: the number of possible combinations an attacker would have to try in order to guess yours. The larger that number, the longer it takes to crack. The longer it takes to crack, the more likely an attacker gives up and moves on to an easier target.</p>
+
+      <p>Consider a six-character password made entirely of lowercase letters. There are 26 possible characters for each position, giving roughly 300 million possible combinations. That sounds like a lot until you realize that modern computers can test billions of password combinations per second. A six-character lowercase password falls in under a second. Add uppercase letters and you double the character set to 52, which meaningfully increases the combinations but still falls quickly at short lengths. Add numbers and symbols and you push the character set closer to 95, which helps further. But length is where the real power is.</p>
+
+      <p>A 16-character password using only random lowercase letters is exponentially harder to crack than an 8-character password packed with symbols and numbers. This is because each additional character multiplies the total number of combinations by the size of the character set. Length does not add to the difficulty, it multiplies it. A short complex password and a long simple one are not in the same ballpark. They are not even in the same universe when it comes to crack time.</p>
+
+      <p>This is the logic behind passphrases. A passphrase is a string of four or more random, unrelated words strung together, such as "correct horse battery staple." That phrase is easy to remember and yet has an astronomically large number of possible combinations when chosen from a large word list. It is also more resistant to attacks than a short complex string precisely because of its length. Passphrases are both more secure and more memorable than the conventional short-but-complex password advice that has dominated security guidance for decades and is now largely considered outdated.</p>
+
+      <p>Understanding the types of attacks helps explain why all of this matters in practice. A <strong>brute force attack</strong> tries every possible combination systematically. Given enough time and computing power, it can crack any password, which is why length matters so much. A <strong>dictionary attack</strong> tries common words, phrases, and known substitutions before moving to random combinations, which is why using "p@ssw0rd" or "s3cur1ty" is no better than the original word. A <strong>credential stuffing attack</strong> takes username and password combinations leaked from one breach and automatically tries them on other services. This is the most common attack affecting everyday users, and it works because so many people reuse the same password across multiple sites. If your email password is the same as your banking password and your shopping account, a breach of any one of them hands attackers the keys to all of them.</p>
+
+      <p>Reusing passwords is one of the most dangerous habits on the internet. The solution is a unique password for every account, which is where the next section comes in.</p>
+
+      <h2>Use a Password Manager</h2>
+
+      <p>Knowing that every account needs a unique, strong password immediately raises an obvious problem: no human being can memorize dozens of long, random, unique passwords. Trying to do so leads to one of two outcomes. Either you use simple memorable passwords, which are weak, or you reuse a few stronger ones across sites, which exposes you to credential stuffing. A password manager solves this problem cleanly. It stores all of your passwords in an encrypted vault protected by a single master password. You remember one strong passphrase, and the manager handles everything else, generating unique random passwords for each account and filling them in automatically when you need them.</p>
+
+      <p>The encryption protecting that vault uses what is called zero-knowledge architecture, meaning the company that makes the password manager cannot see your passwords. The vault is encrypted on your device before it ever reaches their servers. If their servers are breached, attackers get a pile of encrypted data that is useless without your master password. This is fundamentally different from a company storing your passwords in a readable format, which some do and which is genuinely dangerous.</p>
+
+      <p><strong>Bitwarden</strong> is the top recommendation for most users. It is open source, meaning the code is publicly visible and independently auditable, which is one of the strongest trust signals a security tool can have. It is free for personal use with no meaningful feature restrictions on the free tier, has been independently audited by third-party security firms, and works seamlessly across every major platform and browser. For anyone starting out or unwilling to pay for a subscription, Bitwarden is the clear choice and is arguably the best free security tool available for everyday users.</p>
+
+      <p><strong>1Password</strong> is the premium option with the most polished experience across platforms. Its apps are well-designed, its browser integration is smooth, and it includes features that go beyond basic password storage. One standout is Travel Mode, which lets you hide sensitive vaults when crossing international borders so that a device search cannot expose everything you store. It has strong family and business plan options and is a particularly good fit for users who want the best possible interface and are willing to pay for it. There is no free tier, but the subscription cost is reasonable for the quality of the product.</p>
+
+      <p><strong>Dashlane</strong> is another premium option that bundles additional security tools directly into the password manager subscription. It includes a dark web monitoring feature that scans known breach databases and alerts you if your email or credentials appear in a leak, along with detailed password health reports that surface weak, reused, or compromised passwords across your vault. It is a strong option for users who want breach monitoring and password management consolidated in one polished product.</p>
+
+      <p><strong>Proton Pass</strong> is made by the same team behind ProtonMail and ProtonVPN and fits naturally into the broader Proton privacy ecosystem. It is open source, end-to-end encrypted, and has a solid free tier that covers the core use case. For users who are already using Proton for email, VPN, or cloud storage, adding Proton Pass keeps all security tools under one trusted, privacy-first provider. It is a particularly good fit for users who care about data minimization and want to avoid spreading their sensitive information across multiple companies.</p>
+
+      <p>Pick one of these today and spend thirty minutes migrating your existing passwords into it. Generate new unique passwords for your most important accounts first, starting with email. Any of these tools is a massive improvement over reused or weak passwords, and the habit of letting the manager generate passwords becomes second nature within days.</p>
+
+      <h2>Enable Two-Factor Authentication</h2>
+
+      <p>A password manager solves the problem of password strength and uniqueness, but even a strong unique password can be stolen. Phishing attacks, malware, or a breach of a site that stored your password incorrectly can all hand an attacker valid credentials. Two-factor authentication, commonly called 2FA, means that a stolen password alone is not enough to access your account. Whoever is trying to log in also needs a second piece of proof that only you should have.</p>
+
+      <p>The most common second factor is a time-based one-time code, a six-digit number that refreshes every thirty seconds and is generated by an app on your phone. Even if an attacker has your username and password, they cannot log in without this code, and the code expires too quickly to be useful unless they are attacking in real time. For most accounts and most threat levels, this is an enormous improvement in security.</p>
+
+      <p>Two-factor authentication via SMS text message is better than nothing, but it has a known weakness. SIM swapping is an attack where a criminal contacts your mobile carrier, impersonates you using personal information gathered online or through social engineering, and convinces the carrier to transfer your phone number to a SIM card they control. Once they have your number, they receive your SMS codes. This attack has been used to compromise high-profile accounts and steal significant sums of cryptocurrency. App-based authenticators are not vulnerable to SIM swapping because the codes are generated locally on your device and never transmitted over the phone network.</p>
+
+      <p><strong>Aegis Authenticator</strong> is the top recommendation for Android users. It is free, open source, and stores your 2FA accounts in an encrypted local database that you control. It supports backup and restore, so switching phones does not mean losing all your codes. The interface is clean and practical. For anyone on Android who wants the most trustworthy and transparent authenticator available, Aegis is the right choice.</p>
+
+      <p><strong>2FAS</strong> is the top recommendation for iPhone users and is also available on Android. It is free, open source, and stores codes locally on the device with support for iCloud backups on iOS, making it straightforward to restore when switching phones. The interface is clean and focused, the codebase is publicly auditable, and it has earned a strong reputation in the security community as a trustworthy, no-frills authenticator.</p>
+
+      <p><strong>Proton Authenticator</strong> is made by the same team behind ProtonMail and ProtonVPN and is a solid choice for users who are already invested in the Proton ecosystem. It is built around the same privacy-first principles as the rest of the Proton suite and integrates naturally if you are consolidating your security tools under one provider.</p>
+
+      <p>For users who want the strongest possible second factor, hardware security keys such as those made by <strong>YubiKey</strong> represent the gold standard. A hardware key is a small physical device, similar to a USB thumb drive, that you plug into your computer or tap against your phone to authenticate. Unlike a code that can be phished in real time by a fake website, a hardware key is cryptographically bound to the legitimate domain and will not authenticate on a spoofed site. They are used by security professionals and are required by some high-security organizations. For most everyday users an app-based authenticator is sufficient, but hardware keys are worth knowing about for anyone managing particularly sensitive accounts.</p>
+
+      <p>Enable 2FA on your email account first. Email is the recovery mechanism for almost every other account you own. If an attacker gets into your email, they can reset passwords and take over everything else. After email, prioritize banking, financial services, and any account that stores payment information.</p>
+
+      <h2>Recognize Phishing Attempts</h2>
+
+      <p>Technical defenses only go so far. Phishing works by bypassing them entirely and targeting human psychology instead. An attacker does not need to crack your encryption if they can convince you to hand over your credentials voluntarily. Phishing is the most common initial access method used in cyberattacks globally, from large corporate breaches down to individual account takeovers, and it succeeds because the fake messages are often genuinely difficult to distinguish from real ones.</p>
+
+      <p>Email phishing is the most familiar form. An attacker crafts a message that appears to come from a trusted source, such as your bank, PayPal, Amazon, Google, or even a coworker, and either asks you to click a link that leads to a fake login page or to open an attachment that installs malware. The psychological manipulation is usually built around urgency or fear: your account has been compromised, your payment failed, your access will be suspended, someone made a suspicious login. The goal is to make you act before you think.</p>
+
+      <p>SMS phishing, called smishing, follows the same pattern through text messages. These often impersonate delivery services, banks, or government agencies. Voice phishing, called vishing, involves phone calls where the attacker impersonates customer service or technical support. These attacks have become more sophisticated as AI voice generation makes it easier to fake the voice of someone familiar.</p>
+
+      <p>The warning signs to watch for in any phishing attempt include: a sense of urgency or threat in the message tone; a sender address that does not match the organization it claims to represent, even when the display name looks correct; links that go somewhere other than the official domain when you hover over them; requests for credentials, personal information, or payment through a channel that was not previously established; and unexpected attachments of any kind. The display name in an email can say anything the attacker wants. The actual sender address is the only reliable identifier, and even that can be spoofed through various technical methods, so the combination of sender address and message content should both be evaluated.</p>
+
+      <p>Spear phishing is a more targeted and dangerous variant. Rather than sending generic messages to thousands of recipients, a spear phisher researches a specific target using information from LinkedIn, social media, public records, and previous breaches, then crafts a personalized message that references real details about the target's life, organization, or colleagues. These messages are significantly harder to detect because they feel relevant and contextually accurate.</p>
+
+      <p>If you receive a suspicious email, never click the link in it. Instead, open a new browser tab and type the organization's website address directly. If the email claims there is a problem with your account, logging in through the official site will surface it if the problem is real. If you believe you may have clicked a phishing link, change your password on the affected account immediately, revoke any active sessions if the platform allows it, check for any account changes made after the click, and enable 2FA if it was not already active. If you entered financial information, contact your bank or card provider directly.</p>
+
+      <h2>Browsing Safely and Understanding What URLs Are Actually Telling You</h2>
+
+      <p>Most people look at a link and see a string of text. Attackers see an opportunity. URLs contain a significant amount of information about where you are actually going, and learning to read them is one of the most practical and underused defenses available to everyday users. A moment of attention to the address bar can be the difference between landing on a legitimate site and handing your credentials to a fake one.</p>
+
+      <p>A URL has several distinct parts. The <strong>protocol</strong> appears at the beginning: HTTP or HTTPS. HTTPS means the connection between your browser and the server is encrypted, which protects your data in transit and is confirmed by the padlock icon in the address bar. This is important, but it does not mean the site itself is safe or legitimate. Attackers routinely use HTTPS on malicious sites because obtaining a certificate is free and easy. The padlock tells you the connection is secure; it says nothing about who is on the other end of it.</p>
+
+      <p>Next comes the <strong>subdomain</strong>, if there is one, followed by the <strong>domain name</strong> and the <strong>top-level domain</strong> such as .com, .org, or .net. The domain name and top-level domain together are the critical identifiers. Everything to the left of them is a subdomain, and everything to the right is a path within the site. The actual owner of the site is identified by what comes immediately before the top-level domain. This is the part most attackers manipulate.</p>
+
+      <p>Typosquatting is one of the most common tricks. An attacker registers a domain that looks nearly identical to a legitimate one, relying on the reader to miss a subtle difference. Examples include paypa1.com, where the letter L has been replaced with the number 1, or googIe.com, where the lowercase L has been replaced with an uppercase I. In many fonts these characters are visually indistinguishable. Reading carefully and checking the full domain name before entering any information is the defense.</p>
+
+      <p>Subdomain spoofing is another common technique. A malicious site might use a URL like apple.com.verify-login.net. At a glance, seeing apple.com at the start makes the URL look legitimate. But the actual domain here is verify-login.net, which is the attacker's site. Apple.com is just a subdomain on that malicious domain. The rule is to read from the top-level domain leftward to identify the real owner: find the .com or .net or .org, then look at what comes directly before it. That is the actual domain.</p>
+
+      <p>URL shorteners present a different problem. Services that condense long links into short ones hide the destination entirely. Clicking a shortened link is clicking blind. Before following a shortened URL from an untrusted source, use a preview service like unshorten.it to expand it and see the real destination before committing to it.</p>
+
+      <p>Safe browsing habits around links are straightforward in principle. Never click links in unsolicited emails or messages; type the address directly into the browser instead. Before clicking any link, hover over it and check the destination URL that appears in the browser status bar at the bottom of the window. Be suspicious of any URL that includes a recognizable brand name but also contains extra words, numbers, or subdomains that were not expected. When in doubt, type the address manually.</p>
+
+      <p>If you land on a page that feels wrong, do not click anything on it, do not enter any information, and do not download anything it prompts you to download. Close the tab. If something downloaded automatically, do not open the file. Run a scan using <strong>VirusTotal</strong>, a free tool that lets you upload a file or paste a URL and have it scanned against dozens of antivirus engines simultaneously. It is one of the most useful free security tools available and takes seconds to use.</p>
+
+      <p>Drive-by downloads are a threat worth understanding. Some malicious pages are designed so that simply visiting them triggers a download or runs malicious code without any user interaction. These attacks typically exploit vulnerabilities in outdated browsers or browser plugins. Keeping your browser updated to the latest version is the primary defense, along with using a browser that has strong default protections. Brave blocks a wide range of malicious content at the network level before it even reaches the page rendering stage, which meaningfully reduces exposure to this class of attack.</p>
+
+      <h2>Be Careful on Public WiFi</h2>
+
+      <p>Connecting to a public WiFi network is a routine action that most people perform without a second thought. It is also one of the easiest ways to expose traffic to an attacker who happens to be on the same network. Open networks, meaning those without a password, transmit data in a way that can be observed by other devices on the same network. Even password-protected public networks share the same encryption key among all users, which means other users on the network can potentially observe each other's traffic under certain conditions.</p>
+
+      <p>The more targeted threat is an evil twin attack. An attacker sets up a wireless hotspot with a name that matches or closely resembles a legitimate network, such as "Airport Free WiFi" or a coffee shop's network name. Devices that have previously connected to a similarly named network may connect automatically. Victims believe they are on the legitimate network while all their traffic is routed through an attacker-controlled access point. The attacker can observe unencrypted traffic, intercept sensitive data, and in some cases manipulate what the victim sees.</p>
+
+      <p>A man-in-the-middle attack is the general category this falls under. The attacker positions themselves between the victim and the internet, intercepting and potentially modifying the communication. Even with HTTPS, which encrypts the content of the connection, metadata such as which sites are being visited can still be visible to a network observer. And any unencrypted connection is fully readable.</p>
+
+      <p>A VPN is the most effective defense on public networks. It encrypts all traffic from your device before it leaves, wrapping it in a tunnel that prevents network observers from seeing what you are doing. Even if an attacker intercepts the traffic, they see only encrypted data.</p>
+
+      <p><strong>NordVPN</strong> is one of the most widely used consumer VPNs and is a strong option for public network protection. It operates a large server network with fast connection speeds and has passed independent audits of its no-logs policy. From a cybersecurity standpoint, its Threat Protection feature is particularly valuable; it blocks connections to known malicious domains and strips trackers from web traffic at the VPN level, providing an additional layer of protection beyond just encrypting your connection.</p>
+
+      <p><strong>ProtonVPN</strong> is built by the same team as ProtonMail and is one of the most trusted VPN providers from a security standpoint. It is open source, has been independently audited, and offers a genuinely functional free tier with no data limits, making it accessible to anyone regardless of budget. For users who want a security-focused VPN from a company with a strong and verified privacy track record, ProtonVPN is an excellent choice.</p>
+
+      <p><strong>Mullvad VPN</strong> is the recommendation for users who want maximum anonymity from their VPN provider itself. Mullvad does not require an account or email address to sign up; you receive a random account number and that is your entire relationship with the service. It accepts cash and cryptocurrency, has a strict independently audited no-logs policy, and is open source. For high-risk situations or users who want the absolute minimum data footprint, Mullvad is the gold standard.</p>
+
+      <p>Beyond using a VPN, avoid accessing banking or sensitive accounts on public networks whenever possible. Prefer HTTPS sites over HTTP for any browsing you do. After using a public network, remove it from your saved networks so your device does not reconnect automatically in the future.</p>
+
+      <h2>Keep Your Software Updated</h2>
+
+      <p>Software vulnerabilities are discovered constantly. Researchers find them, vendors patch them, and attackers exploit the window between discovery and the moment users apply the patch. That window can range from hours to years depending on the user's update habits, and attackers actively scan for systems running known vulnerable versions of software. Running outdated software is not a passive risk; it is a known target.</p>
+
+      <p>A zero-day vulnerability is one that has been discovered but not yet patched, meaning there is zero days of protection available. These are the most dangerous class of vulnerability because there is nothing a user can do except wait for the vendor to release a fix and apply it immediately. But far more common in real attacks are exploits targeting vulnerabilities that have had patches available for months or years. The 2017 WannaCry ransomware attack, which affected hundreds of thousands of systems across 150 countries including hospitals and major corporations, exploited a Windows vulnerability for which Microsoft had released a patch two months earlier. The systems that were destroyed had simply not applied it.</p>
+
+      <p>Operating system updates are the most visible and most important. Both Windows and macOS release regular security patches, and enabling automatic updates ensures these are applied as soon as they are available. Browsers are equally critical because they are the primary interface between your device and the internet; a vulnerable browser can be compromised simply by visiting a malicious page. Mobile operating systems on phones and tablets should also be kept current, particularly because phones now hold an enormous amount of sensitive personal information.</p>
+
+      <p>The less obvious update targets matter too. Browser extensions and plugins can be exploited just like the browser itself. Apps on your phone or computer that are not regularly updated may carry vulnerabilities that have been patched in newer versions. Router firmware is one of the most neglected update targets of all; most people set up a router and never think about it again. Routers run software just like any other device and receive security patches that manufacturers release over time. Log into your router's administration interface periodically and check for firmware updates. Smart home devices, security cameras, and other connected hardware often receive infrequent updates but should be checked as well.</p>
+
+      <p>If you are running software or an operating system that is no longer receiving security updates from its vendor, that software is a permanent liability. Older versions of Windows, end-of-life versions of Android, and discontinued apps no longer receive patches regardless of how serious the vulnerability discovered. The practical response is to switch to a supported alternative. An older operating system that feels comfortable is not worth the exposure it creates by being permanently unpatched.</p>
+
+      <h2>Closing Thoughts</h2>
+
+      <p>Cybersecurity is not about living in fear of every click. It is about being an informed and responsible digital citizen who has made deliberate choices about their exposure. The threats covered in this article are not hypothetical. They affect millions of people every year, and they succeed almost exclusively because of habits that are straightforward to change.</p>
+
+      <p>Start with two things: a password manager and two-factor authentication on your email. Those two changes alone eliminate the vast majority of risk that most people face from credential theft and account takeover. Then build from there. Learn to read URLs before you click them. Think twice before opening an unexpected attachment. Keep your devices updated. Use a VPN on public networks.</p>
+
+      <p>None of these habits require technical expertise. They require awareness and a few hours of setup. That investment pays returns continuously, quietly, in the background. Security is not a single action you take once. It is a posture you maintain, and maintaining it is far more accessible than most people assume.</p>
+    </div>
+
+    <section class="comments-section">
+      <div id="comments-list"><p class="comments-loading">Loading comments...</p></div>
+      <div class="comment-form-wrap">
+        <p class="comments-heading">LEAVE A COMMENT</p>
+        <form id="comment-form" novalidate>
+          <label class="comment-form-label" for="comment-name">Name</label>
+          <input class="comment-form-input" type="text" id="comment-name" placeholder="Your name" autocomplete="name" required />
+          <label class="comment-form-label" for="comment-message">Message</label>
+          <textarea class="comment-form-textarea" id="comment-message" placeholder="Your message..." rows="4" required></textarea>
+          <p class="comment-form-error" id="comment-form-error" style="display:none;"></p>
+          <input type="text" id="comment-hp" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;border:0;padding:0;" />
+          <button class="comment-submit-btn" type="submit" id="comment-submit-btn">POST COMMENT</button>
+        </form>
+      </div>
+    </section>
+    <script>
+    (function () {
+      var SUPABASE_URL     = 'https://nrwqzxxqivsknkxusdjq.supabase.co';
+      var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5yd3F6eHhxaXZza25reHVzZGpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4NzQzNDEsImV4cCI6MjA5MTQ1MDM0MX0.XIsvFBQ1MfP2RtVZEJ7V8puD0-willRK1MoigskOLkU';
+      var POST_SLUG        = 'article-cybersecurity';
+
+      var listEl = document.getElementById('comments-list');
+      var form   = document.getElementById('comment-form');
+      var nameEl = document.getElementById('comment-name');
+      var msgEl  = document.getElementById('comment-message');
+      var errEl  = document.getElementById('comment-form-error');
+      var btn    = document.getElementById('comment-submit-btn');
+
+      // Guard: verify Supabase CDN loaded before doing anything
+      if (typeof window.supabase === 'undefined') {
+        console.error('[Comments] Supabase CDN failed to load. window.supabase is undefined.');
+        listEl.innerHTML = '<p class="comments-empty">Could not initialize comments. Please refresh the page.</p>';
+        return;
+      }
+
+      var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log('[Comments] Supabase client initialized for slug:', POST_SLUG);
+
+      function esc(s) {
+        return String(s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      async function load() {
+        listEl.innerHTML = '<p class="comments-loading">Loading comments...</p>';
+        var res = await client
+          .from('comments')
+          .select('id,name,message,created_at')
+          .eq('post_slug', POST_SLUG)
+          .order('created_at', { ascending: true });
+        if (res.error) {
+          console.error('[Comments] fetch error:', res.error);
+          listEl.innerHTML = '<p class="comments-empty">Could not load comments. Please refresh the page.</p>';
+          return;
+        }
+        console.log('[Comments] fetched', res.data ? res.data.length : 0, 'comments');
+        if (!res.data || res.data.length === 0) {
+          listEl.innerHTML = '<p class="comments-empty">No comments yet. Be the first to leave one.</p>';
+          return;
+        }
+        listEl.innerHTML = res.data.map(function (c) {
+          var d  = new Date(c.created_at);
+          var ds = d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                 + ' \u00b7 '
+                 + d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+          return '<div class="comment-card">'
+            + '<div class="comment-author">' + esc(c.name) + '</div>'
+            + '<div class="comment-date">' + ds + '</div>'
+            + '<div class="comment-message">' + esc(c.message) + '</div>'
+            + '</div>';
+        }).join('');
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errEl.style.display = 'none';
+        var name = nameEl.value.trim();
+        var msg  = msgEl.value.trim();
+        if (!name || !msg) return;
+        var hp = document.getElementById('comment-hp');
+        if (hp && hp.value.length > 0) return;
+        btn.disabled = true;
+        btn.textContent = 'POSTING\u2026';
+        var res = await client
+          .from('comments')
+          .insert([{ post_slug: POST_SLUG, name: name, message: msg }]);
+        btn.disabled = false;
+        btn.textContent = 'POST COMMENT';
+        if (res.error) {
+          console.error('[Comments] insert error:', res.error);
+          errEl.textContent = 'Comment could not be posted. Please try again.';
+          errEl.style.display = 'block';
+          return;
+        }
+        nameEl.value = '';
+        msgEl.value  = '';
+        await load();
+      });
+
+      load();
+    })();
+    </script>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
