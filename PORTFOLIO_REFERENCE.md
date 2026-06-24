@@ -5,7 +5,7 @@
 A fully static personal portfolio for Carl Masters, a first-year Cybersecurity student at Temple University Japan (Tokyo). The site is built with vanilla HTML, CSS, and JavaScript — no framework. The only backend is a Supabase project used for article comments.
 
 **Live domain:** carlmasters.com  
-**Repo:** github.com/carlmasters02
+**Repo:** github.com/carlmasters02/My-Personal-Portfolio (branch: `main`)
 
 ---
 
@@ -100,9 +100,9 @@ Two-column grid (`.about-grid`): left = text + stats, right = code card.
 **Left side:**
 - Two paragraphs of bio text in `#00ff41`.
 - Three clickable stat counters (`.about-stats`):
-  - `3` Real Projects
+  - `4` Real Projects
   - `5` Languages
-  - `2` Hackathons
+  - `3` Hackathons
   - Numbers animate from 0 to target when the section scrolls into view (IntersectionObserver + `animateCounter()`).
   - Clicking any stat opens the **About Modal** showing a drill-down list (projects, languages, or hackathons), then a detail view.
 
@@ -142,31 +142,31 @@ Three horizontal scrolling rows of skill tags (`.skill-stream-row`). Each row is
 ### Projects Section (`#projects`)
 **Label:** `03 / projects`
 
-Auto-fit grid (`.projects-grid`, min 300px columns) of three project cards:
+Vertical timeline layout (`.timeline`) — same structure as the Education section. Five timeline items in chronological order:
 
-| Project | Tech | Link |
-|---|---|---|
-| Freelance English Teacher Site | HTML, CSS, JS | kadysenglish.com |
-| This Portfolio | HTML, CSS, JS | carlmasters.com |
-| TabeTalk Beta (Builders Weekend 2026) | Voice AI, APIs, Real-time Processing | — |
+| Date | Project | Tags | Link |
+|---|---|---|---|
+| Nov. 2025 – Present | This Portfolio | HTML, CSS, JS, Supabase, Responsive Design, DOM Manipulation, Git | carlmasters.com |
+| Jan. 2026 – Present | Freelance English Teacher Site | HTML, CSS, JS, Responsive Design, Flexbox / Grid, Web Forms | kadysenglish.com |
+| March 2026 | UI/UX Hackathon — 1st Place | UI/UX Design, Prototyping, Wireframing, etc. | — |
+| March 2026 | Builders Weekend 2026 Hackathon (TabeTalk) | Voice AI, Real-time Recognition, Bill Splitting, etc. | — |
+| June 2026 | SDGs to Startups Hackathon 2026 — 1st Place (FocusHear) | Voice AI, ElevenLabs, Assistive Technology, SDG 10, etc. | — |
 
-Each card (`.project-card`):
-- Starts invisible (`opacity: 0`), fades in with stagger via IntersectionObserver + `visible` class.
-- On hover: lifts and glows.
-- Contains: emoji icon, title, description, tech tag pills.
+Each item (`.timeline-item`):
+- Fades in with stagger via IntersectionObserver + `visible` class (observed via `#projects .timeline-item` and `.timeline-item` selectors in `script.js`).
+- The Builders Weekend and SDGs to Startups items include `.hackathon-boxes` — a 2×2 grid of info cards (Team, Tech/Features, Sponsor, Organizers).
+- Clicking a tag pill opens the **Skill Card Modal** with a description from `skillDefinitions`.
 
 ---
 
 ### Education / Timeline Section (`#education`)
 **Label:** `04 / my background`
 
-Vertical timeline (`.timeline`) with a gradient green left border line. Five timeline items (`.timeline-item`):
+Vertical timeline (`.timeline`) with a gradient green left border line. Three timeline items (`.timeline-item`) covering background only — hackathons and projects have been moved to the Projects section:
 
 1. **2017–2021** — High School Diploma, Lake Minneola High School, Minneola, FL
-2. **2021–2025** — United States Marine Corps, 0842 Field Artillery Radar Operator — Okinawa, Japan & Camp Lejeune, NC. Secondary billet: KMI Custodian. Schools: Combat Marksmanship Coach + Trainer.
+2. **2021–2025** — United States Marine Corps, 0842 Field Artillery Radar Operator, Okinawa, Japan & Camp Lejeune, NC. Secondary billet: KMI Custodian. Schools: Combat Marksmanship Coach + Trainer.
 3. **2025–Present** — B.S. Cybersecurity, Temple University Japan, Tokyo
-4. **March 2026** — Builders Weekend 2026 Hackathon, Shibuya, Tokyo (TabeTalk)
-5. **March 2026** — UI/UX Hackathon, 1st Place, Temple University Japan
 
 Each item:
 - Has a green dot (`.timeline-dot`) on the timeline line.
@@ -174,8 +174,6 @@ Each item:
 - Timeline items animate in from the left when scrolled into view.
 - **Clicking a timeline item** (but not a link or tag) opens the **Timeline Event Modal** (`#timelineEventModal`) — a full-width modal cloning the item's content for easy reading.
 - **Clicking a tag pill** opens the **Skill Card Modal** (`#skillCardModal`) with a description of that skill. All tag descriptions are defined in the large `skillDefinitions` object in `index.html`.
-
-The Builders Weekend item also has four `hackathon-box` info cards (Team, Tech & APIs, Sponsor Integrations, Built By) in a 2×2 grid inside the timeline entry.
 
 ---
 
