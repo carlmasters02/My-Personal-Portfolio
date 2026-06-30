@@ -53,6 +53,12 @@ document.addEventListener('DOMContentLoaded', function () {
   // Hackathons (from timeline)
   const hackathons = [
     {
+      name: 'UI/UX Hackathon — 1st Place',
+      desc: 'Competed with a team in a UI/UX-focused hackathon hosted by Temple University Japan. Our team took first place by designing and prototyping a clean, user-centered interface concept under a tight time constraint.',
+      tags: ['UI/UX Design', 'Prototyping', 'Teamwork'],
+      team: 'Temple University Japan team.'
+    },
+    {
       name: 'Builders Weekend 2026 Hackathon',
       desc: 'Built an AI-powered dining app that removes the chaos of splitting restaurant bills. Guests sign in, provide a voice sample, and the app listens in real time during ordering to identify who ordered each item. When the check arrives, the host scans the bill, costs are assigned automatically, and everyone pays their share hands-free.',
       tags: ['Voice AI', 'Real-time Recognition', 'Bill Splitting Automation', 'Team Collaboration'],
@@ -65,10 +71,10 @@ document.addEventListener('DOMContentLoaded', function () {
       team: 'Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
     },
     {
-      name: 'UI/UX Hackathon — 1st Place',
-      desc: 'Competed with a team in a UI/UX-focused hackathon hosted by Temple University Japan. Our team took first place by designing and prototyping a clean, user-centered interface concept under a tight time constraint.',
-      tags: ['UI/UX Design', 'Prototyping', 'Teamwork'],
-      team: 'Temple University Japan team.'
+      name: 'OpenAI x Tokyo AI Hackathon — Build with OpenAI',
+      desc: 'Brought a massively rebuilt FocusHear to an invite-only Build with OpenAI event hosted by OpenAI and Tokyo AI. Since the SDGs to Startups prototype, the app went through a full architecture rebuild: a GPT-4o + ElevenLabs Scribe AI pipeline, Supabase Auth with Stripe billing, saved voice and face profiles with automatic in-session recognition, a sound-alert and live-translation system, and a real ONNX-based LSTM sign-language model. Advanced to the first round against a strong field of international teams.',
+      tags: ['Voice AI', 'GPT-4o', 'ElevenLabs Scribe', 'Sign Language Recognition', 'Supabase Auth', 'Stripe Billing'],
+      team: 'Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
     }
   ];
 
