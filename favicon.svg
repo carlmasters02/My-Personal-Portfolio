@@ -1,18 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#00ff41"/>
-      <stop offset="100%" stop-color="#00cc33"/>
-    </linearGradient>
-  </defs>
-  <text
-    x="50"
-    y="72"
-    font-family="'Courier New', monospace"
-    font-size="52"
-    font-weight="900"
-    fill="url(#g)"
-    text-anchor="middle"
-    letter-spacing="-1"
-  >CM_</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Matches the site logo: near-white "CM" in mono followed by the green
+       block cursor. The dark tile keeps the light letterforms legible on
+       light browser tab bars as well as dark ones. -->
+  <!-- No outer stroke: at a 16px tab it collapses into a smudge and only
+       steals contrast from the letterforms. -->
+  <rect x="0" y="0" width="64" height="64" rx="13" fill="#0a0e11"/>
+
+  <text x="25" y="43"
+        font-family="ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace"
+        font-size="31" font-weight="700"
+        text-anchor="middle" fill="#f2fff6">CM</text>
+
+  <!-- Block cursor, sitting on the baseline like .logo-cursor -->
+  <rect x="45.5" y="37.5" width="13" height="5" rx="1" fill="#00ff41"/>
 </svg>

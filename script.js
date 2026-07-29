@@ -1,1085 +1,598 @@
-// === HOME MENU BUTTON SCROLL ===
-document.addEventListener('DOMContentLoaded', function () {
-  const homeBtn = document.getElementById('homeMenuBtn');
-  if (homeBtn) {
-    homeBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+/* =============================================================
+   CARL MASTERS PORTFOLIO — script.js
+   ============================================================= */
+'use strict';
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $  = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+/* =============================================================
+   DATA
+   ============================================================= */
+
+const projects = [
+  {
+    title: 'This Portfolio',
+    desc: 'Designed and coded from scratch to practice modern HTML, CSS, and vanilla JavaScript, with animations, responsive layout, and all. A project that\'s also the thing showing you the project.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    link: 'https://carlmasters.com'
+  },
+  {
+    title: 'Freelance English Teacher Site',
+    desc: 'A business website built for a freelance English teacher to advertise their services. Features a clean landing page, a services section, and a contact form. My first project built for a real client.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    link: 'https://kadysenglish.com'
+  },
+  {
+    title: 'TabeTalk (Builders Weekend 2026)',
+    desc: 'Built with a 5-person team at Builders Weekend 2026, this AI-powered dining app uses voice samples and real-time voice recognition to track who ordered what, then auto-assigns check items after the bill is scanned so each guest can pay their share seamlessly.',
+    tech: ['Voice AI', 'APIs', 'Real-time Processing'],
+    link: null
+  },
+  {
+    title: 'FocusHear (SDGs to Startups 2026 — 1st Place)',
+    desc: 'Built in 48 hours at the SDGs to Startups Hackathon, FocusHear is a real-time assistive communication platform for people with hearing loss. Lets users tap a face to hear only that person, bridges sign language via hand tracking, and provides color-coded live speaker transcription.',
+    tech: ['Voice AI', 'ElevenLabs', 'Assistive Technology', 'Real-time Transcription'],
+    link: null
   }
-});
-// === ABOUT MODAL LOGIC (Who I Am stats) ===
-document.addEventListener('DOMContentLoaded', function () {
-  // Project data (from project cards)
-  const projects = [
-    {
-      title: 'Freelance English Teacher Site',
-      desc: 'A business website built for a freelance English teacher to advertise their services. Features a clean landing page, a services section, and a contact form. My first project built for a real client.',
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      link: 'https://kadys-english.pages.dev/',
-      icon: '\uD83D\uDCDD'
-    },
-    {
-      title: 'This Portfolio',
-      desc: 'Designed and coded from scratch to practice modern HTML, CSS, and vanilla JavaScript, with animations, responsive layout, and all. A project that\'s also the thing showing you the project.',
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      link: 'https://github.com/carlmasters02',
-      icon: '\uD83E\uDDD1\u200D\uD83D\uDCBB'
-    },
-    {
-      title: 'TabeTalk (Builders Weekend 2026)',
-      desc: 'Built with a 5-person team at Builders Weekend 2026, this AI-powered dining app uses voice samples and real-time voice recognition to track who ordered what, then auto-assigns check items after the bill is scanned so each guest can pay their share seamlessly.',
-      tech: ['Voice AI', 'APIs', 'Real-time Processing'],
-      link: null,
-      icon: '\uD83C\uDF7D\uFE0F'
-    },
-    {
-      title: 'FocusHear (SDGs to Startups 2026 \u2014 1st Place)',
-      desc: 'Built in 48 hours at the SDGs to Startups Hackathon, FocusHear is a real-time assistive communication platform for people with hearing loss. Lets users tap a face to hear only that person, bridges sign language via hand tracking, and provides color-coded live speaker transcription.',
-      tech: ['Voice AI', 'ElevenLabs', 'Assistive Technology', 'Real-time Transcription'],
-      link: null,
-      icon: '\uD83D\uDC42'
-    }
-  ];
-  // Languages (from about)
-  const languages = [
-    { name: 'Python', desc: 'A versatile, beginner-friendly language used for web, data science, AI, and more.' },
-    { name: 'C', desc: 'A foundational systems language, great for performance and understanding how computers work.' },
-    { name: 'Java', desc: 'A widely-used language for enterprise, Android, and more.' },
-    { name: 'HTML', desc: 'The markup language for structuring web pages.' },
-    { name: 'CSS', desc: 'Styles web pages, making them beautiful and responsive.' },
-    { name: 'JavaScript', desc: 'The language of the web, enabling interactivity and dynamic content.' }
-  ];
-  // Hackathons (from timeline)
-  const hackathons = [
-    {
-      name: 'UI/UX Hackathon — 1st Place',
-      desc: 'Competed with a team in a UI/UX-focused hackathon hosted by Temple University Japan. Our team took first place by designing and prototyping a clean, user-centered interface concept under a tight time constraint.',
-      tags: ['UI/UX Design', 'Prototyping', 'Teamwork'],
-      team: 'Temple University Japan team.'
-    },
-    {
-      name: 'Builders Weekend 2026 Hackathon',
-      desc: 'Built an AI-powered dining app that removes the chaos of splitting restaurant bills. Guests sign in, provide a voice sample, and the app listens in real time during ordering to identify who ordered each item. When the check arrives, the host scans the bill, costs are assigned automatically, and everyone pays their share hands-free.',
-      tags: ['Voice AI', 'Real-time Recognition', 'Bill Splitting Automation', 'Team Collaboration'],
-      team: 'Carl Masters, Bhushith Gujjala Hari, Kseniya Chadovich, Kevin Beutler, and Fangyan Fu.'
-    },
-    {
-      name: 'SDGs to Startups Hackathon 2026 — 1st Place',
-      desc: 'Built FocusHear in 48 hours, a real-time assistive communication platform giving deaf and hard-of-hearing users the ability to choose whose voice they hear in any environment. Tackled SDG 10: Reduced Inequalities. Features: Selective Listening (tap a face, hear only that person), Sign Language Bridge (ASL fingerspelling via hand tracking), and Chat Mode (voice-enrolled speaker diarization with color-coded log).',
-      tags: ['Voice AI', 'Assistive Technology', 'Accessibility', 'ElevenLabs', 'Speaker Diarization', 'Sign Language Bridge'],
-      team: 'Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
-    },
-    {
-      name: 'OpenAI x Tokyo AI Hackathon — Build with OpenAI',
-      desc: 'Brought a massively rebuilt FocusHear to an invite-only Build with OpenAI event hosted by OpenAI and Tokyo AI. Since the SDGs to Startups prototype, the app went through a full architecture rebuild: a GPT-4o + ElevenLabs Scribe AI pipeline, Supabase Auth with Stripe billing, saved voice and face profiles with automatic in-session recognition, a sound-alert and live-translation system, and a real ONNX-based LSTM sign-language model. Advanced to the first round against a strong field of international teams.',
-      tags: ['Voice AI', 'GPT-4o', 'ElevenLabs Scribe', 'Sign Language Recognition', 'Supabase Auth', 'Stripe Billing'],
-      team: 'Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
-    }
-  ];
+];
 
-  const aboutModal = document.getElementById('aboutModal');
-  const aboutModalClose = document.getElementById('aboutModalClose');
-  const aboutModalTitle = document.getElementById('aboutModalTitle');
-  const aboutModalBody = document.getElementById('aboutModalBody');
-  const aboutModalDetail = document.getElementById('aboutModalDetail');
-  const aboutModalBack = document.getElementById('aboutModalBack');
-  const aboutModalDetailTitle = document.getElementById('aboutModalDetailTitle');
-  const aboutModalDetailDesc = document.getElementById('aboutModalDetailDesc');
+const languages = [
+  { name: 'Python',     logo: 'icons/python.webp',     desc: 'A versatile, beginner-friendly language used for web, data science, AI, and more.' },
+  { name: 'C',          logo: 'icons/c.webp',          desc: 'A foundational systems language, great for performance and understanding how computers work.' },
+  { name: 'Java',       logo: 'icons/java.webp',       desc: 'A widely-used language for enterprise, Android, and more.' },
+  { name: 'HTML',       logo: 'icons/html.webp',       desc: 'The markup language for structuring web pages.' },
+  { name: 'CSS',        logo: 'icons/css.webp',        desc: 'Styles web pages, making them beautiful and responsive.' },
+  { name: 'JavaScript', logo: 'icons/javascript.webp', desc: 'The language of the web, enabling interactivity and dynamic content.' }
+];
 
-  // Stat click handlers
-  document.querySelectorAll('.about-stats .stat').forEach(stat => {
-    stat.addEventListener('click', function () {
-      const type = stat.getAttribute('data-stat');
-      showAboutModal(type);
-    });
-    stat.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        const type = stat.getAttribute('data-stat');
-        showAboutModal(type);
-      }
-    });
-  });
-
-  function showAboutModal(type) {
-    aboutModalDetail.style.display = 'none';
-    aboutModalBody.style.display = 'block';
-    aboutModalBody.innerHTML = '';
-    if (type === 'projects') {
-      aboutModalTitle.textContent = 'Real Projects';
-      projects.forEach((proj, i) => {
-        const card = document.createElement('div');
-        card.className = 'about-modal-project-card';
-        card.innerHTML = `<div class="about-modal-project-icon">${proj.icon}</div><div class="about-modal-project-title">${proj.title}</div><div class="about-modal-project-tech">${proj.tech.map(t=>`<span>${t}</span>`).join('')}</div>`;
-        card.tabIndex = 0;
-        card.onclick = () => showProjectDetail(i);
-        card.onkeypress = e => { if (e.key === 'Enter' || e.key === ' ') showProjectDetail(i); };
-        aboutModalBody.appendChild(card);
-      });
-    } else if (type === 'languages') {
-      aboutModalTitle.textContent = 'Languages';
-      languages.forEach((lang, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'about-modal-lang-btn';
-        btn.textContent = lang.name;
-        btn.tabIndex = 0;
-        btn.onclick = () => showLanguageDetail(i);
-        btn.onkeypress = e => { if (e.key === 'Enter' || e.key === ' ') showLanguageDetail(i); };
-        aboutModalBody.appendChild(btn);
-      });
-    } else if (type === 'hackathons') {
-      aboutModalTitle.textContent = 'Hackathons';
-      hackathons.forEach((hack, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'about-modal-hack-btn';
-        btn.textContent = hack.name;
-        btn.tabIndex = 0;
-        btn.onclick = () => showHackathonDetail(i);
-        btn.onkeypress = e => { if (e.key === 'Enter' || e.key === ' ') showHackathonDetail(i); };
-        aboutModalBody.appendChild(btn);
-      });
-    }
-    aboutModal.style.display = 'flex';
-    document.body.classList.add('modal-open');
+const hackathons = [
+  {
+    name: 'UI/UX Hackathon — 1st Place',
+    desc: 'Competed with a team in a UI/UX-focused hackathon hosted by Temple University Japan. Our team took first place by designing and prototyping a clean, user-centered interface concept under a tight time constraint.',
+    tags: ['UI/UX Design', 'Prototyping', 'Teamwork'],
+    team: 'Temple University Japan team.'
+  },
+  {
+    name: 'Builders Weekend 2026 Hackathon',
+    desc: 'Built an AI-powered dining app that removes the chaos of splitting restaurant bills. Guests sign in, provide a voice sample, and the app listens in real time during ordering to identify who ordered each item. When the check arrives, the host scans the bill, costs are assigned automatically, and everyone pays their share hands-free.',
+    tags: ['Voice AI', 'Real-time Recognition', 'Bill Splitting Automation', 'Team Collaboration'],
+    team: 'Carl Masters, Bhushith Gujjala Hari, Kseniya Chadovich, Kevin Beutler, and Fangyan Fu.'
+  },
+  {
+    name: 'SDGs to Startups Hackathon 2026 — 1st Place',
+    desc: 'Built FocusHear in 48 hours, a real-time assistive communication platform giving deaf and hard-of-hearing users the ability to choose whose voice they hear in any environment. Tackled SDG 10: Reduced Inequalities. Features: Selective Listening (tap a face, hear only that person), Sign Language Bridge (ASL fingerspelling via hand tracking), and Chat Mode (voice-enrolled speaker diarization with color-coded log).',
+    tags: ['Voice AI', 'Assistive Technology', 'Accessibility', 'ElevenLabs', 'Speaker Diarization', 'Sign Language Bridge'],
+    team: 'Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
+  },
+  {
+    name: 'OpenAI x Tokyo AI Hackathon — Build with OpenAI',
+    desc: 'Brought a massively rebuilt FocusHear to an invite-only Build with OpenAI event hosted by OpenAI and Tokyo AI. Since the SDGs to Startups prototype, the app went through a full architecture rebuild: a GPT-4o + ElevenLabs Scribe AI pipeline, Supabase Auth with Stripe billing, saved voice and face profiles with automatic in-session recognition, a sound-alert and live-translation system, and a real ONNX-based LSTM sign-language model. Advanced to the first round against a strong field of international teams.',
+    tags: ['Voice AI', 'GPT-4o', 'ElevenLabs Scribe', 'Sign Language Recognition', 'Supabase Auth', 'Stripe Billing'],
+    team: 'Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
   }
+];
 
-  function showProjectDetail(i) {
-    const proj = projects[i];
-    aboutModalBody.style.display = 'none';
-    aboutModalDetail.style.display = 'block';
-    aboutModalDetailTitle.textContent = proj.title;
-    aboutModalDetailDesc.innerHTML = `<div style="margin-bottom:0.7em;">${proj.desc}</div><div><strong>Tech:</strong> ${proj.tech.join(', ')}</div>` + (proj.link ? `<div style="margin-top:0.7em;"><a href="${proj.link}" target="_blank" rel="noopener" style="color:#00ff41;">Project Link</a></div>` : '');
+const skillData = {
+  'Languages': {
+    'Python':     'A versatile, beginner-friendly language used for web, data science, AI, and more.',
+    'C':          'A foundational systems language, great for performance and understanding how computers work.',
+    'HTML':       'The markup language for structuring web pages.',
+    'CSS':        'Styles web pages, making them beautiful and responsive.',
+    'JavaScript': 'The language of the web, enabling interactivity and dynamic content.'
+  },
+  'Web': {
+    'Responsive Design': 'Building sites that look great on any device or screen size.',
+    'DOM Manipulation':  'Using JavaScript to change page content and structure on the fly.',
+    'Flexbox / Grid':    'Modern CSS layout systems for flexible, powerful page layouts.',
+    'Web Forms':         'Creating interactive forms for user input and data collection.'
+  },
+  'Tools': {
+    'Git':            'Version control for tracking code changes and collaborating with others.',
+    'GitHub':         'A platform for hosting code, managing projects, and collaborating.',
+    'VS Code':        'A popular, extensible code editor for many languages.',
+    'Terminal / CLI': 'Command-line tools for efficient development and system control.'
+  },
+  'Currently Learning': {
+    'Basic Cybersecurity':   'Fundamentals of keeping systems and data safe from threats.',
+    'Digital Privacy':       'Protecting personal information and understanding privacy tools.',
+    'Operating Systems':     'How computers manage hardware, software, and resources.',
+    'AI / Machine Learning': 'Building systems that learn from data and make predictions.',
+    'Discrete Mathematics':  'Math for computer science: logic, sets, combinatorics, and more.',
+    'Precalculus':           'Math foundations for calculus and advanced topics.',
+    'Java':                  'A widely-used language for enterprise, Android, and more.'
   }
-  function showLanguageDetail(i) {
-    const lang = languages[i];
-    aboutModalBody.style.display = 'none';
-    aboutModalDetail.style.display = 'block';
-    aboutModalDetailTitle.textContent = lang.name;
-    aboutModalDetailDesc.textContent = lang.desc;
-  }
-  function showHackathonDetail(i) {
-    const hack = hackathons[i];
-    aboutModalBody.style.display = 'none';
-    aboutModalDetail.style.display = 'block';
-    aboutModalDetailTitle.textContent = hack.name;
-    aboutModalDetailDesc.innerHTML = `<div style="margin-bottom:0.7em;">${hack.desc}</div><div><strong>Tags:</strong> ${hack.tags.join(', ')}</div><div style="margin-top:0.7em;"><strong>Team:</strong> ${hack.team}</div>`;
-  }
+};
 
-  aboutModalClose.onclick = closeAboutModal;
-  aboutModalBack.onclick = function () {
-    aboutModalDetail.style.display = 'none';
-    aboutModalBody.style.display = 'block';
-  };
-  function closeAboutModal() {
-    aboutModal.style.display = 'none';
-    document.body.classList.remove('modal-open');
-  }
-  // Close on overlay click
-  aboutModal.addEventListener('click', function (e) {
-    if (e.target === aboutModal) closeAboutModal();
-  });
-  // Close on Escape
-  document.addEventListener('keydown', function (e) {
-    if (aboutModal.style.display === 'flex' && e.key === 'Escape') closeAboutModal();
-  });
-});
-// === SKILL EXPLORE MODAL LOGIC ===
-document.addEventListener('DOMContentLoaded', function () {
-  // Skill data: category -> skill -> description
-  const skillData = {
-    'Languages': {
-      'Python': 'A versatile, beginner-friendly language used for web, data science, AI, and more.',
-      'C': 'A foundational systems language, great for performance and understanding how computers work.',
-      'HTML': 'The markup language for structuring web pages.',
-      'CSS': 'Styles web pages, making them beautiful and responsive.',
-      'JavaScript': 'The language of the web, enabling interactivity and dynamic content.'
-    },
-    'Web': {
-      'Responsive Design': 'Building sites that look great on any device or screen size.',
-      'DOM Manipulation': 'Using JavaScript to change page content and structure on the fly.',
-      'Flexbox / Grid': 'Modern CSS layout systems for flexible, powerful page layouts.',
-      'Web Forms': 'Creating interactive forms for user input and data collection.'
-    },
-    'Tools': {
-      'Git': 'Version control for tracking code changes and collaborating with others.',
-      'GitHub': 'A platform for hosting code, managing projects, and collaborating.',
-      'VS Code': 'A popular, extensible code editor for many languages.',
-      'Terminal / CLI': 'Command-line tools for efficient development and system control.'
-    },
-    'Currently Learning': {
-      'Basic Cybersecurity': 'Fundamentals of keeping systems and data safe from threats.',
-      'Digital Privacy': 'Protecting personal information and understanding privacy tools.',
-      'Operating Systems': 'How computers manage hardware, software, and resources.',
-      'AI / Machine Learning': 'Building systems that learn from data and make predictions.',
-      'Discrete Mathematics': 'Math for computer science: logic, sets, combinatorics, and more.',
-      'Precalculus': 'Math foundations for calculus and advanced topics.',
-      'Java': 'A widely-used language for enterprise, Android, and more.'
-    }
-  };
+/* Descriptions for the clickable tag bubbles on timeline cards. */
+const skillDefinitions = {
+  'Python': 'Developed automation scripts, data tools, and web applications using Python. Experienced with core libraries and applying Python to solve practical programming problems.',
+  'C': 'Built efficient, low-level programs with a focus on memory management, pointers, and systems-level thinking. Used extensively in coursework and personal projects.',
+  'Java': 'Applied object-oriented principles through Java coursework, building familiarity with class hierarchies, interfaces, and foundational design patterns.',
+  'JavaScript': 'Created dynamic, interactive web experiences with modern JavaScript. Skilled in DOM manipulation, asynchronous programming, and integrating APIs for responsive UIs.',
+  'HTML': 'Structured accessible, semantic web pages and applications. Strong understanding of HTML5 standards and best practices for SEO and usability.',
+  'CSS': 'Designed visually appealing, responsive layouts using advanced CSS techniques including Flexbox, Grid, and custom animations.',
+  'Git': 'Managed source code and collaborated on projects using Git. Experienced with branching, merging, and resolving conflicts in team environments.',
+  'Supabase': 'Used Supabase as a hosted Postgres backend, covering database tables, authentication, and client-side data access.',
+  'Responsive Design': 'Engineered mobile-first, adaptive interfaces that deliver seamless experiences across devices. Applies best practices for accessibility and performance.',
+  'DOM Manipulation': 'Expert in modifying and interacting with web page elements programmatically to create engaging, real-time user interfaces.',
+  'Flexbox / Grid': 'Utilized CSS Flexbox and Grid to create complex, responsive layouts that adapt to any screen size.',
+  'Web Forms': 'Developed accessible, user-friendly web forms with validation and dynamic feedback for optimal user experience.',
+  'Network Security': 'Studying how to protect networks from intrusion, unauthorized access, and attacks. Covers firewalls, VPNs, IDS/IPS, and secure network architecture.',
+  'Ethical Hacking': 'Learning offensive security techniques used by penetration testers to find and report vulnerabilities before malicious actors can exploit them.',
+  'Algorithms & Data Structures': 'Studied the core building blocks of efficient software: sorting, searching, recursion, trees, graphs, and complexity analysis, forming the theoretical backbone of computer science.',
+  'Discrete Mathematics': 'Completed coursework in logic, sets, proofs, combinatorics, and graph theory, the mathematical language that underlies algorithms, cryptography, and computer architecture.',
+  'Object-Oriented Programming': 'Applied OOP principles including encapsulation, inheritance, and polymorphism to design modular, maintainable software across multiple languages.',
+  'Version Control (Git)': 'Used Git for source control across academic and personal projects. Comfortable with branching, merging, commits, and collaborative workflows on GitHub.',
+  'Problem Solving': 'Approaches technical challenges methodically, breaking down problems, testing assumptions, and iterating toward clean, effective solutions.',
+  'Tokyo Campus': 'Pursuing a Cybersecurity degree at Temple University Japan in Tokyo, gaining both technical education and the perspective that comes with studying internationally.',
 
-  const modal = document.getElementById('skillExploreModal');
-  const modalClose = document.getElementById('skillExploreModalClose');
-  const modalTitle = document.getElementById('skillExploreModalTitle');
-  const modalBody = document.getElementById('skillExploreModalBody');
-  const modalSkillDetail = document.getElementById('skillExploreModalSkillDetail');
-  const modalBack = document.getElementById('skillExploreModalBack');
-  const modalSkillTitle = document.getElementById('skillExploreModalSkillTitle');
-  const modalSkillDesc = document.getElementById('skillExploreModalSkillDesc');
+  'Mathematics': 'Built a strong foundation in mathematics through algebra, geometry, and pre-calculus, providing the quantitative reasoning skills essential for cybersecurity and engineering.',
+  'English': 'Developed strong written and verbal communication skills through essay writing, literature analysis, and public speaking, abilities that translate directly into technical documentation and team collaboration.',
+  'Science': 'Studied biology, chemistry, and physics, building the analytical mindset and hypothesis-driven thinking that underpins problem solving in technical fields.',
+  'Critical Thinking': 'Developed the ability to analyze complex situations, identify root causes, and reason through to effective solutions, a skill applied equally in academic study, military operations, and software development.',
+  'Time Management': 'Consistently balanced competing priorities across coursework, extracurriculars, and personal responsibilities, developing the organizational discipline carried into every role since.',
 
-  // Open modal for category
-  document.querySelectorAll('.skill-category').forEach(cat => {
-    cat.addEventListener('click', function () {
-      const category = cat.getAttribute('data-category');
-      showSkillModal(category);
-    });
-    cat.addEventListener('keypress', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        const category = cat.getAttribute('data-category');
-        showSkillModal(category);
-      }
-    });
-  });
+  'Leadership': 'Led and mentored fellow Marines in high-stakes operational environments. Responsible for guiding team performance, maintaining standards, and ensuring mission success under pressure.',
+  'Teamwork': 'Operated as a core member of a cohesive military unit, where coordinated execution and mutual accountability were not optional; they were mission-critical.',
+  'Discipline': 'Instilled with the rigorous personal and professional discipline of the United States Marine Corps, establishing standards of reliability, precision, and commitment that define every undertaking.',
+  'Radar Employment & Maintenance': 'Trained and experienced in the full operational lifecycle of military counterfire and ground surveillance radar systems, from site selection and emplacement to calibration, operation, and displacement under field conditions.',
+  'Instructional Skills': 'Formally trained and certified to teach, coach, and evaluate other Marines. Delivered structured instruction in both classroom and live-fire environments, adapting to individual learning needs.',
+  'Cryptographic Key Management': 'Held a secondary billet as a Key Management Infrastructure (KMI) Custodian, responsible for the secure handling, accountability, loading, and destruction of highly sensitive military cryptographic keying material in accordance with strict NSA-mandated procedures.',
+  'Operational Security': 'Practiced and enforced OPSEC across all radar and intelligence operations, ensuring sensitive battlefield data, equipment, and personnel were protected from adversarial exploitation.',
+  'High-Pressure Decision Making': 'Routinely made time-critical decisions in fast-moving, high-consequence operational environments, tracking live fire missions, managing radar assets, and coordinating counterfire data with minimal margin for error.',
+  'Curriculum Development': 'Designed and structured marksmanship training curricula as a certified Combat Marksmanship Trainer, tailoring programs of instruction to unit needs and Marine Corps standards.',
 
-  function showSkillModal(category) {
-    modalTitle.textContent = category;
-    modalBody.innerHTML = '';
-    modalSkillDetail.style.display = 'none';
-    modalBody.style.display = 'block';
-    // Add skill items
-    Object.keys(skillData[category]).forEach(skill => {
-      const skillBtn = document.createElement('button');
-      skillBtn.className = 'skill-explore-skill-btn';
-      skillBtn.textContent = skill;
-      skillBtn.setAttribute('data-skill', skill);
-      skillBtn.onclick = function () {
-        showSkillDetail(category, skill);
-      };
-      modalBody.appendChild(skillBtn);
-    });
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }
+  'Voice AI': 'Integrated voice recognition and speaker identification technologies to build real-time audio processing pipelines capable of identifying individual speakers in live environments.',
+  'Real-time Recognition': 'Built systems that process audio input in real time, matching spoken orders to individual users on the fly without human intervention.',
+  'Bill Splitting Automation': 'Designed the core logic of an automated dining payment system that tracks what each person ordered and calculates individual totals without manual input at checkout.',
+  'API Integration': 'Integrated multiple third-party APIs, including voice, payment, and AI services, into a unified application workflow under hackathon time pressure.',
+  'Payment Workflows': 'Implemented end-to-end payment processing flows, enabling seamless per-person billing tied directly to voice-recognized order data.',
+  'Rapid Prototyping': 'Delivered a fully functional product concept within the tight constraints of a competitive hackathon, prioritizing core functionality and demo readiness.',
+  'Cross-functional Teamwork': 'Collaborated with teammates across different skill sets and backgrounds, dividing responsibilities efficiently to ship a cohesive product under deadline.',
+  'Product Design': 'Contributed to the overall product vision, user flow, and feature set of a novel AI application, balancing technical feasibility with a compelling user experience.',
+  'Deadline Management': 'Executed under strict hackathon time limits, making fast prioritization calls to ensure a working, presentable product by the submission deadline.',
+  'Team Collaboration': 'Worked closely with a multi-person team to build, test, and present a fully functioning AI application, coordinating across design, development, and integration tasks.',
 
-  function showSkillDetail(category, skill) {
-    modalBody.style.display = 'none';
-    modalSkillDetail.style.display = 'block';
-    modalSkillTitle.textContent = skill;
-    modalSkillDesc.textContent = skillData[category][skill];
-  }
+  'UI/UX Design': 'Applied user interface and user experience design principles to create intuitive, visually clean interfaces. Focused on reducing friction and improving the overall user journey.',
+  'Prototyping': 'Built interactive prototypes to rapidly validate design concepts and gather feedback before committing to final implementation.',
+  'User-Centered Design': 'Placed the end user at the center of every design decision, researching user needs, mapping flows, and iterating on feedback to produce interfaces people actually want to use.',
+  'Wireframing': 'Created low and mid-fidelity wireframes to establish layout, structure, and user flow before applying visual design, saving time and aligning the team early.',
+  'Visual Hierarchy': 'Applied principles of visual weight, contrast, spacing, and typography to guide the user\'s eye and communicate information clearly without clutter.',
+  'Iterative Design': 'Refined designs through continuous feedback cycles, improving usability and aesthetics with each iteration rather than locking in a single approach.',
+  'Presentation Skills': 'Presented the team\'s design concept and rationale clearly and confidently to judges, articulating design decisions and demonstrating the prototype under competitive conditions.',
+  'Competitive Problem Solving': 'Thrived in a competitive, time-boxed environment by staying focused, adapting quickly to constraints, and delivering a polished solution that earned first place.',
 
-  modalClose.onclick = closeModal;
-  modalBack.onclick = function () {
-    modalSkillDetail.style.display = 'none';
-    modalBody.style.display = 'block';
-  };
-  function closeModal() {
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-  }
-  // Close on overlay click
-  modal.addEventListener('click', function (e) {
-    if (e.target === modal) closeModal();
-  });
-  // Close on Escape
-  document.addEventListener('keydown', function (e) {
-    if (modal.style.display === 'flex' && e.key === 'Escape') closeModal();
-  });
-});
-// === TERMINAL EASTER EGG ===
+  'Assistive Technology': 'Designed and built tools that extend the capabilities of people living with disabilities. FocusHear was built specifically for the 430 million people worldwide with disabling hearing loss who have never had the ability to selectively listen to one speaker in a noisy environment.',
+  'Accessibility': 'Committed to building software that works for everyone, including people with disabilities. Applied accessibility-first thinking to every design and engineering decision in FocusHear.',
+  'ElevenLabs': 'Integrated ElevenLabs\' Scribe API for high-accuracy real-time speech transcription and their speaker diarization API to identify and label individual speakers in multi-person conversations.',
+  'ElevenLabs Scribe': 'Used the ElevenLabs Scribe API as the transcription backbone of FocusHear, delivering high-accuracy real-time speech-to-text with latency low enough for live conversation.',
+  'Speaker Diarization': 'Used ElevenLabs\' diarization system to automatically detect who is speaking on every conversational turn, enabling color-coded live transcripts where each speaker is always clearly identified.',
+  'Sign Language Bridge': 'Built a real-time hand position tracking system that maps hand shapes to ASL fingerspelling letters, displayed alongside live captions so users who communicate through sign are never excluded from the conversation.',
+  'Sign Language Recognition': 'Trained and deployed an ONNX-based LSTM model for sign language recognition, replacing an earlier demo classifier with a genuinely trained model.',
+  'Real-time Transcription': 'Implemented live speech-to-text transcription using ElevenLabs Scribe, delivering high-accuracy captions in real time with low enough latency to be usable in actual conversations.',
+  'SDG 10': 'Built FocusHear in direct response to UN Sustainable Development Goal 10: Reduced Inequalities, specifically the inequality faced by 430 million people with disabling hearing loss who lack access to selective listening technology that hearing people take for granted.',
+  'GPT-4o': 'Used GPT-4o as the reasoning layer of the rebuilt FocusHear pipeline, handling intent detection, tone classification, and live caption translation.',
+  'Supabase Auth': 'Implemented full authentication with Supabase Auth, supporting email/password sign-in alongside Google OAuth.',
+  'Stripe Billing': 'Integrated Stripe to handle Pro subscription billing, including checkout flow and subscription state.',
+  'Production Security': 'Applied production security practices across the rebuild: server-side secret handling, authenticated API routes, and least-privilege data access.'
+};
 
-(function() {
-  const TRIGGER = 'hello';
-  let buffer = '';
-  let terminalOpen = false;
-  let ignoreInput = false;
+/* Warm the language logos while the page is idle so the modal never
+   opens to empty slots on first click. ~28KB total. */
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(() => languages.forEach(l => { new Image().src = l.logo; }));
+} else {
+  window.addEventListener('load', () => languages.forEach(l => { new Image().src = l.logo; }));
+}
 
-  // Listen for keypresses to trigger terminal
-  document.addEventListener('keydown', function(e) {
-    if (terminalOpen) return;
-    if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA' || document.activeElement.isContentEditable)) {
-      buffer = '';
-      return;
-    }
-    if (e.key.length === 1 && /^[a-zA-Z]$/.test(e.key)) {
-      buffer += e.key.toLowerCase();
-      if (!TRIGGER.startsWith(buffer)) buffer = e.key.toLowerCase() === 'h' ? 'h' : '';
-      if (buffer === TRIGGER) {
-        buffer = '';
-        showTerminal();
-      }
-    } else {
-      buffer = '';
-    }
-  });
-
-  // Add visible button to hero section
-  document.addEventListener('DOMContentLoaded', function() {
-    const btn = document.getElementById('openTerminalBtn');
-    if (btn) btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      showTerminal();
-    });
-  });
-
-  function showTerminal() {
-    if (terminalOpen) return;
-    terminalOpen = true;
-    ignoreInput = false;
-
-    // Overlay
-    const overlay = document.createElement('div');
-    overlay.className = 'terminal-overlay-bg';
-    overlay.tabIndex = -1;
-
-    // Terminal window
-    const term = document.createElement('div');
-    term.className = 'terminal-easter-egg';
-
-    // Header
-    const header = document.createElement('div');
-    header.className = 'terminal-header';
-    const title = document.createElement('span');
-    title.className = 'terminal-title';
-    title.textContent = 'CARL MASTERS OS v1.0';
-    const closeBtn = document.createElement('button');
-    closeBtn.className = 'terminal-close';
-    closeBtn.innerHTML = '&times;';
-    closeBtn.title = 'Close terminal';
-    header.appendChild(title);
-    header.appendChild(closeBtn);
-    term.appendChild(header);
-
-    // Body
-    const body = document.createElement('div');
-    body.className = 'terminal-body';
-    body.tabIndex = 0;
-    term.appendChild(body);
-
-    overlay.appendChild(term);
-    document.body.appendChild(overlay);
-
-    // Focus for keyboard
-    setTimeout(() => { body.focus(); }, 80);
-
-    // Close logic
-    function closeTerminal() {
-      terminalOpen = false;
-      overlay.remove();
-    }
-    closeBtn.onclick = closeTerminal;
-    overlay.onclick = function(e) { if (e.target === overlay) closeTerminal(); };
-    document.addEventListener('keydown', escListener);
-    function escListener(e) { if (e.key === 'Escape' && terminalOpen) { closeTerminal(); document.removeEventListener('keydown', escListener); } }
-
-    // Typewriter lines
-    const lines = [
-      '> Initializing Carl Masters OS v1.0...',
-      '> Scanning visitor...',
-      '> Identity: UNKNOWN',
-      '> Clearance level: PENDING',
-      '> Welcome, operator.',
-      '> Type "help" for available commands.'
-    ];
-    let lineIdx = 0;
-    let typing = true;
-    let inputActive = false;
-
-    function typeLine(line, cb) {
-      const div = document.createElement('div');
-      div.className = 'terminal-line';
-      body.appendChild(div);
-      let i = 0;
-      function typeChar() {
-        if (!typing) return;
-        div.textContent = line.slice(0, i);
-        if (i < line.length) {
-          i++;
-          setTimeout(typeChar, 18 + Math.random() * 22);
-        } else {
-          div.textContent = line;
-          setTimeout(cb, 320);
-        }
-      }
-      typeChar();
-    }
-
-    function typeAllLines() {
-      if (lineIdx < lines.length) {
-        typeLine(lines[lineIdx], () => { lineIdx++; typeAllLines(); });
-      } else {
-        typing = false;
-        showInput();
-      }
-    }
-
-    // Terminal input
-    let inputPrompt, inputField, cursorSpan;
-    function showInput() {
-      inputActive = true;
-      const inputLine = document.createElement('div');
-      inputLine.className = 'terminal-input-line';
-      inputPrompt = document.createElement('span');
-      inputPrompt.className = 'terminal-input-prompt';
-      inputPrompt.textContent = '>'; // prompt
-      // Fake input for cursor positioning
-      inputField = document.createElement('input');
-      inputField.className = 'terminal-input';
-      inputField.type = 'text';
-      inputField.autocomplete = 'off';
-      inputField.spellcheck = false;
-      inputField.maxLength = 64;
-      // Cursor
-      cursorSpan = document.createElement('span');
-      cursorSpan.className = 'terminal-cursor';
-      cursorSpan.textContent = '_';
-      // Container for input and cursor
-      const inputWrap = document.createElement('span');
-      inputWrap.style.display = 'inline-block';
-      inputWrap.style.position = 'relative';
-      inputWrap.appendChild(inputField);
-      inputWrap.appendChild(cursorSpan);
-      inputLine.appendChild(inputPrompt);
-      inputLine.appendChild(inputWrap);
-      body.appendChild(inputLine);
-
-      // Focus input reliably on mobile and desktop
-      function focusInputField() {
-        // On mobile, a user gesture is required for keyboard
-        setTimeout(() => {
-          inputField.focus();
-        }, 120);
-      }
-      focusInputField();
-      scrollToBottom();
-
-      // On mobile, tap anywhere on overlay or input should focus input
-      overlay.addEventListener('touchend', function(e) {
-        if (!inputField.disabled) {
-          inputField.focus();
-        }
-      });
-      inputField.addEventListener('touchend', function(e) {
-        if (!inputField.disabled) {
-          inputField.focus();
-        }
-      });
-
-      // Style input to hide caret, cursor will follow
-
-      inputField.style.caretColor = 'transparent';
-      inputField.style.background = 'none';
-      inputField.style.border = 'none';
-      inputField.style.outline = 'none';
-      inputField.style.color = '#00ff41';
-      inputField.style.fontFamily = 'inherit';
-      inputField.style.fontSize = '1.04rem';
-      inputField.style.letterSpacing = '0.01em';
-      inputField.style.width = '100%';
-      // On mobile, make sure input is visible and not offscreen
-      inputField.style.minHeight = '2.2em';
-      inputField.style.touchAction = 'manipulation';
-
-      // Cursor follows input position
-      function updateCursor() {
-        const val = inputField.value;
-        // Create a dummy span to measure text width
-        let dummy = inputWrap.querySelector('.terminal-cursor-dummy');
-        if (!dummy) {
-          dummy = document.createElement('span');
-          dummy.className = 'terminal-cursor-dummy';
-          dummy.style.visibility = 'hidden';
-          dummy.style.position = 'absolute';
-          dummy.style.left = '0';
-          dummy.style.top = '0';
-          dummy.style.whiteSpace = 'pre';
-          dummy.style.fontFamily = 'inherit';
-          dummy.style.fontSize = '1.04rem';
-          dummy.style.letterSpacing = '0.01em';
-          inputWrap.appendChild(dummy);
-        }
-        dummy.textContent = val;
-        // Position cursorSpan after dummy
-        cursorSpan.style.position = 'absolute';
-        cursorSpan.style.left = dummy.offsetWidth + 'px';
-        cursorSpan.style.top = '0';
-        cursorSpan.style.display = 'inline-block';
-      }
-      updateCursor();
-      inputField.addEventListener('input', updateCursor);
-      inputField.addEventListener('keydown', updateCursor);
-
-      inputField.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          const val = inputField.value.trim();
-          inputField.disabled = true;
-          cursorSpan.style.display = 'none';
-          handleCommand(val);
-        }
-      });
-    }
-
-    function scrollToBottom() {
-      setTimeout(() => { body.scrollTop = body.scrollHeight; }, 10);
-    }
-
-    function printLine(text) {
-      const div = document.createElement('div');
-      div.className = 'terminal-line';
-      div.textContent = text;
-      body.appendChild(div);
-      scrollToBottom();
-    }
-
-    function clearTerminal() {
-      body.innerHTML = '';
-    }
-
-    function handleCommand(cmd) {
-      inputActive = false;
-      const lc = cmd.toLowerCase();
-      if (lc === 'help') {
-        printLine('about     - learn about Carl Masters');
-        printLine('clear     - clear the terminal');
-        printLine('exit      - close this terminal');
-        printLine('skills    - list technical skills');
-        printLine('location  - show current location');
-        setTimeout(showInput, 320);
-      } else if (lc === 'about') {
-        printLine('Carl Masters: Cybersecurity student, aspiring SOC analyst, and digital privacy advocate.');
-        setTimeout(showInput, 320);
-      } else if (lc === 'clear') {
-        clearTerminal();
-        setTimeout(showInput, 120);
-      } else if (lc === 'exit') {
-        closeTerminal();
-      } else if (lc === 'skills') {
-        printLine('Python, C, Java, HTML, CSS, JavaScript, Git, Cybersecurity, AI/ML, Teamwork and collaboration, Leadership');
-        setTimeout(showInput, 320);
-      } else if (lc === 'location') {
-        printLine('Tokyo, Japan - Temple University Japan');
-        setTimeout(showInput, 320);
-      } else if (lc.length > 0) {
-        printLine('Unknown command: ' + cmd);
-        setTimeout(showInput, 320);
-      } else {
-        setTimeout(showInput, 120);
-      }
-    }
-
-    typeAllLines();
-  }
-})();
-// === BINARY DECODE REVEAL ANIMATION ===
-document.addEventListener('DOMContentLoaded', function () {
-  const SECTIONS = Array.from(document.querySelectorAll('section'));
-  const revealedSections = new Set();
-  const binaryFont = "'JetBrains Mono', 'Fira Mono', 'Share Tech Mono', monospace";
-  const binaryColor = '#00ff41';
-  const binaryDuration = 900; // ms (for internal flashes)
-  const binaryMin = 800, binaryMax = 1100;
-  const threshold = 0.15;
-
-  function createBinaryOverlay(section) {
-    const overlay = document.createElement('div');
-    overlay.className = 'binary-burst-overlay';
-    // Always use section-relative overlay, never fixed
-    if (section.id === 'contact') {
-      const container = section.querySelector('.container');
-      if (container) {
-        overlay.style.position = 'absolute';
-        overlay.style.top = container.offsetTop + 'px';
-        overlay.style.left = container.offsetLeft + 'px';
-        overlay.style.width = container.offsetWidth + 'px';
-        overlay.style.height = container.offsetHeight + 'px';
-      } else {
-        overlay.style.position = 'absolute';
-        overlay.style.top = 0;
-        overlay.style.left = 0;
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
-      }
-    } else {
-      overlay.style.position = 'absolute';
-      overlay.style.top = 0;
-      overlay.style.left = 0;
-      overlay.style.width = '100%';
-      overlay.style.height = '100%';
-    }
-    overlay.style.pointerEvents = 'none';
-    overlay.style.zIndex = 10000;
-    overlay.style.background = 'rgba(0,0,0,0.92)';
-    overlay.style.display = 'flex';
-    overlay.style.flexDirection = 'column';
-    overlay.style.justifyContent = 'center';
-    overlay.style.alignItems = 'center';
-    overlay.style.overflow = 'hidden';
-    overlay.style.fontFamily = binaryFont;
-    overlay.style.fontWeight = 'bold';
-    overlay.style.fontSize = 'clamp(1.1rem, 2.5vw, 2.2rem)';
-    overlay.style.color = binaryColor;
-    overlay.style.textShadow = '0 0 8px #00ff41, 0 0 2px #00ff41';
-    overlay.style.userSelect = 'none';
-    overlay.style.lineHeight = '1.25';
-    overlay.style.letterSpacing = '0.08em';
-    overlay.style.transition = 'opacity 0.12s';
-    return overlay;
-  }
-
-  function randomBinaryString(len) {
-    let s = '';
-    for (let i = 0; i < len; ++i) s += Math.random() > 0.5 ? '1' : '0';
-    return s;
-  }
-
-  function fillOverlayWithBinary(overlay, rows, cols) {
-    overlay.innerHTML = '';
-    for (let r = 0; r < rows; ++r) {
-      const row = document.createElement('div');
-      row.textContent = randomBinaryString(cols);
-      overlay.appendChild(row);
-    }
-  }
-
-  function getSectionRowsCols(section) {
-    // Always use section's own size for overlay
-    const style = getComputedStyle(section);
-    const fontSize = parseFloat(style.fontSize) || 18;
-    const h = section.offsetHeight;
-    const w = section.offsetWidth;
-    const rows = Math.max(3, Math.floor(h / (fontSize * 1.2)));
-    const cols = Math.max(12, Math.floor(w / (fontSize * 0.65)));
-    return [rows, cols];
-  }
-
-  function revealSectionWithBinary(section) {
-    if (revealedSections.has(section)) return;
-    revealedSections.add(section);
-    try {
-      // Overlay sits on top — children stay visible underneath, avoiding opacity glitches
-      section.style.position = 'relative';
-      const overlay = createBinaryOverlay(section);
-      section.appendChild(overlay);
-      const [rows, cols] = getSectionRowsCols(section);
-      let running = true;
-      let flashes = 0;
-      function flash() {
-        if (!running) return;
-        fillOverlayWithBinary(overlay, rows, cols);
-        flashes++;
-        if (flashes < Math.floor(binaryDuration / 40)) {
-          setTimeout(flash, 30 + Math.random() * 25);
-        }
-      }
-      flash();
-      const duration = Math.floor(binaryMin + Math.random() * (binaryMax - binaryMin));
-      setTimeout(() => {
-        running = false;
-        overlay.style.opacity = '0';
-        setTimeout(() => {
-          if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-        }, 150);
-      }, duration);
-    } catch (e) {
-      // Remove any stuck overlay so content is never hidden
-      const stuck = section.querySelector('.binary-burst-overlay');
-      if (stuck && stuck.parentNode) stuck.parentNode.removeChild(stuck);
-    }
-  }
-
-  // IntersectionObserver for all sections
-  const sectionObserver = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        revealSectionWithBinary(entry.target);
-        obs.unobserve(entry.target);
-      }
-    });
-  }, { threshold });
-
-  SECTIONS.forEach(section => {
-    // Only animate if not already visible (for reload at top)
-    if (section.getBoundingClientRect().top > window.innerHeight * 0.15) {
-      sectionObserver.observe(section);
-    } else {
-      // If already visible, show content
-      Array.from(section.children).forEach(child => {
-        child.style.opacity = '1';
-      });
-    }
-  });
-});
-// === Back to Top Button Logic ===
-document.addEventListener('DOMContentLoaded', function () {
-  const backToTopBtn = document.getElementById('backToTopBtn');
-  if (!backToTopBtn) return;
-  function handleScroll() {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
-    }
-  }
-  window.addEventListener('scroll', handleScroll);
-  handleScroll();
-  backToTopBtn.addEventListener('click', function () {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-});
-// === CUSTOM CURSOR DOT, TRAIL, AND RADAR PING ===
-document.addEventListener('DOMContentLoaded', function () {
-
-  // Only enable custom cursor on desktop (width > 768px)
-  if (window.innerWidth <= 768) {
-    // Remove custom cursor if present and restore default
-    const cursor = document.getElementById('custom-cursor');
-    if (cursor) cursor.style.display = 'none';
-    document.body.classList.remove('cursor-none');
-    return;
-  }
-  const cursor = document.getElementById('custom-cursor');
-  if (!cursor) return;
-  document.body.classList.add('cursor-none');
-
-  // Mouse move: snap dot to cursor, create trail
-  document.addEventListener('mousemove', function (e) {
-    cursor.style.transform = `translate3d(${e.clientX - 5}px, ${e.clientY - 5}px, 0)`;
-    // Trail dot — positioned via transform to avoid layout reflow
-    const dot = document.createElement('div');
-    dot.className = 'cursor-trail-dot';
-    const tx = e.clientX - 2.5;
-    const ty = e.clientY - 2.5;
-    dot.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
-    document.body.appendChild(dot);
-    // Double rAF ensures initial paint before transition starts
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        dot.style.opacity = '0';
-        dot.style.transform = `translate3d(${tx}px, ${ty}px, 0) scale(0.2)`;
-      });
-    });
-    setTimeout(() => {
-      if (dot.parentNode) dot.parentNode.removeChild(dot);
-    }, 550);
-  });
-
-  // Radar ping on click
-  document.addEventListener('click', function (e) {
-    const ping = document.createElement('div');
-    ping.className = 'cursor-ping';
-    ping.style.left = e.clientX + 'px';
-    ping.style.top = e.clientY + 'px';
-    document.body.appendChild(ping);
-    ping.addEventListener('animationend', function () {
-      if (ping.parentNode) ping.parentNode.removeChild(ping);
-    });
-  });
-
-  // Safety: restore cursor if custom-cursor removed
-  const observer = new MutationObserver(() => {
-    if (!document.getElementById('custom-cursor')) {
-      document.body.classList.remove('cursor-none');
-    }
-  });
-  observer.observe(document.body, { childList: true, subtree: true });
-});
-// === CERTIFICATIONS SECTION ===
+/* Certifications. Empty until real credentials are uploaded. */
 const certs = [];
-const certGrid = document.getElementById('certGrid');
-const certTabs = document.querySelectorAll('.cert-tab');
-const certTabsHamburgerBtn = document.getElementById('certTabsHamburgerBtn');
-const certTabsDropdown = document.getElementById('certTabsDropdown');
-const certTabDropdownBtns = certTabsDropdown ? certTabsDropdown.querySelectorAll('.cert-tab-dropdown') : [];
 
-// Hamburger menu logic for cert categories (mobile only)
-if (certTabsHamburgerBtn && certTabsDropdown) {
-  certTabsHamburgerBtn.addEventListener('click', () => {
-    certTabsDropdown.classList.toggle('open');
-  });
-  certTabDropdownBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      certTabDropdownBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      certTabsDropdown.classList.remove('open');
-      renderCertGrid(btn.dataset.category);
-      // Sync desktop tabs
-      certTabs.forEach(tab => {
-        if (tab.dataset.category === btn.dataset.category) {
-          tab.classList.add('active');
-        } else {
-          tab.classList.remove('active');
-        }
-      });
-    });
-  });
-}
+/* =============================================================
+   UNIFIED MODAL
+   One overlay serves every modal on the site.
+   ============================================================= */
+const Modal = (() => {
+  const overlay   = $('#modal');
+  const card      = $('#modalCard');
+  const titleEl   = $('#modalTitle');
+  const bodyEl    = $('#modalBody');
+  const closeBtn  = $('#modalClose');
+  // Article pages share this script but have no modal markup.
+  if (!overlay) return { open() {}, close() {}, isOpen: () => false };
 
-// Show/hide hamburger or tabs based on screen size
-function handleCertTabsDisplay() {
-  const tabs = document.querySelector('.cert-tabs');
-  const hamburger = document.querySelector('.cert-tabs-hamburger');
-  if (window.innerWidth <= 600) {
-    if (tabs) tabs.style.display = 'none';
-    if (hamburger) hamburger.style.display = 'flex';
-  } else {
-    if (tabs) tabs.style.display = 'flex';
-    if (hamburger) hamburger.style.display = 'none';
-    if (certTabsDropdown) certTabsDropdown.classList.remove('open');
+  let lastFocused = null;
+  const FOCUSABLE = 'a[href], button:not([disabled]), input, textarea, select, [tabindex]:not([tabindex="-1"])';
+
+  function open({ title = '', size = '', render }) {
+    lastFocused = document.activeElement;
+    titleEl.textContent = title;
+    titleEl.hidden = !title;
+    card.className = 'modal-card' + (size ? ' ' + size : '');
+    bodyEl.replaceChildren();
+    if (typeof render === 'function') render(bodyEl);
+    overlay.classList.add('active');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+    // Focus the close button so Escape/Tab behave predictably.
+    requestAnimationFrame(() => closeBtn.focus());
   }
+
+  function close() {
+    if (!overlay.classList.contains('active')) return;
+    overlay.classList.remove('active');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+    if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
+    lastFocused = null;
+  }
+
+  const isOpen = () => overlay.classList.contains('active');
+
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+
+  document.addEventListener('keydown', e => {
+    if (!isOpen()) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key !== 'Tab') return;
+    // Focus trap
+    const items = $$(FOCUSABLE, card).filter(el => el.offsetParent !== null);
+    if (!items.length) return;
+    const first = items[0];
+    const last  = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  return { open, close, isOpen, bodyEl, titleEl };
+})();
+
+/* --- Small builders shared by the modal views --- */
+
+function listButton({ logo, label, tags, onClick }) {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'list-btn';
+
+  if (logo) {
+    const img = document.createElement('img');
+    img.className = 'li-logo';
+    img.src = logo;
+    img.alt = '';          // decorative: the label already names it
+    img.decoding = 'async';
+    // Not lazy: these only exist once the modal is already open, so
+    // deferring the fetch would just make them pop in as you look at them.
+    img.width = 24;
+    img.height = 24;
+    btn.appendChild(img);
+  }
+
+  const wrap = document.createElement('span');
+  const text = document.createElement('span');
+  text.textContent = label;
+  wrap.appendChild(text);
+
+  if (tags && tags.length) {
+    const tagWrap = document.createElement('span');
+    tagWrap.className = 'list-btn-tags';
+    tags.forEach(t => {
+      const s = document.createElement('span');
+      s.textContent = t;
+      tagWrap.appendChild(s);
+    });
+    wrap.appendChild(tagWrap);
+  }
+
+  btn.appendChild(wrap);
+  btn.addEventListener('click', onClick);
+  return btn;
 }
-window.addEventListener('resize', handleCertTabsDisplay);
-document.addEventListener('DOMContentLoaded', handleCertTabsDisplay);
+
+function detailView(root, { title, onBack, build }) {
+  root.replaceChildren();
+
+  const back = document.createElement('button');
+  back.type = 'button';
+  back.className = 'modal-back';
+  back.textContent = '← Back';
+  back.addEventListener('click', onBack);
+  root.appendChild(back);
+
+  const h = document.createElement('div');
+  h.className = 'modal-detail-title';
+  h.textContent = title;
+  root.appendChild(h);
+
+  const desc = document.createElement('div');
+  desc.className = 'modal-detail-desc';
+  build(desc);
+  root.appendChild(desc);
+}
+
+function para(text, strongLabel) {
+  const p = document.createElement('p');
+  if (strongLabel) {
+    const s = document.createElement('strong');
+    s.textContent = strongLabel + ' ';
+    p.appendChild(s);
+  }
+  p.appendChild(document.createTextNode(text));
+  return p;
+}
+
+/* =============================================================
+   ABOUT STATS → MODAL
+   ============================================================= */
+const statViews = {
+  projects: {
+    title: 'Real Projects',
+    items: projects,
+    label: p => p.title,
+    tags:  p => p.tech,
+    detail: (p, desc) => {
+      desc.appendChild(para(p.desc));
+      desc.appendChild(para(p.tech.join(', '), 'Tech:'));
+      if (p.link) {
+        const wrap = document.createElement('p');
+        const a = document.createElement('a');
+        a.href = p.link;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = 'Visit project →';
+        wrap.appendChild(a);
+        desc.appendChild(wrap);
+      }
+    }
+  },
+  languages: {
+    title: 'Languages',
+    items: languages,
+    label: l => l.name,
+    logo:  l => l.logo,
+    tags:  () => null,
+    detail: (l, desc) => desc.appendChild(para(l.desc))
+  },
+  hackathons: {
+    title: 'Hackathons',
+    items: hackathons,
+    label: h => h.name,
+    tags:  h => h.tags.slice(0, 4),
+    detail: (h, desc) => {
+      desc.appendChild(para(h.desc));
+      desc.appendChild(para(h.tags.join(', '), 'Tags:'));
+      desc.appendChild(para(h.team, 'Team:'));
+    }
+  }
+};
+
+function openStatModal(type) {
+  const view = statViews[type];
+  if (!view) return;
+
+  const renderList = (root) => {
+    root.replaceChildren();
+    view.items.forEach(item => {
+      root.appendChild(listButton({
+        logo:  view.logo ? view.logo(item) : null,
+        label: view.label(item),
+        tags:  view.tags(item),
+        onClick: () => detailView(root, {
+          title: view.label(item),
+          onBack: () => renderList(root),
+          build: desc => view.detail(item, desc)
+        })
+      }));
+    });
+  };
+
+  Modal.open({ title: view.title, render: renderList });
+}
+
+$$('.about-stats .stat').forEach(stat => {
+  stat.addEventListener('click', () => openStatModal(stat.dataset.stat));
+});
+
+/* =============================================================
+   SKILL CATEGORY → MODAL
+   ============================================================= */
+$$('.skill-category').forEach(cat => {
+  cat.addEventListener('click', () => {
+    const category = cat.dataset.category;
+    const skills = skillData[category];
+    if (!skills) return;
+
+    const renderList = (root) => {
+      root.replaceChildren();
+      Object.keys(skills).forEach(skill => {
+        root.appendChild(listButton({
+          label: skill,
+          onClick: () => detailView(root, {
+            title: skill,
+            onBack: () => renderList(root),
+            build: desc => desc.appendChild(para(skills[skill]))
+          })
+        }));
+      });
+    };
+
+    Modal.open({ title: category, render: renderList });
+  });
+});
+
+/* =============================================================
+   TIMELINE TAG BUBBLES → DEFINITION MODAL
+   ============================================================= */
+document.addEventListener('click', e => {
+  const tag = e.target.closest('.timeline-tags span');
+  if (!tag) return;
+  const skill = tag.textContent.trim();
+  Modal.open({
+    title: skill,
+    size: 'modal-sm',
+    render: root => {
+      root.appendChild(para(skillDefinitions[skill] || 'No description available yet.'));
+    }
+  });
+});
+
+/* Timeline tag bubbles are interactive — make that reachable by keyboard. */
+$$('.timeline-tags span').forEach(span => {
+  span.tabIndex = 0;
+  span.setAttribute('role', 'button');
+  span.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); span.click(); }
+  });
+});
+
+/* =============================================================
+   CERTIFICATIONS
+   ============================================================= */
+const certGrid          = $('#certGrid');
+const certTabsEl        = $('#certTabs');
+const certHamburgerWrap = $('#certTabsHamburger');
+const certTabs          = $$('.cert-tab');
+const certHamburgerBtn  = $('#certTabsHamburgerBtn');
+const certDropdown      = $('#certTabsDropdown');
+const certDropdownBtns  = certDropdown ? $$('.cert-tab-dropdown', certDropdown) : [];
 
 function renderCertGrid(category = 'All') {
-  certGrid.innerHTML = '';
-  let filtered = certs.filter(c => category === 'All' || c.category === category);
-  if (filtered.length === 0) {
-    // Show 6 placeholder cards
-    for (let i = 0; i < 6; i++) {
-      const card = document.createElement('div');
-      card.className = 'cert-card placeholder';
-      card.innerHTML = `
-        <div class="lock-icon">&#128274;</div>
-        <div class="classified">CLASSIFIED</div>
-        <div class="pending">Certification pending upload</div>
-      `;
-      certGrid.appendChild(card);
-    }
+  if (!certGrid) return;
+  certGrid.replaceChildren();
+
+  const filtered = certs.filter(c => category === 'All' || c.category === category);
+
+  if (!filtered.length) {
+    // Nothing uploaded yet: say so once, honestly, instead of padding
+    // the grid with placeholder cards.
+    const card = document.createElement('div');
+    card.className = 'cert-card placeholder cert-empty';
+    const lock = document.createElement('div');
+    lock.className = 'lock-icon';
+    lock.textContent = '🔒';
+    const label = document.createElement('div');
+    label.className = 'classified';
+    label.textContent = 'IN PROGRESS';
+    const note = document.createElement('div');
+    note.className = 'pending';
+    note.textContent = 'Certifications are in progress and will be published here once earned.';
+    card.append(lock, label, note);
+    certGrid.appendChild(card);
     return;
   }
+
   filtered.forEach(cert => {
-    const card = document.createElement('div');
+    const card = document.createElement('button');
+    card.type = 'button';
     card.className = 'cert-card';
-    card.innerHTML = `
-      <img src="${cert.image}" alt="${cert.name}" />
-      <div class="cert-name">${cert.name}</div>
-      <div class="cert-issuer">${cert.issuer}</div>
-    `;
+
+    const img = document.createElement('img');
+    img.src = cert.image;
+    img.alt = cert.name;
+    img.loading = 'lazy';
+
+    const name = document.createElement('div');
+    name.className = 'cert-name';
+    name.textContent = cert.name;
+
+    const issuer = document.createElement('div');
+    issuer.className = 'cert-issuer';
+    issuer.textContent = cert.issuer;
+
+    card.append(img, name, issuer);
     card.addEventListener('click', () => openCertModal(cert));
     certGrid.appendChild(card);
   });
 }
 
+function openCertModal(cert) {
+  Modal.open({
+    title: cert.name,
+    size: 'modal-lg',
+    render: root => {
+      const img = document.createElement('img');
+      img.className = 'cert-modal-img';
+      img.src = cert.image;
+      img.alt = cert.name;
+      root.appendChild(img);
+      root.appendChild(para(cert.issuer));
+    }
+  });
+}
+
+function selectCertCategory(category) {
+  certTabs.forEach(t => t.classList.toggle('active', t.dataset.category === category));
+  certDropdownBtns.forEach(b => b.classList.toggle('active', b.dataset.category === category));
+  renderCertGrid(category);
+}
+
 certTabs.forEach(tab => {
-  tab.addEventListener('click', () => {
-    certTabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    renderCertGrid(tab.dataset.category);
+  tab.addEventListener('click', () => selectCertCategory(tab.dataset.category));
+});
+
+certDropdownBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    selectCertCategory(btn.dataset.category);
+    certDropdown.classList.remove('open');
+    certHamburgerBtn.setAttribute('aria-expanded', 'false');
   });
 });
 
-// Modal logic
-let certModal;
-function openCertModal(cert) {
-  if (!certModal) {
-    certModal = document.createElement('div');
-    certModal.className = 'cert-modal';
-    certModal.innerHTML = `
-      <div class="cert-modal-content">
-        <button class="cert-modal-close" aria-label="Close">&times;</button>
-        <img src="" alt="Certificate Preview" />
-        <div class="cert-name"></div>
-        <div class="cert-issuer"></div>
-      </div>
-    `;
-    document.body.appendChild(certModal);
-    certModal.querySelector('.cert-modal-close').onclick = closeCertModal;
-    certModal.addEventListener('click', e => {
-      if (e.target === certModal) closeCertModal();
-    });
-  }
-  certModal.querySelector('img').src = cert.image;
-  certModal.querySelector('img').alt = cert.name;
-  certModal.querySelector('.cert-name').textContent = cert.name;
-  certModal.querySelector('.cert-issuer').textContent = cert.issuer;
-  certModal.classList.add('active');
-}
-function closeCertModal() {
-  if (certModal) certModal.classList.remove('active');
+if (certHamburgerBtn && certDropdown) {
+  certHamburgerBtn.addEventListener('click', () => {
+    const open = certDropdown.classList.toggle('open');
+    certHamburgerBtn.setAttribute('aria-expanded', String(open));
+  });
 }
 
-// Initial render
-if (certGrid) renderCertGrid();
-// ===== Resume PDF Upload, Display, and Download =====
-document.addEventListener('DOMContentLoaded', function () {
-  const resumeInput = document.getElementById('resumeInput');
-  const resumeViewer = document.getElementById('resumeViewer');
-  const downloadResumeBtn = document.getElementById('downloadResumeBtn');
-
-  // Default: show the existing resume.pdf
-  if (resumeViewer && downloadResumeBtn) {
-    resumeViewer.src = 'resume.pdf';
-    downloadResumeBtn.href = 'resume.pdf';
-  }
-
-  // If a new file is uploaded, show it instead (client-side only)
-  if (resumeInput && resumeViewer && downloadResumeBtn) {
-    resumeInput.addEventListener('change', function (e) {
-      const file = e.target.files[0];
-      if (file && file.type === 'application/pdf') {
-        const fileURL = URL.createObjectURL(file);
-        resumeViewer.src = fileURL;
-        downloadResumeBtn.href = fileURL;
-      } else {
-        alert('Please upload a valid PDF file.');
-      }
-    });
-  }
-});
-// === HERO SECTION TYPING ANIMATION ===
-document.addEventListener('DOMContentLoaded', function() {
-  const typingElement = document.querySelector('.hero-typing');
-  // .typing-cursor already exists in the HTML markup — no duplicate needed
-
-  const phrases = [
-    'CYBERSECURITY STUDENT',
-    'INTERNATIONAL STUDENT',
-    'CYBERSECURITY RESEARCHER',
-    'DATA PRIVACY ENTHUSIAST',
-    'WEB DEVELOPER',
-    'PROBLEM SOLVER',
-    'ASPIRING SOC ANALYST',
-    'ASPIRING PENETRATION TESTER'
-  ];
-  let phraseIndex = 0;
-  let charIndex = 0;
-  let isDeleting = false;
-  let typingDelay = 70;
-  let erasingDelay = 40;
-  let newPhraseDelay = 1200;
-
-  function type() {
-    if (!typingElement) return;
-    const currentPhrase = phrases[phraseIndex];
-    if (isDeleting) {
-      typingElement.childNodes[0].textContent = currentPhrase.substring(0, charIndex - 1);
-      charIndex--;
-      if (charIndex === 0) {
-        isDeleting = false;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-        setTimeout(type, typingDelay);
-      } else {
-        setTimeout(type, erasingDelay);
-      }
-    } else {
-      typingElement.childNodes[0].textContent = currentPhrase.substring(0, charIndex + 1);
-      charIndex++;
-      if (charIndex === currentPhrase.length) {
-        isDeleting = true;
-        setTimeout(type, newPhraseDelay);
-      } else {
-        setTimeout(type, typingDelay);
-      }
-    }
-  }
-
-  // Insert text span before cursor if only the cursor child exists
-  if (typingElement && typingElement.childNodes.length === 1) {
-    const textSpan = document.createElement('span');
-    typingElement.insertBefore(textSpan, typingElement.firstChild);
-  }
-  setTimeout(type, 800);
-});
-
-const canvas = document.getElementById('matrix-canvas');
-const ctx = canvas.getContext('2d');
-
-const fontSize = 14;
-let matrixColumns, matrixDrops;
-
-function initMatrix() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  matrixColumns = Math.floor(canvas.width / fontSize);
-  matrixDrops = Array(matrixColumns).fill(1);
+/* With no certifications loaded, the category filter is noise — hide it. */
+if (!certs.length) {
+  if (certTabsEl) certTabsEl.style.display = 'none';
+  if (certHamburgerWrap) certHamburgerWrap.style.display = 'none';
 }
 
-initMatrix();
+renderCertGrid();
 
-const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ';
+/* =============================================================
+   NAVIGATION
+   ============================================================= */
+const navbar     = $('#navbar');
+const hamburger  = $('#hamburger');
+const navLinksEl = $('.nav-links');
+const navLinks   = $$('.nav-links a[href^="#"]');
 
-function drawMatrix() {
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  for (let i = 0; i < matrixDrops.length; i++) {
-    const char = chars[Math.floor(Math.random() * chars.length)];
-    ctx.fillStyle = Math.random() > 0.95 ? '#ffffff' : '#00ff41';
-    ctx.font = fontSize + 'px Share Tech Mono';
-    ctx.fillText(char, i * fontSize, matrixDrops[i] * fontSize);
-
-    if (matrixDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-      matrixDrops[i] = 0;
-    }
-    matrixDrops[i]++;
-  }
-}
-
-setInterval(drawMatrix, 50);
-
-window.addEventListener('resize', () => {
-  initMatrix();
-});
-
-/* =============================================
-   CARL MASTERS PORTFOLIO — script.js
-   ============================================= */
-
-'use strict';
-
-/* ---- Navbar scroll effect ---- */
-const navbar = document.getElementById('navbar');
 const syncNavbarScrollState = () => {
-  if (navbar.classList.contains('menu-open')) return;
+  if (!navbar || navbar.classList.contains('menu-open')) return;
   navbar.classList.toggle('scrolled', window.scrollY > 40);
 };
 window.addEventListener('scroll', syncNavbarScrollState, { passive: true });
 syncNavbarScrollState();
 
-/* ---- Active nav link on scroll ---- */
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-
-const setActiveLink = () => {
-  let current = '';
-  sections.forEach(sec => {
-    if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
-  });
-  navLinks.forEach(link => {
-    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
-  });
-};
-window.addEventListener('scroll', setActiveLink, { passive: true });
-
-/* ---- Mobile hamburger menu ---- */
-const hamburger = document.getElementById('hamburger');
-const navLinksEl = document.querySelector('.nav-links');
+if (hamburger && navLinksEl && navbar) {
 
 const closeMobileMenu = () => {
   hamburger.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
   navLinksEl.classList.remove('mobile-open');
   navbar.classList.remove('menu-open');
-  document.body.style.overflow = '';
+  document.body.classList.remove('modal-open');
   syncNavbarScrollState();
 };
 
 hamburger.addEventListener('click', () => {
-  const isOpening = !navLinksEl.classList.contains('mobile-open');
-  if (isOpening) {
-    hamburger.classList.add('open');
-    navLinksEl.classList.add('mobile-open');
-    navbar.classList.remove('scrolled');
-    navbar.classList.add('menu-open');
-    document.body.style.overflow = 'hidden';
-    return;
-  }
-  closeMobileMenu();
+  if (navLinksEl.classList.contains('mobile-open')) { closeMobileMenu(); return; }
+  hamburger.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
+  navLinksEl.classList.add('mobile-open');
+  navbar.classList.remove('scrolled');
+  navbar.classList.add('menu-open');
+  document.body.classList.add('modal-open');
 });
 
-navLinksEl.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', closeMobileMenu);
-});
+navLinksEl.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMobileMenu));
 
-/* ---- Smooth-close mobile menu on outside click ---- */
 document.addEventListener('click', e => {
   if (navLinksEl.classList.contains('mobile-open') &&
       !navLinksEl.contains(e.target) &&
@@ -1088,87 +601,676 @@ document.addEventListener('click', e => {
   }
 });
 
-/* ---- Rotating role text ---- */
-const roles = [
-  'Problem Solver',
-  'Web Developer',
-  'Cybersecurity Student @ TUJ',
-  'Aspiring SOC Analyst',
-  'Always Learning',
-];
-let roleIndex = 0;
-const roleEl = document.getElementById('rotating-role');
+}
 
-const rotateRole = () => {
-  if (!roleEl) return;
-  roleEl.style.opacity = '0';
-  setTimeout(() => {
-    roleIndex = (roleIndex + 1) % roles.length;
-    roleEl.textContent = roles[roleIndex];
-    roleEl.style.opacity = '1';
-  }, 300);
+/* Active section indicator */
+const navSections = $$('main section[id]');
+const setActiveLink = () => {
+  const y = window.scrollY;
+  let current = '';
+  navSections.forEach(sec => {
+    if (y >= sec.offsetTop - 140) current = sec.id;
+  });
+  navLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+  });
 };
-setInterval(rotateRole, 2800);
+window.addEventListener('scroll', setActiveLink, { passive: true });
+setActiveLink();
 
+/* =============================================================
+   SCROLL PROGRESS
+   ============================================================= */
+const progressBar = $('#scrollProgress');
+if (progressBar) {
+  const updateProgress = () => {
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = max > 0 ? window.scrollY / max : 0;
+    progressBar.style.transform = `scaleX(${pct})`;
+  };
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+}
 
+/* =============================================================
+   BACK TO TOP
+   ============================================================= */
+const backToTopBtn = $('#backToTopBtn');
+if (backToTopBtn) {
+  const syncBackToTop = () => backToTopBtn.classList.toggle('visible', window.scrollY > 400);
+  window.addEventListener('scroll', syncBackToTop, { passive: true });
+  syncBackToTop();
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+}
 
-/* ---- Animated counters (About stats) ---- */
-const animateCounter = (el) => {
-  const target   = parseInt(el.dataset.target, 10);
-  const duration = 1600;
-  const step     = 16;
-  const steps    = duration / step;
-  let count      = 0;
-
-  const timer = setInterval(() => {
-    count++;
-    el.textContent = Math.round((count / steps) * target);
-    if (count >= steps) {
-      el.textContent = target;
-      clearInterval(timer);
-    }
-  }, step);
-};
-
-/* ---- Scroll-reveal via IntersectionObserver ---- */
-const observerOpts = { threshold: 0.15, rootMargin: '0px 0px -60px 0px' };
-
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+/* =============================================================
+   SCROLL REVEAL
+   ============================================================= */
+const revealEls = $$('.reveal');
+if (reduceMotion) {
+  revealEls.forEach(el => el.classList.add('in'));
+} else {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('in');
       revealObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+}
+
+/* Timeline: stagger the cards, draw the spine, pop the dots behind it. */
+$$('.timeline').forEach(tl => {
+  const items = $$('.timeline-item', tl);
+  items.forEach((item, i) => {
+    const stagger = Math.min(i * 0.08, 0.4);
+    if (!item.style.getPropertyValue('--rd')) {
+      item.style.setProperty('--rd', `${stagger}s`);
+    }
+    // Dot lands just after the descending spine reaches it.
+    const dot = $('.timeline-dot', item);
+    if (dot) {
+      const ratio = items.length > 1 ? i / (items.length - 1) : 0;
+      dot.style.setProperty('--dot-delay', `${(0.15 + ratio * 0.8).toFixed(2)}s`);
     }
   });
-}, observerOpts);
 
-/* Project timeline items stagger */
-document.querySelectorAll('#projects .timeline-item').forEach((card, i) => {
-  card.style.transitionDelay = `${i * 0.15}s`;
-  revealObserver.observe(card);
+  if (reduceMotion) {
+    tl.classList.add('drawn');
+    return;
+  }
+  new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('drawn');
+      obs.unobserve(entry.target);
+    });
+  }, { threshold: 0.05 }).observe(tl);
 });
 
-/* Timeline items */
-document.querySelectorAll('.timeline-item').forEach((item, i) => {
-  item.style.transitionDelay = `${i * 0.15}s`;
-  revealObserver.observe(item);
-});
+/* =============================================================
+   NAV — sliding active indicator
+   ============================================================= */
+if (navLinksEl && navLinks.length && !reduceMotion) {
+  const indicator = document.createElement('span');
+  indicator.className = 'nav-indicator';
+  indicator.setAttribute('aria-hidden', 'true');
+  navLinksEl.appendChild(indicator);
 
-/* Stat counters */
+  const moveIndicator = (target) => {
+    if (!target || window.innerWidth <= 980) {
+      indicator.classList.remove('on');
+      return;
+    }
+    // Measure against the list so the offset survives nav padding changes.
+    const listBox = navLinksEl.getBoundingClientRect();
+    const linkBox = target.getBoundingClientRect();
+    indicator.style.width = `${linkBox.width}px`;
+    indicator.style.transform = `translateX(${linkBox.left - listBox.left}px)`;
+    indicator.classList.add('on');
+  };
+
+  // The Contact CTA is styled as a button and carries its own glow on
+  // hover, so the sliding underline skips it entirely.
+  const indicatorLinks = navLinks.filter(l => !l.classList.contains('nav-cta'));
+
+  const activeLink = () => indicatorLinks.find(l => l.classList.contains('active'));
+  const syncIndicator = () => moveIndicator(activeLink());
+
+  indicatorLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => moveIndicator(link));
+  });
+  // Hovering the CTA sends the indicator back to the active section.
+  navLinks.filter(l => l.classList.contains('nav-cta'))
+    .forEach(cta => cta.addEventListener('mouseenter', syncIndicator));
+
+  navLinksEl.addEventListener('mouseleave', syncIndicator);
+
+  window.addEventListener('scroll', syncIndicator, { passive: true });
+  window.addEventListener('resize', syncIndicator);
+  // Web fonts change link widths after load — re-measure once settled.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncIndicator);
+  syncIndicator();
+}
+
+/* =============================================================
+   STAT COUNTERS
+   ============================================================= */
+const animateCounter = (el) => {
+  const target = parseInt(el.dataset.target, 10);
+  if (Number.isNaN(target)) return;
+  if (reduceMotion) { el.textContent = String(target); return; }
+
+  const duration = 1400;
+  const start = performance.now();
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+
+  const tick = (now) => {
+    const t = Math.min((now - start) / duration, 1);
+    el.textContent = String(Math.round(easeOut(t) * target));
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = String(target);
+  };
+  requestAnimationFrame(tick);
+};
+
 const statObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      animateCounter(entry.target);
-      statObserver.unobserve(entry.target);
-    }
+    if (!entry.isIntersecting) return;
+    animateCounter(entry.target);
+    statObserver.unobserve(entry.target);
   });
 }, { threshold: 0.5 });
 
-document.querySelectorAll('.stat-number').forEach(el => statObserver.observe(el));
+$$('.stat-number').forEach(el => statObserver.observe(el));
 
-/* ---- Contact form ---- */
-const form       = document.getElementById('contactForm');
-const formStatus = document.getElementById('formStatus');
+/* =============================================================
+   HERO — NAME DECODE + ROLE TYPING
+   ============================================================= */
+const heroName = $('.hero-name');
+if (heroName && !reduceMotion) {
+  const finalText = heroName.dataset.scramble || heroName.textContent;
+  // Latin only: CJK glyphs are double-width and would reflow the line.
+  const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&$@';
+
+  // Render each letter in its own fixed-width cell, measured from the real
+  // glyph, so scrambling can never shift the layout.
+  const cells = finalText.split('').map(ch => {
+    const span = document.createElement('span');
+    span.textContent = ch;
+    if (ch === ' ') span.style.whiteSpace = 'pre';
+    span.style.display = 'inline-block';
+    span.style.textAlign = 'center';
+    return span;
+  });
+  heroName.replaceChildren(...cells);
+
+  const lockWidths = () => cells.forEach(span => {
+    span.style.width = `${span.getBoundingClientRect().width}px`;
+  });
+
+  const run = () => {
+    lockWidths();
+    const settle = cells.map((_, i) => 120 + i * 55);
+    const start = performance.now();
+
+    const step = (now) => {
+      const elapsed = now - start;
+      let done = true;
+      cells.forEach((span, i) => {
+        const ch = finalText[i];
+        if (ch === ' ' || elapsed >= settle[i]) {
+          if (span.textContent !== ch) span.textContent = ch;
+          return;
+        }
+        done = false;
+        span.textContent = GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+      });
+      if (!done) requestAnimationFrame(step);
+      else cells.forEach((span, i) => { span.textContent = finalText[i]; });
+    };
+    requestAnimationFrame(step);
+  };
+
+  // Measure against the real display font, not the fallback.
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+  else run();
+}
+
+const typingEl = $('.hero-typing .typing-text');
+if (typingEl) {
+  const phrases = [
+    'CYBERSECURITY STUDENT',
+    'INTERNATIONAL STUDENT',
+    'DATA PRIVACY ENTHUSIAST',
+    'WEB DEVELOPER',
+    'PROBLEM SOLVER',
+    'ASPIRING SOC ANALYST',
+    'ASPIRING PENETRATION TESTER'
+  ];
+
+  if (reduceMotion) {
+    typingEl.textContent = phrases[0];
+  } else {
+    let phraseIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+
+    const type = () => {
+      const phrase = phrases[phraseIndex];
+      charIndex += deleting ? -1 : 1;
+      typingEl.textContent = phrase.slice(0, charIndex);
+
+      let delay = deleting ? 40 : 70;
+      if (!deleting && charIndex === phrase.length) {
+        deleting = true;
+        delay = 1400;
+      } else if (deleting && charIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        delay = 260;
+      }
+      setTimeout(type, delay);
+    };
+    setTimeout(type, 900);
+  }
+}
+
+/* =============================================================
+   MATRIX RAIN — full page, fixed behind all content
+   ============================================================= */
+const matrixCanvas = $('#matrix-canvas');
+if (matrixCanvas && !reduceMotion) {
+  const mctx = matrixCanvas.getContext('2d');
+  const FONT = 14;
+  const CHARS = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ';
+  let drops = [];
+  let rafId = null;
+  let lastFrame = 0;
+
+  const resize = () => {
+    // Canvas is position:fixed, so it only ever covers the viewport
+    // no matter how long the page is.
+    matrixCanvas.width  = window.innerWidth;
+    matrixCanvas.height = window.innerHeight;
+    drops = new Array(Math.floor(matrixCanvas.width / FONT)).fill(1);
+  };
+
+  const draw = (now) => {
+    rafId = requestAnimationFrame(draw);
+    if (now - lastFrame < 50) return;   // ~20fps is plenty for rain
+    lastFrame = now;
+
+    mctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+    mctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+    mctx.font = FONT + 'px "JetBrains Mono", monospace';
+
+    for (let i = 0; i < drops.length; i++) {
+      const char = CHARS[Math.floor(Math.random() * CHARS.length)];
+      mctx.fillStyle = Math.random() > 0.97 ? '#ffffff' : '#00ff41';
+      mctx.fillText(char, i * FONT, drops[i] * FONT);
+      if (drops[i] * FONT > matrixCanvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    }
+  };
+
+  const startRain = () => { if (rafId === null) rafId = requestAnimationFrame(draw); };
+  const stopRain  = () => { if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null; } };
+
+  resize();
+  startRain();
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(resize, 150);
+  });
+
+  // Don't burn frames on a tab nobody is looking at.
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopRain(); else startRain();
+  });
+}
+
+/* =============================================================
+   CUSTOM CURSOR — dot + click ping, desktop pointers only
+   ============================================================= */
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const cursorDot = $('#custom-cursor');
+
+if (cursorDot && finePointer && !reduceMotion && window.innerWidth > 1024) {
+  document.body.classList.add('cursor-none');
+
+  document.addEventListener('mousemove', e => {
+    cursorDot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
+  }, { passive: true });
+
+  document.addEventListener('click', e => {
+    const ping = document.createElement('div');
+    ping.className = 'cursor-ping';
+    ping.style.left = e.clientX + 'px';
+    ping.style.top  = e.clientY + 'px';
+    document.body.appendChild(ping);
+    ping.addEventListener('animationend', () => ping.remove());
+  });
+}
+
+/* =============================================================
+   TERMINAL EASTER EGG
+   Trigger: click the hero button, or type "hello" anywhere.
+   ============================================================= */
+(() => {
+  const TRIGGER = 'hello';
+  let buffer = '';
+  let isOpen = false;
+
+  const openBtn = $('#openTerminalBtn');
+  if (openBtn) openBtn.addEventListener('click', showTerminal);
+
+  document.addEventListener('keydown', e => {
+    if (isOpen || Modal.isOpen()) return;
+    const el = document.activeElement;
+    if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)) {
+      buffer = '';
+      return;
+    }
+    if (e.key.length === 1 && /^[a-zA-Z]$/.test(e.key)) {
+      buffer += e.key.toLowerCase();
+      if (!TRIGGER.startsWith(buffer)) buffer = e.key.toLowerCase() === 'h' ? 'h' : '';
+      if (buffer === TRIGGER) { buffer = ''; showTerminal(); }
+    } else {
+      buffer = '';
+    }
+  });
+
+  const COMMANDS = {
+    help: [
+      'about     - learn about Carl Masters',
+      'skills    - list technical skills',
+      'projects  - list recent projects',
+      'location  - show current location',
+      'clear     - clear the terminal',
+      'exit      - close this terminal'
+    ],
+    about: ['Carl Masters: Cybersecurity student, aspiring SOC analyst, and digital privacy advocate.'],
+    skills: ['Python, C, Java, HTML, CSS, JavaScript, Git, Cybersecurity, AI/ML, Leadership'],
+    projects: [
+      'carlmasters.com     - this portfolio',
+      'kadysenglish.com    - client site',
+      'TabeTalk            - AI bill splitting (Builders Weekend 2026)',
+      'FocusHear           - assistive comms (1st place, SDGs to Startups)'
+    ],
+    location: ['Tokyo, Japan - Temple University Japan']
+  };
+
+  function showTerminal() {
+    if (isOpen) return;
+    isOpen = true;
+    const lastFocused = document.activeElement;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'term-overlay';
+
+    const win = document.createElement('div');
+    win.className = 'term-window';
+
+    const chrome = document.createElement('div');
+    chrome.className = 'term-chrome';
+    const dots = document.createElement('span');
+    dots.className = 'term-dots';
+    dots.append(document.createElement('span'), document.createElement('span'), document.createElement('span'));
+    const title = document.createElement('span');
+    title.className = 'term-title';
+    title.textContent = 'CARL MASTERS OS v1.0';
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'term-close';
+    closeBtn.type = 'button';
+    closeBtn.textContent = '×';
+    closeBtn.setAttribute('aria-label', 'Close terminal');
+    chrome.append(dots, title, closeBtn);
+
+    const body = document.createElement('div');
+    body.className = 'term-body';
+
+    win.append(chrome, body);
+    overlay.appendChild(win);
+    document.body.appendChild(overlay);
+    document.body.classList.add('modal-open');
+
+    function closeTerminal() {
+      if (!isOpen) return;
+      isOpen = false;
+      overlay.remove();
+      document.body.classList.remove('modal-open');
+      document.removeEventListener('keydown', escListener);
+      if (lastFocused && document.contains(lastFocused)) lastFocused.focus();
+    }
+    function escListener(e) { if (e.key === 'Escape') closeTerminal(); }
+
+    closeBtn.addEventListener('click', closeTerminal);
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeTerminal(); });
+    document.addEventListener('keydown', escListener);
+
+    const scrollDown = () => { body.scrollTop = body.scrollHeight; };
+
+    function printLine(text) {
+      const line = document.createElement('span');
+      line.className = 'term-line';
+      line.textContent = text;
+      body.appendChild(line);
+      scrollDown();
+      return line;
+    }
+
+    function typeLine(text, done) {
+      const line = printLine('');
+      let i = 0;
+      const tick = () => {
+        line.textContent = text.slice(0, i);
+        if (i++ < text.length) setTimeout(tick, 16 + Math.random() * 20);
+        else { line.textContent = text; setTimeout(done, 240); }
+      };
+      tick();
+    }
+
+    function showPrompt() {
+      const lineEl = document.createElement('div');
+      lineEl.className = 'term-input-line';
+
+      const prompt = document.createElement('span');
+      prompt.className = 'term-prompt';
+      prompt.textContent = '>';
+
+      const wrap = document.createElement('span');
+      wrap.className = 'term-input-wrap';
+
+      const input = document.createElement('input');
+      input.className = 'term-input';
+      input.type = 'text';
+      input.autocomplete = 'off';
+      input.spellcheck = false;
+      input.maxLength = 64;
+      input.setAttribute('aria-label', 'Terminal command');
+
+      const caret = document.createElement('span');
+      caret.className = 'term-cursor';
+
+      const measure = document.createElement('span');
+      measure.style.cssText = 'position:absolute;visibility:hidden;white-space:pre;font:inherit;letter-spacing:inherit;';
+
+      wrap.append(input, caret, measure);
+      lineEl.append(prompt, wrap);
+      body.appendChild(lineEl);
+
+      const syncCaret = () => {
+        measure.textContent = input.value;
+        caret.style.left = measure.offsetWidth + 'px';
+      };
+      syncCaret();
+      input.addEventListener('input', syncCaret);
+
+      input.addEventListener('keydown', e => {
+        if (e.key !== 'Enter') return;
+        const value = input.value.trim();
+        input.disabled = true;
+        caret.remove();
+        handleCommand(value);
+      });
+
+      setTimeout(() => input.focus(), 60);
+      scrollDown();
+    }
+
+    function handleCommand(cmd) {
+      const lc = cmd.toLowerCase();
+      if (lc === 'exit') { closeTerminal(); return; }
+      if (lc === 'clear') { body.replaceChildren(); setTimeout(showPrompt, 100); return; }
+      if (COMMANDS[lc]) COMMANDS[lc].forEach(printLine);
+      else if (lc.length) printLine('Unknown command: ' + cmd + '  (try "help")');
+      setTimeout(showPrompt, 240);
+    }
+
+    const boot = [
+      '> Initializing Carl Masters OS v1.0...',
+      '> Scanning visitor...',
+      '> Identity: UNKNOWN',
+      '> Clearance level: PENDING',
+      '> Welcome, operator.',
+      '> Type "help" for available commands.'
+    ];
+    let idx = 0;
+    const bootNext = () => {
+      if (idx < boot.length) typeLine(boot[idx++], bootNext);
+      else showPrompt();
+    };
+    bootNext();
+  }
+})();
+
+/* =============================================================
+   TOKYO CLOCK
+   ============================================================= */
+const tokyoEl = $('#tokyo-time');
+if (tokyoEl) {
+  const updateTokyoTime = () => {
+    const time = new Date().toLocaleTimeString('en-GB', {
+      timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', second: '2-digit'
+    });
+    tokyoEl.textContent = `TOKYO ${time} JST`;
+  };
+  updateTokyoTime();
+  setInterval(updateTokyoTime, 1000);
+}
+
+/* =============================================================
+   RESUME VIEWER (pdf.js)
+   ============================================================= */
+(() => {
+  const canvas   = $('#resumeCanvas');
+  const prevBtn  = $('#resumePrevBtn');
+  const nextBtn  = $('#resumeNextBtn');
+  const indicator = $('#resumePageIndicator');
+  const loading  = $('#resumeLoading');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  let pdfDoc = null;
+  let currentPage = 1;
+  let totalPages = 0;
+  let rendering = false;
+
+  const hideLoading = () => { if (loading) loading.style.display = 'none'; };
+
+  let settled = false;
+  function fail(message) {
+    if (settled) return;
+    settled = true;
+    clearTimeout(watchdog);
+    hideLoading();
+    canvas.style.display = 'none';
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (indicator) {
+      indicator.textContent = message;
+      indicator.classList.add('error');
+    }
+  }
+
+  // If the CDN worker is blocked, getDocument() can hang without ever
+  // rejecting. Never leave the viewer spinning indefinitely.
+  const watchdog = setTimeout(() => {
+    fail('Resume preview timed out. Use the download button below.');
+  }, 20000);
+
+  if (typeof pdfjsLib === 'undefined') {
+    fail('Resume preview unavailable. Use the download button below.');
+    return;
+  }
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  function updateUI() {
+    if (!indicator) return;
+    if (totalPages <= 1) {
+      indicator.textContent = '';
+      if (prevBtn) prevBtn.style.visibility = 'hidden';
+      if (nextBtn) nextBtn.style.visibility = 'hidden';
+      return;
+    }
+    indicator.textContent = `${currentPage} / ${totalPages}`;
+    if (prevBtn) prevBtn.disabled = currentPage <= 1;
+    if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+  }
+
+  function renderPage(num) {
+    if (rendering || !pdfDoc) return;
+    rendering = true;
+
+    pdfDoc.getPage(num).then(page => {
+      const frame = canvas.parentElement;
+      const width = frame.clientWidth || 820;
+      const base = page.getViewport({ scale: 1 });
+      // Render at device resolution so text stays crisp on retina displays.
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const viewport = page.getViewport({ scale: (width / base.width) * dpr });
+
+      canvas.width  = viewport.width;
+      canvas.height = viewport.height;
+      canvas.style.width = '100%';
+      canvas.style.height = 'auto';
+
+      return page.render({ canvasContext: ctx, viewport }).promise.then(() => {
+        rendering = false;
+        settled = true;
+        clearTimeout(watchdog);
+        hideLoading();
+        updateUI();
+      });
+    }).catch(() => {
+      rendering = false;
+      fail('Could not render the resume. Use the download button below.');
+    });
+  }
+
+  pdfjsLib.getDocument('resume.pdf').promise.then(pdf => {
+    pdfDoc = pdf;
+    totalPages = pdf.numPages;
+    renderPage(currentPage);
+  }).catch(() => {
+    fail('Could not load the resume. Use the download button below.');
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', () => {
+    if (currentPage > 1 && !rendering) renderPage(--currentPage);
+  });
+  if (nextBtn) nextBtn.addEventListener('click', () => {
+    if (currentPage < totalPages && !rendering) renderPage(++currentPage);
+  });
+
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { if (pdfDoc) renderPage(currentPage); }, 200);
+  });
+})();
+
+/* =============================================================
+   CONTACT FORM
+   ============================================================= */
+const form = $('#contactForm');
+const formStatus = $('#formStatus');
+
+function setStatus(msg, type) {
+  if (!formStatus) return;
+  formStatus.textContent = msg;
+  formStatus.className = `form-status ${type}`;
+}
 
 if (form) {
   form.addEventListener('submit', async (e) => {
@@ -1178,55 +1280,52 @@ if (form) {
     const email   = form.email.value.trim();
     const message = form.message.value.trim();
 
-    /* Basic validation */
     if (!name || !email || !message) {
       setStatus('Please fill in your name, email, and message.', 'error');
       return;
     }
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus('Please enter a valid email address.', 'error');
       return;
     }
 
     const endpoint = form.getAttribute('action') || '';
     if (!endpoint || endpoint.includes('/yourFormId')) {
-      setStatus('Form not configured yet. Add your Formspree form ID in index.html.', 'error');
+      setStatus('Form not configured yet.', 'error');
       return;
     }
 
     const submitBtn = form.querySelector('[type="submit"]');
     submitBtn.textContent = 'Sending…';
-    submitBtn.disabled    = true;
+    submitBtn.disabled = true;
+    setStatus('', '');
 
     try {
-      const formData = new FormData(form);
       const response = await fetch(endpoint, {
         method: 'POST',
-        body: formData,
-        headers: {
-          Accept: 'application/json',
-        },
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
       });
 
       if (response.ok) {
-        setStatus('Message sent! I\'ll get back to you soon.', 'success');
+        setStatus('Message sent. I\'ll get back to you soon.', 'success');
         form.reset();
       } else {
-        setStatus('Could not send message. Please try again in a moment.', 'error');
+        // Surface why it failed rather than showing a generic message.
+        let detail = '';
+        try {
+          const data = await response.json();
+          if (data && Array.isArray(data.errors)) detail = data.errors.map(x => x.message).join(' ');
+        } catch { /* response body was not JSON */ }
+        setStatus(detail || `Could not send message (error ${response.status}). Please try again.`, 'error');
+        console.error('Contact form failed:', response.status, detail);
       }
     } catch (error) {
       setStatus('Network error. Please check your connection and try again.', 'error');
+      console.error('Contact form network error:', error);
     } finally {
       submitBtn.textContent = 'Send Message';
-      submitBtn.disabled    = false;
+      submitBtn.disabled = false;
     }
   });
-}
-
-function setStatus(msg, type) {
-  if (!formStatus) return;
-  formStatus.textContent  = msg;
-  formStatus.className    = `form-status ${type}`;
 }
