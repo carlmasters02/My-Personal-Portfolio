@@ -826,12 +826,11 @@ const typingEl = $('.hero-typing .typing-text');
 if (typingEl) {
   const phrases = [
     'CYBERSECURITY STUDENT',
+    'ASPIRING CYBERSECURITY ENGINEER',
     'INTERNATIONAL STUDENT',
     'DATA PRIVACY ENTHUSIAST',
     'WEB DEVELOPER',
-    'PROBLEM SOLVER',
-    'ASPIRING SOC ANALYST',
-    'ASPIRING PENETRATION TESTER'
+    'PROBLEM SOLVER'
   ];
 
   if (reduceMotion) {
@@ -977,7 +976,7 @@ if (cursorDot && finePointer && !reduceMotion && window.innerWidth > 1024) {
       'clear     - clear the terminal',
       'exit      - close this terminal'
     ],
-    about: ['Carl Masters: Cybersecurity student, aspiring SOC analyst, and digital privacy advocate.'],
+    about: ['Carl Masters: Cybersecurity student, aspiring cybersecurity engineer, and digital privacy advocate.'],
     skills: ['Python, C, Java, HTML, CSS, JavaScript, Git, Cybersecurity, AI/ML, Leadership'],
     projects: [
       'carlmasters.com     - this portfolio',
