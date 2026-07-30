@@ -843,7 +843,6 @@ body.cursor-none * { cursor: none !important; }
   color: var(--muted);
   line-height: 1.75;
 }
-.timeline-content > p strong { color: var(--text); }
 .timeline-content > p + p { margin-top: 0.85rem; }
 
 .hackathon-boxes {

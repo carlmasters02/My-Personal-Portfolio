@@ -39,12 +39,18 @@ const projects = [
 ];
 
 const languages = [
-  { name: 'Python',     logo: 'icons/python.webp',     desc: 'A versatile, beginner-friendly language used for web, data science, AI, and more.' },
-  { name: 'C',          logo: 'icons/c.webp',          desc: 'A foundational systems language, great for performance and understanding how computers work.' },
-  { name: 'Java',       logo: 'icons/java.webp',       desc: 'A widely-used language for enterprise, Android, and more.' },
-  { name: 'HTML',       logo: 'icons/html.webp',       desc: 'The markup language for structuring web pages.' },
-  { name: 'CSS',        logo: 'icons/css.webp',        desc: 'Styles web pages, making them beautiful and responsive.' },
-  { name: 'JavaScript', logo: 'icons/javascript.webp', desc: 'The language of the web, enabling interactivity and dynamic content.' }
+  { name: 'Python',     logo: 'icons/python.webp',
+    desc: 'The language I reach for first. I use it across coursework and hackathon builds, from small automation scripts to the backend glue holding an API pipeline together, and it is where I do most of my security and data exploration.' },
+  { name: 'C',          logo: 'icons/c.webp',
+    desc: 'Where I learned what the machine is actually doing. Coursework in C covers manual memory management, pointers, and how data really sits in memory, which is the same ground most memory-safety vulnerabilities come from. It made me read code far more carefully.' },
+  { name: 'Java',       logo: 'icons/java.webp',
+    desc: 'Where object-oriented design became concrete for me. Coursework in Java covers class hierarchies, interfaces, and the patterns built on top of them, and its strictness has been useful precisely because it forces structure before anything will run.' },
+  { name: 'HTML',       logo: 'icons/html.webp',
+    desc: 'The structural layer behind this site and my client work. I focus on semantic, accessible markup rather than nested div soup, since structure is what screen readers, search engines, and future me all depend on.' },
+  { name: 'CSS',        logo: 'icons/css.webp',
+    desc: 'Responsible for most of the visual work here, including the layout system, dark theme, and motion. Time spent on Flexbox, Grid, and contrast has taught me that restraint usually reads better than adding one more effect.' },
+  { name: 'JavaScript', logo: 'icons/javascript.webp',
+    desc: 'What makes the front end respond. I use it for DOM work, async API calls, and wiring interfaces to live data, including the real-time transcription and payment flows in my hackathon projects.' }
 ];
 
 const hackathons = [
@@ -75,33 +81,26 @@ const hackathons = [
 ];
 
 const skillData = {
-  'Languages': {
-    'Python':     'A versatile, beginner-friendly language used for web, data science, AI, and more.',
-    'C':          'A foundational systems language, great for performance and understanding how computers work.',
-    'HTML':       'The markup language for structuring web pages.',
-    'CSS':        'Styles web pages, making them beautiful and responsive.',
-    'JavaScript': 'The language of the web, enabling interactivity and dynamic content.'
-  },
-  'Web': {
-    'Responsive Design': 'Building sites that look great on any device or screen size.',
-    'DOM Manipulation':  'Using JavaScript to change page content and structure on the fly.',
-    'Flexbox / Grid':    'Modern CSS layout systems for flexible, powerful page layouts.',
-    'Web Forms':         'Creating interactive forms for user input and data collection.'
+  /* Same six entries as the About counter, so both read from one list. */
+  'Languages': Object.fromEntries(languages.map(l => [l.name, l.desc])),
+  'Core Concepts': {
+    'Discrete Mathematics 1': 'Logic, sets, combinatorics, and proof technique. This is close to the language that cryptography and algorithm analysis are written in, so it is the coursework I expect to matter most as I move deeper into security.',
+    'Precalculus':            'Function behaviour, transformations, and the groundwork for calculus. Less visible in day-to-day code than discrete math, but it is the prerequisite for the calculus that machine learning actually runs on.',
+    'Linux':                  'My daily driver rather than a class exercise. I run Fedora as my main system, use Kali for security tooling, and Whonix and Tails for privacy and anonymity work. Between them I have gotten comfortable with package management, permissions, and the tradeoffs each distribution is actually built around.',
+    'OOP':                    'Classes, inheritance, encapsulation, and polymorphism, mostly through Java and Python coursework. The useful part has been learning where object-oriented structure genuinely helps and where it just adds layers, which matters when a deadline rewards clarity over cleverness.',
+    'Basic Digital Privacy':  'The area I care about most outside of coursework. I run and test privacy-respecting tooling, encrypted alternatives to mainstream apps, and hardened operating systems, and I write about the tradeoffs on this site. Privacy is a set of defaults and habits, not a single product you install.',
+    'Basic Cybersecurity':    'Threat modelling, encryption, secure coding practice, and network defence. I came to this after four years handling cryptographic keying material and operational security in the Marine Corps, so the discipline side was familiar well before the technical side was.'
   },
   'Tools': {
-    'Git':            'Version control for tracking code changes and collaborating with others.',
-    'GitHub':         'A platform for hosting code, managing projects, and collaborating.',
-    'VS Code':        'A popular, extensible code editor for many languages.',
-    'Terminal / CLI': 'Command-line tools for efficient development and system control.'
+    'Git':            'Version control across everything I build. I work in branches, keep commits scoped to a single change, and have resolved real conflicts on team projects under hackathon time pressure, which is where commit hygiene stops being theoretical.',
+    'GitHub':         'Where my work lives and where team collaboration happens: pull requests, issues, and reviews during hackathons, plus hosting for this site. Reading through other repositories there has taught me nearly as much as writing my own code.',
+    'VS Code':        'My main editor, configured rather than left stock. Extensions, keybindings, and an integrated terminal keep me in one window, and leaning on the debugger instead of guesswork is a habit I am glad I built early.',
+    'Terminal / CLI': 'Where a lot of the actual work happens. Navigation, file and process management, package tooling, and Git are all faster for me in a shell than a GUI, and it stops being a preference once you are working with security tooling.'
   },
   'Currently Learning': {
-    'Basic Cybersecurity':   'Fundamentals of keeping systems and data safe from threats.',
-    'Digital Privacy':       'Protecting personal information and understanding privacy tools.',
-    'Operating Systems':     'How computers manage hardware, software, and resources.',
-    'AI / Machine Learning': 'Building systems that learn from data and make predictions.',
-    'Discrete Mathematics':  'Math for computer science: logic, sets, combinatorics, and more.',
-    'Precalculus':           'Math foundations for calculus and advanced topics.',
-    'Java':                  'A widely-used language for enterprise, Android, and more.'
+    'Calculus':              'Limits, derivatives, and integrals. I am taking it because it sits directly underneath the machine learning I keep building with, and I would rather understand why gradient descent works than treat the training step as a black box.',
+    'System Design':         'How larger systems fit together: components, data flow, tradeoffs, and what breaks under load. Hackathons keep showing me that the hard part is rarely the code, it is deciding where state lives and which failure modes are acceptable.',
+    'AI / Machine Learning': 'Both a subject I am studying and a tool I build with. Across recent hackathons I have shipped on top of speech and language models, including a real-time transcription pipeline and a trained sign-language classifier. I treat models as components I have to understand and debug, not as a shortcut around knowing how the system works.'
   }
 };
 
@@ -179,13 +178,24 @@ const skillDefinitions = {
   'Production Security': 'Applied production security practices across the rebuild: server-side secret handling, authenticated API routes, and least-privilege data access.'
 };
 
-/* Warm the language logos while the page is idle so the modal never
-   opens to empty slots on first click. ~28KB total. */
-if ('requestIdleCallback' in window) {
-  requestIdleCallback(() => languages.forEach(l => { new Image().src = l.logo; }));
-} else {
-  window.addEventListener('load', () => languages.forEach(l => { new Image().src = l.logo; }));
-}
+/* Logos keyed by skill name. Languages are derived from the list above so
+   they stay in one place; tools are declared here since they have no
+   counterpart in the About modal. */
+const skillLogos = {
+  ...Object.fromEntries(languages.map(l => [l.name, l.logo])),
+  'Git':            'icons/git.webp',
+  'GitHub':         'icons/github.webp',
+  'VS Code':        'icons/vscode.webp',
+  'Terminal / CLI': 'icons/terminal.webp'
+};
+
+/* Warm every logo while the page is idle so a modal never opens to empty
+   slots on first click. ~45KB total. */
+const preloadLogos = () => {
+  Object.values(skillLogos).forEach(src => { new Image().src = src; });
+};
+if ('requestIdleCallback' in window) requestIdleCallback(preloadLogos);
+else window.addEventListener('load', preloadLogos);
 
 /* Certifications. Empty until real credentials are uploaded. */
 const certs = [];
@@ -404,10 +414,16 @@ $$('.skill-category').forEach(cat => {
     const skills = skillData[category];
     if (!skills) return;
 
+    const names = Object.keys(skills);
+    // All or nothing: a list where only some rows have an icon reads as
+    // ragged, so logos only appear when every entry has one.
+    const useLogos = names.every(name => skillLogos[name]);
+
     const renderList = (root) => {
       root.replaceChildren();
-      Object.keys(skills).forEach(skill => {
+      names.forEach(skill => {
         root.appendChild(listButton({
+          logo: useLogos ? skillLogos[skill] : null,
           label: skill,
           onClick: () => detailView(root, {
             title: skill,
