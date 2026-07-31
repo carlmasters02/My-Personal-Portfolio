@@ -90,7 +90,7 @@
                 <span class="stat-label">Languages</span>
               </button>
               <button type="button" class="stat" data-stat="hackathons">
-                <span class="stat-number" data-target="4">0</span>
+                <span class="stat-number" data-target="6">0</span>
                 <span class="stat-label">Hackathons</span>
               </button>
             </div>
@@ -179,6 +179,7 @@
     </section>
 
     <!-- ===== PROJECTS ===== -->
+    <!-- ===== WHAT I'VE BUILT (products only) ===== -->
     <section id="projects" class="section">
       <div class="container">
         <div class="section-header reveal">
@@ -187,240 +188,78 @@
         </div>
         <div class="timeline">
 
-          <div class="timeline-item is-live reveal">
+          <div class="timeline-item is-live reveal" id="focushear">
             <div class="timeline-dot"></div>
             <div class="timeline-content">
-              <span class="timeline-date">Nov. 2025 — Present</span>
-              <h3>This Portfolio</h3>
-              <p class="timeline-org"><a href="https://carlmasters.com" target="_blank" rel="noopener noreferrer">carlmasters.com</a></p>
-              <p>Designed and coded from scratch to practice modern HTML, CSS, and vanilla JavaScript, with animations, responsive layout, and all. A project that's also the thing showing you the project.</p>
-              <div class="timeline-tags">
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>JavaScript</span>
-                <span>Supabase</span>
-                <span>Responsive Design</span>
-                <span>DOM Manipulation</span>
-                <span>Git</span>
+              <div class="timeline-meta">
+                <span class="timeline-date">June 2026</span>
+                <span class="win-badge">1st Place</span>
               </div>
-            </div>
-          </div>
-
-          <div class="timeline-item is-live reveal">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-date">Jan. 2026 — Present</span>
-              <h3>Freelance English Teacher Site</h3>
-              <p class="timeline-org"><a href="https://kadysenglish.com" target="_blank" rel="noopener noreferrer">kadysenglish.com</a></p>
-              <p>A business website built for a freelance English teacher to advertise their services. Features a clean landing page, a services section, and a contact form. My first project built for a real client.</p>
-              <div class="timeline-tags">
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>JavaScript</span>
-                <span>Responsive Design</span>
-                <span>Flexbox / Grid</span>
-                <span>Web Forms</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-item reveal">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-date">March 2026</span>
-              <h3>UI/UX Hackathon &mdash; 1st Place</h3>
-              <p class="timeline-org">Temple University Japan &mdash; Tokyo, Japan</p>
-              <p>Competed with a team in a UI/UX-focused hackathon hosted by Temple
-                 University Japan. Our team took first place by designing and prototyping
-                 a clean, user-centered interface concept under a tight time constraint.</p>
-              <div class="timeline-tags">
-                <span>UI/UX Design</span>
-                <span>Prototyping</span>
-                <span>User-Centered Design</span>
-                <span>Wireframing</span>
-                <span>Visual Hierarchy</span>
-                <span>Iterative Design</span>
-                <span>Presentation Skills</span>
-                <span>Competitive Problem Solving</span>
-                <span>Teamwork</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-item reveal">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-date">March 2026</span>
-              <h3>Builders Weekend 2026 Hackathon</h3>
-              <p class="timeline-org">Shibuya, Tokyo, Japan</p>
-              <p>Built TabeTalk, an AI-powered dining app that removes the chaos of splitting restaurant bills.
-                 Guests sign in, provide a voice sample, and the app listens in real time during ordering
-                 to identify who ordered each item. When the check arrives, the host scans the bill,
-                 costs are assigned automatically, and everyone pays their share hands-free.</p>
+              <h3>FocusHear</h3>
+              <p class="timeline-org"><a href="https://focus-hear-app.vercel.app/" target="_blank" rel="noopener noreferrer">focus-hear-app.vercel.app</a> &middot; SDGs to Startups 2026 &middot; OpenAI x Tokyo AI</p>
+              <p>A real-time assistive communication platform for people with hearing loss. 430 million
+                 people worldwide live with disabling hearing loss, yet every captioning app transcribes
+                 everyone at once, flooding users with an unreadable wall of overlapping voices.
+                 FocusHear lets you choose whose voice you hear. Built in 48 hours to take first place at
+                 SDGs to Startups, then rebuilt from the architecture up and taken to an invite-only
+                 Build with OpenAI event, where it advanced to the first round against international teams.</p>
               <div class="hackathon-boxes">
+                <article class="hackathon-box">
+                  <h4>Core Features</h4>
+                  <p>Selective Listening (tap a face, hear only that person), a Sign Language Bridge for ASL
+                     fingerspelling, and Chat Mode with voice-enrolled speaker diarization and a colour-coded live log.</p>
+                </article>
+                <article class="hackathon-box">
+                  <h4>The Rebuild</h4>
+                  <p>Vertical Slice Architecture rebuild on a GPT-4o and ElevenLabs Scribe pipeline, Supabase Auth
+                     with Stripe billing, saved voice and face profiles, live caption translation, and a trained
+                     ONNX-based LSTM sign-language model replacing the original demo classifier.</p>
+                </article>
+                <article class="hackathon-box">
+                  <h4>Team</h4>
+                  <p>Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.</p>
+                </article>
+              </div>
+              <div class="timeline-tags">
+                <span>Voice AI</span>
+                <span>ElevenLabs Scribe</span>
+                <span>GPT-4o</span>
+                <span>Sign Language Recognition</span>
+                <span>Assistive Technology</span>
+                <span>Supabase Auth</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" id="tabetalk">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">March 2026</span>
+              </div>
+              <h3>TabeTalk</h3>
+              <p class="timeline-org">Builders Weekend 2026 &mdash; Shibuya, Tokyo, Japan</p>
+              <p>An AI-powered dining app that removes the chaos of splitting restaurant bills. Guests sign in,
+                 provide a voice sample, and the app listens in real time during ordering to identify who ordered
+                 each item. When the check arrives, the host scans the bill, costs are assigned automatically,
+                 and everyone pays their share hands-free.</p>
+              <div class="hackathon-boxes">
+                <article class="hackathon-box">
+                  <h4>Tech &amp; Sponsors</h4>
+                  <p>Multiple languages and APIs wired into voice and payment workflows, with integrations from
+                     Open Network Labs, Lovable, Supercell, VoiceOS, RevenueCat, and ElevenLabs.</p>
+                </article>
                 <article class="hackathon-box">
                   <h4>Team</h4>
                   <p>Carl Masters, Bhushith Gujjala Hari, Kseniya Chadovich, Kevin Beutler, and Fangyan Fu.</p>
-                </article>
-                <article class="hackathon-box">
-                  <h4>Tech &amp; APIs</h4>
-                  <p>Used multiple programming languages and several API keys to integrate voice and payment workflows.</p>
-                </article>
-                <article class="hackathon-box">
-                  <h4>Sponsor Integrations</h4>
-                  <p>Open Network Labs, Lovable, Supercell, VoiceOS, RevenueCat, and ElevenLabs.</p>
-                </article>
-                <article class="hackathon-box">
-                  <h4>Built By</h4>
-                  <p>Fully developed by a crew of students from Temple University Japan.</p>
                 </article>
               </div>
               <div class="timeline-tags">
                 <span>Voice AI</span>
                 <span>Real-time Recognition</span>
-                <span>Bill Splitting Automation</span>
                 <span>API Integration</span>
                 <span>Payment Workflows</span>
-                <span>Rapid Prototyping</span>
-                <span>Cross-functional Teamwork</span>
                 <span>Product Design</span>
-                <span>Deadline Management</span>
-                <span>Team Collaboration</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-item reveal">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-date">June 2026</span>
-              <h3>SDGs to Startups Hackathon 2026 &mdash; 1st Place</h3>
-              <p class="timeline-org">Shibaura Institute of Technology &mdash; Tokyo, Japan</p>
-              <p>Built FocusHear in 48 hours, a real-time assistive communication platform tackling SDG 10: Reduced Inequalities. The core insight: 430 million people worldwide live with disabling hearing loss, yet no existing technology gives them the ability to choose whose voice they hear in a crowded room. Every captioning app today transcribes everyone simultaneously, flooding users with an unreadable wall of overlapping voices. We built something different.</p>
-              <div class="hackathon-boxes">
-                <article class="hackathon-box">
-                  <h4>Team</h4>
-                  <p>Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.</p>
-                </article>
-                <article class="hackathon-box">
-                  <h4>Core Features</h4>
-                  <p>Selective Listening (tap a face, hear only that person via ElevenLabs Scribe + lip movement detection), Sign Language Bridge (ASL fingerspelling via hand position tracking), and Chat Mode (voice-enrolled speaker diarization with color-coded live log).</p>
-                </article>
-                <article class="hackathon-box">
-                  <h4>Sponsor &amp; Tech</h4>
-                  <p>ElevenLabs (Scribe transcription + speaker diarization), real-time lip movement detection, hand position tracking for sign language recognition.</p>
-                </article>
-                <article class="hackathon-box">
-                  <h4>Organizers</h4>
-                  <p>Tokyo Student Network, Tokyo AI (TAI), TUJ CS Society, GDG on Campus at Sophia, IPUT, and Waseda University.</p>
-                </article>
-              </div>
-              <div class="timeline-tags">
-                <span>Voice AI</span>
-                <span>Assistive Technology</span>
-                <span>Accessibility</span>
-                <span>ElevenLabs</span>
-                <span>Speaker Diarization</span>
-                <span>Sign Language Bridge</span>
-                <span>Real-time Transcription</span>
-                <span>SDG 10</span>
-                <span>Rapid Prototyping</span>
-                <span>Team Collaboration</span>
-                <span>Deadline Management</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-item reveal">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-date">June 2026</span>
-              <h3>OpenAI x Tokyo AI Hackathon &mdash; Build with OpenAI</h3>
-              <p class="timeline-org">Hongo, Tokyo, Japan</p>
-              <p>Brought a massively rebuilt FocusHear to an invite-only "Build with OpenAI" event hosted by OpenAI and Tokyo AI. Since the original SDGs to Startups prototype, the app went through a full architecture rebuild: a GPT-4o + ElevenLabs Scribe AI pipeline, Supabase Auth with Stripe billing, saved voice and face profiles with automatic in-session recognition, a sound-alert and live-translation system, and a real ONNX-based LSTM sign-language model replacing the original demo classifier. Competed against strong international teams and advanced to the first round.</p>
-              <div class="hackathon-boxes">
-                <article class="hackathon-box">
-                  <h4>Team</h4>
-                  <p>Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.</p>
-                </article>
-                <article class="hackathon-box">
-                  <h4>Major Upgrades</h4>
-                  <p>Vertical Slice Architecture rebuild, GPT-4o + ElevenLabs Scribe AI pipeline, Supabase Auth (email/password + Google OAuth) with Stripe Pro billing, saved voice and face profile recognition, sound-alert system with tone/intent badges and multilingual live caption translation, and a trained ONNX-based LSTM sign-language model.</p>
-                </article>
-                <article class="hackathon-box">
-                  <h4>Result</h4>
-                  <p>Advanced to the first round against a strong field of international teams.</p>
-                </article>
-                <article class="hackathon-box">
-                  <h4>Hosted By</h4>
-                  <p>OpenAI and Tokyo AI, an invite-only Build with OpenAI event in Tokyo, Japan.</p>
-                </article>
-              </div>
-              <div class="timeline-tags">
-                <span>Voice AI</span>
-                <span>GPT-4o</span>
-                <span>ElevenLabs Scribe</span>
-                <span>Assistive Technology</span>
-                <span>Accessibility</span>
-                <span>Sign Language Recognition</span>
-                <span>Supabase Auth</span>
-                <span>Stripe Billing</span>
-                <span>Production Security</span>
-                <span>Team Collaboration</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== BACKGROUND ===== -->
-    <section id="education" class="section">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label"><span class="section-num">04</span> / background</p>
-          <h2 class="section-title">My Background</h2>
-        </div>
-        <div class="timeline">
-
-          <div class="timeline-item reveal">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-date">2017 — 2021</span>
-              <h3>High School Diploma</h3>
-              <p class="timeline-org">Lake Minneola High School &mdash; Minneola, Florida, USA</p>
-              <p>Completed a standard high school curriculum at <a href="https://lmh.lake.k12.fl.us/" target="_blank" rel="noopener noreferrer">Lake Minneola High School</a> with coursework across core academic disciplines. Built foundational skills in mathematics, English, and the sciences while developing the study habits and work ethic that carry into everything since.</p>
-              <div class="timeline-tags">
-                <span>Mathematics</span>
-                <span>English</span>
-                <span>Science</span>
-                <span>Critical Thinking</span>
-                <span>Time Management</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="timeline-item reveal">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content">
-              <span class="timeline-date">2021 — 2025</span>
-              <h3>United States Marine Corps</h3>
-              <p class="timeline-org">0842 &mdash; Field Artillery Radar Operator &nbsp;|&nbsp; Camp Hansen, Okinawa, Japan &amp; Camp Lejeune, North Carolina, USA</p>
-              <p>Served four years as a <a href="https://www.cool.osd.mil/usmc/moc/index.html?moc=0842" target="_blank" rel="noopener noreferrer">Field Artillery Radar Operator</a>, operating the <a href="https://www.northropgrumman.com/what-we-do/mission-solutions/radars/an-tps-80-ground-air-task-oriented-radar-g-ator" target="_blank" rel="noopener noreferrer">AN/TPS-80 Ground/Air Task Oriented Radar</a>, <a href="https://www.srcinc.com/innovation/radar-counterfire.html" target="_blank" rel="noopener noreferrer">AN/TPQ-48 Lightweight Counter Mortar Radar</a>, and <a href="https://raytheon.mediaroom.com/index.php?s=43&amp;item=1451" target="_blank" rel="noopener noreferrer">AN/TPQ-46 Firefinder Radar</a> (now retired). Worked as part of a cohesive team under demanding operational conditions and strict time constraints, contributing to the successful tracking of thousands of artillery munitions and delivering critical battlefield intelligence directly to commanders.</p>
-              <p>Concurrently held a secondary billet as a <a href="https://www.hqmc.marines.mil/c4/cy/kmi/" target="_blank" rel="noopener noreferrer">Key Management Infrastructure (KMI) Custodian</a>, responsible for the secure handling, safeguarding, loading, and operational use of highly sensitive military cryptographic keys and associated intelligence materials.</p>
-              <p>Selected to attend two formal military schools, earning qualifications as both a <a href="https://www.trngcmd.marines.mil/Portals/207/M02M859%20CMC%20Welcome%20Aboard%2015-Jul-2019.pdf" target="_blank" rel="noopener noreferrer">Combat Marksmanship Coach (CMC)</a> and a <a href="https://www.trngcmd.marines.mil/Portals/207/M02M819%20CMT%20Welcome%20Aboard%2015-Jul-2019.pdf" target="_blank" rel="noopener noreferrer">Combat Marksmanship Trainer (CMT)</a>. As a CMC, provided individualized coaching to improve Marines' fundamental rifle and pistol proficiency. As a CMT, operated full courses of fire, developed training curricula, and advanced modern marksmanship standards across the unit.</p>
-              <div class="timeline-tags">
-                <span>Critical Thinking</span>
-                <span>Leadership</span>
-                <span>Teamwork</span>
-                <span>Discipline</span>
-                <span>Radar Employment &amp; Maintenance</span>
-                <span>Instructional Skills</span>
-                <span>Cryptographic Key Management</span>
-                <span>Operational Security</span>
-                <span>High-Pressure Decision Making</span>
-                <span>Curriculum Development</span>
               </div>
             </div>
           </div>
@@ -428,24 +267,39 @@
           <div class="timeline-item is-live reveal">
             <div class="timeline-dot"></div>
             <div class="timeline-content">
-              <span class="timeline-date">2025 — Present</span>
-              <h3>B.S. Cybersecurity</h3>
-              <p class="timeline-org">Temple University Japan &mdash; Tokyo, Japan</p>
-              <p>Coursework covering programming fundamentals in Python, C, and Java,
-                introductory cybersecurity concepts, and core math for <a href="https://bulletin.temple.edu/undergraduate/science-technology/cybersecurity-bs/#requirementstext" target="_blank" rel="noopener noreferrer">Cybersecurity</a> at <a href="https://www.tuj.ac.jp/" target="_blank" rel="noopener noreferrer">Temple University Japan</a>. Learning
-                to think like a security professional from the ground up.</p>
+              <div class="timeline-meta">
+                <span class="timeline-date">Jan. 2026 &mdash; Present</span>
+              </div>
+              <h3>Freelance English Teacher Site</h3>
+              <p class="timeline-org"><a href="https://kadysenglish.com" target="_blank" rel="noopener noreferrer">kadysenglish.com</a></p>
+              <p>A business website built for a freelance English teacher to advertise their services. Features a
+                 clean landing page, a services section, and a contact form. My first project built for a real client.</p>
               <div class="timeline-tags">
-                <span>Python</span>
-                <span>C</span>
-                <span>Java</span>
-                <span>Network Security</span>
-                <span>Algorithms &amp; Data Structures</span>
-                <span>Discrete Mathematics</span>
-                <span>Object-Oriented Programming</span>
-                <span>Ethical Hacking</span>
-                <span>Version Control (Git)</span>
-                <span>Problem Solving</span>
-                <span>Tokyo Campus</span>
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>Responsive Design</span>
+                <span>Web Forms</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item is-live reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">Nov. 2025 &mdash; Present</span>
+              </div>
+              <h3>This Portfolio</h3>
+              <p class="timeline-org"><a href="https://carlmasters.com" target="_blank" rel="noopener noreferrer">carlmasters.com</a></p>
+              <p>Designed and coded from scratch to practice modern HTML, CSS, and vanilla JavaScript, with
+                 animations, responsive layout, and all. A project that's also the thing showing you the project.</p>
+              <div class="timeline-tags">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>Supabase</span>
+                <span>DOM Manipulation</span>
               </div>
             </div>
           </div>
@@ -454,13 +308,274 @@
       </div>
     </section>
 
-    <!-- ===== CERTIFICATIONS ===== -->
-    <section id="certifications" class="section">
+    <!-- ===== WHERE I'VE BEEN (path + events) ===== -->
+    <section id="education" class="section">
       <div class="container">
         <div class="section-header reveal">
-          <p class="section-label"><span class="section-num">05</span> / certifications</p>
+          <p class="section-label"><span class="section-num">04</span> / background</p>
+          <h2 class="section-title">Where I've Been</h2>
+        </div>
+
+        <h3 class="subsection-title reveal">Education &amp; Career</h3>
+        <div class="timeline">
+
+          <div class="timeline-item is-live reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">2025 &mdash; Present</span>
+              </div>
+              <h3>B.S. Cybersecurity</h3>
+              <p class="timeline-org">Temple University Japan &mdash; Tokyo, Japan</p>
+              <p>Coursework covering programming fundamentals in Python, C, and Java, introductory cybersecurity
+                concepts, and core math for <a href="https://bulletin.temple.edu/undergraduate/science-technology/cybersecurity-bs/#requirementstext" target="_blank" rel="noopener noreferrer">Cybersecurity</a> at <a href="https://www.tuj.ac.jp/" target="_blank" rel="noopener noreferrer">Temple University Japan</a>. Learning
+                to think like a security professional from the ground up.</p>
+              <div class="timeline-tags">
+                <span>Network Security</span>
+                <span>Ethical Hacking</span>
+                <span>Algorithms &amp; Data Structures</span>
+                <span>Discrete Mathematics</span>
+                <span>Object-Oriented Programming</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">2021 &mdash; 2025</span>
+              </div>
+              <h3>United States Marine Corps</h3>
+              <p class="timeline-org">0842 &mdash; Field Artillery Radar Operator &nbsp;|&nbsp; Camp Hansen, Okinawa, Japan &amp; Camp Lejeune, North Carolina, USA</p>
+              <p>Served four years as a <a href="https://www.cool.osd.mil/usmc/moc/index.html?moc=0842" target="_blank" rel="noopener noreferrer">Field Artillery Radar Operator</a>, operating the <a href="https://www.northropgrumman.com/what-we-do/mission-solutions/radars/an-tps-80-ground-air-task-oriented-radar-g-ator" target="_blank" rel="noopener noreferrer">AN/TPS-80 Ground/Air Task Oriented Radar</a>, <a href="https://www.srcinc.com/innovation/radar-counterfire.html" target="_blank" rel="noopener noreferrer">AN/TPQ-48 Lightweight Counter Mortar Radar</a>, and <a href="https://raytheon.mediaroom.com/index.php?s=43&amp;item=1451" target="_blank" rel="noopener noreferrer">AN/TPQ-46 Firefinder Radar</a> (now retired). Worked as part of a cohesive team under demanding operational conditions and strict time constraints, contributing to the successful tracking of thousands of artillery munitions and delivering critical battlefield intelligence directly to commanders.</p>
+              <p>Concurrently held a secondary billet as a <a href="https://www.hqmc.marines.mil/c4/cy/kmi/" target="_blank" rel="noopener noreferrer">Key Management Infrastructure (KMI) Custodian</a>, responsible for the secure handling, safeguarding, loading, and operational use of highly sensitive military cryptographic keys and associated intelligence materials.</p>
+              <p>Selected to attend two formal military schools, earning qualifications as both a <a href="https://www.trngcmd.marines.mil/Portals/207/M02M859%20CMC%20Welcome%20Aboard%2015-Jul-2019.pdf" target="_blank" rel="noopener noreferrer">Combat Marksmanship Coach (CMC)</a> and a <a href="https://www.trngcmd.marines.mil/Portals/207/M02M819%20CMT%20Welcome%20Aboard%2015-Jul-2019.pdf" target="_blank" rel="noopener noreferrer">Combat Marksmanship Trainer (CMT)</a>.</p>
+              <div class="timeline-tags">
+                <span>Cryptographic Key Management</span>
+                <span>Operational Security</span>
+                <span>Radar Employment &amp; Maintenance</span>
+                <span>High-Pressure Decision Making</span>
+                <span>Leadership</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">2017 &mdash; 2021</span>
+              </div>
+              <h3>High School Diploma</h3>
+              <p class="timeline-org">Lake Minneola High School &mdash; Minneola, Florida, USA</p>
+              <p>Completed a standard high school curriculum at <a href="https://lmh.lake.k12.fl.us/" target="_blank" rel="noopener noreferrer">Lake Minneola High School</a>, building the study habits and work ethic that carry into everything since.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <h3 class="subsection-title reveal">Events &amp; Competitions</h3>
+        <div class="timeline">
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">July 2026</span>
+              </div>
+              <h3>Engineering Real World AI with Google and Google DeepMind</h3>
+              <p class="timeline-org">Google Japan, Shibuya Stream &mdash; Tokyo, Japan</p>
+              <p>An evening at Google Japan hosted with Google for Developers, on taking AI systems
+                 from prototype to production. A keynote from David McLaughlin, Director of Global
+                 Developer Ecosystem at Google, was followed by a Google AI Studio workshop led by
+                 Juyeong Ji of Google DeepMind, covering Gemini, Google Cloud, and the architectures
+                 behind running AI platforms at scale. A good counterpoint to the local-model session
+                 earlier in the month: much the same models, but a very different set of constraints
+                 once you are serving them to real users.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">July 2026</span>
+              </div>
+              <h3>Agent Forge AI Hackathon</h3>
+              <p class="timeline-org">Minato City, Tokyo, Japan</p>
+              <p>A one-day hackathon focused on building production-ready AI agents themed around
+                 Tokyo and Japanese culture. I entered this one solo. Every build had to integrate
+                 at least one of the partner platforms, so most of the day went into learning tools
+                 I had never touched before, spanning GPU infrastructure, model APIs, and agentic
+                 coding environments. It was a great opportunity to work with that much new tech in
+                 one place, and I appreciated getting to take part.</p>
+              <div class="hackathon-boxes">
+                <article class="hackathon-box">
+                  <h4>Tech Stack</h4>
+                  <p>ai&amp; for full-stack inference on domestic GPU infrastructure, Daytona for
+                     secure code execution, GMI Cloud for unified access to 200+ models, Nosana for
+                     decentralised GPU compute, Qwen Cloud for reasoning and agentic coding, and
+                     Qoder as an agentic coding environment.</p>
+                </article>
+                <article class="hackathon-box">
+                  <h4>Hosts &amp; Partners</h4>
+                  <p>Organised by AI Builders, with MeltingHack and Mercari as community partners.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">July 2026</span>
+              </div>
+              <h3>ai&amp; &times; Moonshot Tokyo Hackathon Night</h3>
+              <p class="timeline-org">Sakura Deeptech Shibuya &mdash; Tokyo, Japan</p>
+              <p>A single-evening hackathon built around Kimi K2.7 Code, Moonshot's agentic coding
+                 model, running on ai&amp;'s inference platform. It was a good opportunity to build
+                 and learn on a new inference stack, and to experiment with Chinese open source
+                 models that I had not worked with before. A lot picked up in one evening, and a
+                 great team to do it with.</p>
+              <div class="hackathon-boxes">
+                <article class="hackathon-box">
+                  <h4>Team</h4>
+                  <p>Carl Masters, Ruoan Li, Hina &lsquo;Ai&rsquo; Sekine, and Thiago Komeno.</p>
+                </article>
+                <article class="hackathon-box">
+                  <h4>Sponsors &amp; Hosts</h4>
+                  <p>Hosted by ai&amp; and Kimi (Moonshot AI) with AMD as co-sponsor, supported by
+                     the AI Founders&rsquo; Mindset Community and organised by Kaori Rei.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">July 2026</span>
+              </div>
+              <h3>Vibe Coders Tokyo &mdash; Local Models with Gemma 4</h3>
+              <p class="timeline-org">Google Shibuya Offices &mdash; Tokyo, Japan</p>
+              <p>A Vibe Coders Tokyo session hosted at Google's Shibuya offices, with a talk from
+                 Juyeong Ji of Google DevRel on running open-weight models locally. The focus was
+                 Gemma and similar lightweight models that run on personal machines and private
+                 infrastructure rather than through a hosted API, and what that changes for cost,
+                 latency, and control over your own data. The tutorial was followed by open build
+                 time to get a model running end to end. The privacy case is what stuck with me:
+                 a model you run yourself is one nobody else is logging.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">June 2026</span>
+              </div>
+              <h3>OpenAI x Tokyo AI &mdash; Build with OpenAI</h3>
+              <p class="timeline-org">Hongo, Tokyo, Japan</p>
+              <p>An invite-only build event hosted by OpenAI and Tokyo AI. I brought a fully rebuilt
+                 FocusHear, replacing the hackathon prototype with a production architecture: a GPT-4o
+                 and ElevenLabs Scribe pipeline, authenticated accounts with billing, saved voice and
+                 face profiles, and a trained sign-language model in place of the original demo
+                 classifier. Advanced to the first round against a strong international field.</p>
+              <a href="#focushear" class="event-link">See FocusHear</a>
+          
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">June 2026</span>
+                <span class="win-badge">1st Place</span>
+              </div>
+              <h3>SDGs to Startups Hackathon 2026</h3>
+              <p class="timeline-org">Shibaura Institute of Technology &mdash; Tokyo, Japan</p>
+              <p>A 48-hour build against UN Sustainable Development Goal 10, Reduced Inequalities. Our
+                 team took first place with FocusHear, targeting a gap no captioning app addresses:
+                 430 million people live with disabling hearing loss and none of them can isolate a
+                 single voice in a crowded room. Organised by Tokyo Student Network, Tokyo AI, the TUJ
+                 CS Society, GDG on Campus at Sophia, IPUT, and Waseda University.</p>
+              <a href="#focushear" class="event-link">See FocusHear</a>
+          
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">March 2026</span>
+              </div>
+              <h3>Builders Weekend 2026</h3>
+              <p class="timeline-org">Shibuya, Tokyo, Japan</p>
+              <p>A weekend build sprint with a five-person team from Temple University Japan. We shipped
+                 TabeTalk, an AI dining app that identifies who ordered what by voice and splits the
+                 check automatically, which meant getting real-time speech recognition and payment
+                 workflows talking to each other inside two days. Sponsor integrations included Open
+                 Network Labs, Lovable, Supercell, VoiceOS, RevenueCat, and ElevenLabs.</p>
+              <a href="#tabetalk" class="event-link">See TabeTalk</a>
+          
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">March 2026</span>
+                <span class="win-badge">1st Place</span>
+              </div>
+              <h3>UI/UX Hackathon</h3>
+              <p class="timeline-org">Temple University Japan &mdash; Tokyo, Japan</p>
+              <p>A design-focused competition where the deliverable was a concept rather than a shipped
+                 product. Our team took first place by researching user needs, wireframing, and
+                 prototyping a clean interface, then defending every design decision to the judges under
+                 a tight time limit. The lasting value was learning to justify a design out loud, not
+                 just produce one.</p>
+          
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+    <!-- ===== CREDENTIALS (resume + certifications) ===== -->
+    <section id="resume" class="section">
+      <div class="container">
+        <div class="section-header reveal">
+          <p class="section-label"><span class="section-num">05</span> / credentials</p>
           <h2 class="section-title">Credentials</h2>
         </div>
+        <div class="resume-shell reveal">
+          <div class="resume-viewer">
+            <button class="resume-nav-btn" id="resumePrevBtn" aria-label="Previous page" disabled>&#8249;</button>
+            <div class="resume-window">
+              <div class="resume-bar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <span class="code-filename">carl_masters_resume.pdf</span>
+              </div>
+              <div class="resume-frame">
+                <div class="resume-loading" id="resumeLoading">LOADING</div>
+                <canvas id="resumeCanvas"></canvas>
+              </div>
+            </div>
+            <button class="resume-nav-btn" id="resumeNextBtn" aria-label="Next page" disabled>&#8250;</button>
+          </div>
+          <div class="resume-page-indicator" id="resumePageIndicator" aria-live="polite"></div>
+          <a id="downloadResumeBtn" href="carl_masters_resume.pdf" download="carl_masters_resume.pdf" class="btn btn-primary">Download Resume</a>
+        </div>
+
+        <h3 class="subsection-title reveal">Certifications</h3>
         <div class="cert-tabs" id="certTabs">
           <button class="cert-tab active" data-category="All">All</button>
           <button class="cert-tab" data-category="Google">Google</button>
@@ -482,41 +597,11 @@
       </div>
     </section>
 
-    <!-- ===== RESUME ===== -->
-    <section id="resume" class="section">
-      <div class="container">
-        <div class="section-header reveal">
-          <p class="section-label"><span class="section-num">06</span> / resume</p>
-          <h2 class="section-title">My Resume</h2>
-        </div>
-        <div class="resume-shell reveal">
-          <div class="resume-viewer">
-            <button class="resume-nav-btn" id="resumePrevBtn" aria-label="Previous page" disabled>&#8249;</button>
-            <div class="resume-window">
-              <div class="resume-bar">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span class="code-filename">resume.pdf</span>
-              </div>
-              <div class="resume-frame">
-                <div class="resume-loading" id="resumeLoading">LOADING</div>
-                <canvas id="resumeCanvas"></canvas>
-              </div>
-            </div>
-            <button class="resume-nav-btn" id="resumeNextBtn" aria-label="Next page" disabled>&#8250;</button>
-          </div>
-          <div class="resume-page-indicator" id="resumePageIndicator" aria-live="polite"></div>
-          <a id="downloadResumeBtn" href="resume.pdf" download="resume.pdf" class="btn btn-primary">Download Resume</a>
-        </div>
-      </div>
-    </section>
-
     <!-- ===== BLOG ===== -->
     <section id="blog" class="section">
       <div class="container">
         <div class="section-header reveal">
-          <p class="section-label"><span class="section-num">07</span> / blog</p>
+          <p class="section-label"><span class="section-num">06</span> / blog</p>
           <h2 class="section-title">My Articles</h2>
         </div>
         <div class="blog-grid">
@@ -550,7 +635,7 @@
     <section id="contact" class="section">
       <div class="container">
         <div class="section-header reveal">
-          <p class="section-label"><span class="section-num">08</span> / contact</p>
+          <p class="section-label"><span class="section-num">07</span> / contact</p>
           <h2 class="section-title">Let's Talk</h2>
         </div>
         <div class="contact-wrap">

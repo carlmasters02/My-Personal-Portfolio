@@ -34,7 +34,7 @@ const projects = [
     title: 'FocusHear (SDGs to Startups 2026 — 1st Place)',
     desc: 'Built in 48 hours at the SDGs to Startups Hackathon, FocusHear is a real-time assistive communication platform for people with hearing loss. Lets users tap a face to hear only that person, bridges sign language via hand tracking, and provides color-coded live speaker transcription.',
     tech: ['Voice AI', 'ElevenLabs', 'Assistive Technology', 'Real-time Transcription'],
-    link: null
+    link: 'https://focus-hear-app.vercel.app/'
   }
 ];
 
@@ -77,6 +77,18 @@ const hackathons = [
     desc: 'Brought a massively rebuilt FocusHear to an invite-only Build with OpenAI event hosted by OpenAI and Tokyo AI. Since the SDGs to Startups prototype, the app went through a full architecture rebuild: a GPT-4o + ElevenLabs Scribe AI pipeline, Supabase Auth with Stripe billing, saved voice and face profiles with automatic in-session recognition, a sound-alert and live-translation system, and a real ONNX-based LSTM sign-language model. Advanced to the first round against a strong field of international teams.',
     tags: ['Voice AI', 'GPT-4o', 'ElevenLabs Scribe', 'Sign Language Recognition', 'Supabase Auth', 'Stripe Billing'],
     team: 'Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
+  },
+  {
+    name: 'ai& × Moonshot Tokyo Hackathon Night',
+    desc: 'A single-evening hackathon built around Kimi K2.7 Code, Moonshot\'s agentic coding model, running on ai&\'s inference platform. A good opportunity to build and learn on a new inference stack, and to experiment with Chinese open source models I had not worked with before.',
+    tags: ['Kimi K2.7 Code', 'ai& Inference', 'Open Source Models', 'Rapid Prototyping'],
+    team: 'Carl Masters, Ruoan Li, Hina \u2018Ai\u2019 Sekine, and Thiago Komeno.'
+  },
+  {
+    name: 'Agent Forge AI Hackathon',
+    desc: 'A one-day hackathon building production-ready AI agents themed around Tokyo and Japanese culture. Every build had to integrate at least one partner platform, so most of the day went into learning unfamiliar tooling across GPU infrastructure, model APIs, and agentic coding environments.',
+    tags: ['AI Agents', 'GPU Infrastructure', 'Model APIs', 'Agentic Coding'],
+    team: 'Entered solo.'
   }
 ];
 
@@ -1253,7 +1265,7 @@ if (tokyoEl) {
     });
   }
 
-  pdfjsLib.getDocument('resume.pdf').promise.then(pdf => {
+  pdfjsLib.getDocument('carl_masters_resume.pdf').promise.then(pdf => {
     pdfDoc = pdf;
     totalPages = pdf.numPages;
     renderPage(currentPage);
