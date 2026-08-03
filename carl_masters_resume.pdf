@@ -1,112 +1,673 @@
-%PDF-1.4
-%“Œ‹ž ReportLab Generated PDF document (opensource)
+%PDF-1.3
+%âãÏÓ
 1 0 obj
 <<
-/F1 2 0 R /F2 3 0 R /F3 8 0 R
+/PageMode /UseNone
+/Pages 2 0 R
+/Type /Catalog
 >>
 endobj
 2 0 obj
 <<
-/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+/Count 1
+/Kids [ 3 0 R ]
+/Type /Pages
 >>
 endobj
 3 0 obj
 <<
-/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+/Annots [ 4 0 R 5 0 R 6 0 R 7 0 R ]
+/Contents 8 0 R
+/MediaBox [ 0 0 612 792 ]
+/Parent 2 0 R
+/Resources <<
+/Font 9 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
 >>
 endobj
 4 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (mailto:carl.masters.professional@protonmail.com)
->> /Border [ 0 0 0 ] /Rect [ 299.3233 721.56 460.5172 731.76 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (mailto\072carl\056masters\056professional\100protonmail\056com)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 299.3233 721.56 460.5172 731.76 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 5 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://carlmasters.com)
->> /Border [ 0 0 0 ] /Rect [ 167.994 710.56 230.333 720.76 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057carlmasters\056com)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 139.1705 710.56 201.5095 720.76 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 6 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://linkedin.com/in/carlmasters)
->> /Border [ 0 0 0 ] /Rect [ 241.995 710.56 344.488 720.76 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057www\056linkedin\056com\057in\057carl\055masters\055724951297)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 213.1715 710.56 363.8595 720.76 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 7 0 obj
 <<
 /A <<
-/S /URI /Type /Action /URI (https://github.com/carlmasters)
->> /Border [ 0 0 0 ] /Rect [ 356.15 710.56 444.006 720.76 ] /Subtype /Link /Type /Annot
+/S /URI
+/Type /Action
+/URI (https\072\057\057github\056com\057carlmasters02)
+>>
+/Border [ 0 0 0 ]
+/Rect [ 375.5215 710.56 472.8295 720.76 ]
+/Subtype /Link
+/Type /Annot
 >>
 endobj
 8 0 obj
 <<
-/BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding /Name /F3 /Subtype /Type1 /Type /Font
+/Length 11621
 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 42 734.76 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 19 Tf 21 TL 116.75 0 Td (CARL CHRISTOPHER MASTERS) Tj T* -116.75 0 Td ET
+Q
+Q
+q
+1 0 0 1 42 720.76 cm
+q
+BT 1 0 0 1 0 2.5 Tm 109.4828 0 Td 11 TL /F1 8.5 Tf 0 0 0 rg (Tokyo, Japan  ) Tj (|) Tj (  +81 090 4720 1209  ) Tj (|) Tj (  ) Tj (carl.masters.professional@protonmail.com) Tj T* -109.4828 0 Td ET
+Q
+Q
+q
+1 0 0 1 42 709.76 cm
+q
+BT 1 0 0 1 0 2.5 Tm 97.1705 0 Td 11 TL /F1 8.5 Tf 0 0 0 rg (carlmasters.com) Tj (  ) Tj (|) Tj (  ) Tj (linkedin.com/in/carl-masters-724951297) Tj (  ) Tj (|) Tj (  ) Tj (github.com/carlmasters02) Tj T* -97.1705 0 Td ET
+Q
+Q
+q
+1 0 0 1 42 705.76 cm
+Q
+q
+1 0 0 1 42 688.76 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.2 Tm /F2 9.8 Tf 11 TL (PROFESSIONAL SUMMARY) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 684.56 cm
+0 0 0 RG
+.7 w
+n 0 1 m 528 1 l S
+Q
+q
+1 0 0 1 42 682.06 cm
+Q
+q
+1 0 0 1 42 629.06 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 44.3 Tm /F1 8.7 Tf 10.6 TL (Cybersecurity student at Temple University Japan and U.S. Marine Corps veteran with three years managing cryptographic key) Tj T* (infrastructure and mission-critical radar systems at 99%+ operational readiness. Combines hands-on experience in secure) Tj T* (communications, OPSEC, and Linux environments with rapid full-stack development in Python, C, and JavaScript. Two-time 1st-place) Tj T* (hackathon winner in Tokyo, shipping authenticated, production-ready platforms in 48-hour build windows. Seeking a security or software) Tj T* (engineering internship where low-level fundamentals and disciplined execution matter.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 612.06 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.2 Tm /F2 9.8 Tf 11 TL (TECHNICAL SKILLS) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 607.86 cm
+0 0 0 RG
+.7 w
+n 0 1 m 528 1 l S
+Q
+q
+1 0 0 1 42 605.36 cm
+Q
+q
+1 0 0 1 36 592.76 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 1.5 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F2 8.7 Tf 10.6 TL (Languages) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.6 1.5 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F1 8.7 Tf 10.6 TL (Python, C, Java, JavaScript, HTML/CSS) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 36 580.16 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 1.5 cm
+q
+BT 1 0 0 1 0 1.9 Tm 10.6 TL /F2 8.7 Tf 0 0 0 rg (OS & Environments) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.6 1.5 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F1 8.7 Tf 10.6 TL (Linux \(Fedora, Whonix, Kali, Tails\), CLI / Bash, Virtualization \(VMware, VirtualBox\)) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 36 556.96 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 12.1 cm
+q
+BT 1 0 0 1 0 1.9 Tm 10.6 TL /F2 8.7 Tf 0 0 0 rg (Security & Infrastructure) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.6 1.5 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 12.5 Tm /F1 8.7 Tf 10.6 TL (Key Management Infrastructure \(KMI\), Cryptography \(RSA, Hashing, Key Exchange\), OPSEC, Secure) Tj T* (Communications, Zero-Trust Key Handling) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 36 544.36 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 1.5 cm
+q
+BT 1 0 0 1 0 1.9 Tm 10.6 TL /F2 8.7 Tf 0 0 0 rg (Tools & Frameworks) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.6 1.5 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F1 8.7 Tf 10.6 TL (Git, GitHub, VS Code, Supabase, REST APIs, ONNX, Stripe) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 36 531.76 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 1.5 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F2 8.7 Tf 10.6 TL (Languages \(Spoken\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 111.6 1.5 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F1 8.7 Tf 10.6 TL (English \(Native\), Japanese \(Beginner\)) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 42 514.76 cm
+q
+BT 1 0 0 1 0 1.2 Tm 11 TL /F2 9.8 Tf 0 0 0 rg (TECHNICAL PROJECTS & HACKATHONS) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 510.56 cm
+0 0 0 RG
+.7 w
+n 0 1 m 528 1 l S
+Q
+q
+1 0 0 1 42 508.06 cm
+Q
+q
+1 0 0 1 36 496.26 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 1 cm
+q
+BT 1 0 0 1 0 1.9 Tm 10.8 TL /F2 8.9 Tf 0 0 0 rg (FocusHear) Tj /F1 8.9 Tf ( \227 Real-Time Assistive Communication Platform) Tj T* ET
+Q
+Q
+q
+1 0 0 1 367.2 1 cm
+q
+BT 1 0 0 1 0 1.9 Tm 15.4925 0 Td 10.8 TL /F2 8.9 Tf 0 0 0 rg (1st Place) Tj /F1 8.9 Tf (, SDGs to Startups 2026 \(SIT\)) Tj T* -15.4925 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 36 484.46 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 1 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F3 8.9 Tf 10.8 TL (Featured Project \227 OpenAI x Tokyo AI Hackathon \(Build with OpenAI\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 367.2 1 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F1 8.9 Tf 10.8 TL 133.7112 0 Td (Jun. 2026) Tj T* -133.7112 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 42 463.26 cm
+q
+BT 1 0 0 1 1 12.5 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+0 0 0 rg
+BT 1 0 0 1 10 12.5 Tm /F1 8.7 Tf 10.6 TL .5 0 Td (Built a working prototype in a 48-hour window using a GPT-4o and ElevenLabs Scribe pipeline for real-time speaker diarization,) Tj T* -0.5 0 Td (selective listening, and color-coded live transcription.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 440.86 cm
+q
+BT 1 0 0 1 1 12.5 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+0 0 0 rg
+BT 1 0 0 1 10 12.5 Tm /F1 8.7 Tf 10.6 TL .5 0 Td (Implemented the secure backend: Supabase Auth for authenticated user sessions, Stripe billing, and access-controlled storage of) Tj T* -0.5 0 Td (saved voice and face profiles.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 418.46 cm
+q
+BT 1 0 0 1 1 12.5 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+0 0 0 rg
+BT 1 0 0 1 10 12.5 Tm /F1 8.7 Tf 10.6 TL .5 0 Td (Trained and deployed an ONNX-based LSTM model for ASL fingerspelling via hand-position tracking; engineered secure real-time) Tj T* -0.5 0 Td (audio workflows and live sound-alert translation.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 415.26 cm
+Q
+q
+1 0 0 1 36 403.46 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 1 cm
+q
+BT 1 0 0 1 0 1.9 Tm 10.8 TL /F2 8.9 Tf 0 0 0 rg (TabeTalk) Tj /F1 8.9 Tf ( \227 AI-Powered Automated Bill-Splitting App) Tj T* ET
+Q
+Q
+q
+1 0 0 1 367.2 1 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F1 8.9 Tf 10.8 TL 30.9874 0 Td (Builders Weekend 2026 | Mar. 2026) Tj T* -30.9874 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 42 382.26 cm
+q
+BT 1 0 0 1 1 12.5 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+0 0 0 rg
+BT 1 0 0 1 10 12.5 Tm /F1 8.7 Tf 10.6 TL .5 0 Td (Engineered a dining application using real-time voice recognition to attribute individual orders and auto-assign costs on receipt scan,) Tj T* -0.5 0 Td (delivered within a 48-hour build window.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 370.46 cm
+q
+BT 1 0 0 1 1 1.9 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+0 0 0 rg
+BT 1 0 0 1 10 1.9 Tm /F1 8.7 Tf 10.6 TL .5 0 Td (Integrated VoiceOS, ElevenLabs, and RevenueCat APIs to build end-to-end voice and payment workflows across a 5-person team.) Tj T* -0.5 0 Td ET
+Q
+Q
+q
+1 0 0 1 42 367.26 cm
+Q
+q
+1 0 0 1 36 355.46 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 1 cm
+q
+BT 1 0 0 1 0 1.9 Tm 10.8 TL /F2 8.9 Tf 0 0 0 rg (Freelance Web & Portfolio Development) Tj /F1 8.9 Tf ( \227 ) Tj /F3 8.9 Tf (kadysenglish.com, carlmasters.com) Tj T* ET
+Q
+Q
+q
+1 0 0 1 367.2 1 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F1 8.9 Tf 10.8 TL 91.6676 0 Td (Nov. 2025 \226 Present) Tj T* -91.6676 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 42 334.26 cm
+q
+BT 1 0 0 1 1 12.5 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+0 0 0 rg
+BT 1 0 0 1 10 12.5 Tm /F1 8.7 Tf 10.6 TL .5 0 Td (Designed and deployed responsive client and personal sites from scratch in HTML, CSS, and vanilla JavaScript, featuring DOM) Tj T* -0.5 0 Td (manipulation, custom animations, and secure web form handling.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 317.26 cm
+q
+BT 1 0 0 1 0 1.2 Tm 11 TL /F2 9.8 Tf 0 0 0 rg (EMPLOYMENT & PROFESSIONAL EXPERIENCE) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 313.06 cm
+0 0 0 RG
+.7 w
+n 0 1 m 528 1 l S
+Q
+q
+1 0 0 1 42 310.56 cm
+Q
+q
+1 0 0 1 36 287.96 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 11.8 cm
+q
+BT 1 0 0 1 0 1.9 Tm 10.8 TL /F2 8.9 Tf 0 0 0 rg (United States Marine Corps) Tj /F1 8.9 Tf ( \227 ) Tj /F3 8.9 Tf (Field Artillery Radar Operator & KMI Custodian) Tj T* ET
+Q
+Q
+q
+1 0 0 1 367.2 1 cm
+q
+BT 1 0 0 1 0 12.7 Tm 75.8612 0 Td 10.8 TL /F1 8.9 Tf 0 0 0 rg (Okinawa, JP & NC, USA) Tj  T* 8.8644 0 Td (Jun. 2022 \226 Jun. 2025) Tj T* -84.7256 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 42 256.16 cm
+q
+BT 1 0 0 1 1 23.1 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+BT 1 0 0 1 10 23.1 Tm .5 0 Td 10.6 TL /F2 8.7 Tf 0 0 0 rg (Cryptographic Security Management:) Tj /F1 8.7 Tf ( Served as Key Management Infrastructure \(KMI\) Custodian, enforcing Zero-Trust handling) Tj T* -0.5 0 Td (protocols for cryptographic key distribution, accountability, and secure key loading on L3Harris AN/PRC-117G and AN/PRC-152) Tj T* (encrypted radio systems.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 233.76 cm
+q
+BT 1 0 0 1 1 12.5 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+BT 1 0 0 1 10 12.5 Tm .5 0 Td 10.6 TL /F2 8.7 Tf 0 0 0 rg (Systems Reliability & Operations:) Tj /F1 8.7 Tf ( Operated and calibrated multimillion-dollar radar infrastructure \(AN/TPS-80, AN/TPQ-48/46\)) Tj T* -0.5 0 Td (under pressure, maintaining 99%+ operational readiness for real-time data transmission to command elements.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 211.36 cm
+q
+BT 1 0 0 1 1 12.5 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+BT 1 0 0 1 10 12.5 Tm .5 0 Td 10.6 TL /F2 8.7 Tf 0 0 0 rg (Commendation:) Tj /F1 8.7 Tf ( Awarded the Navy and Marine Corps Achievement Medal for flawless cryptographic security management across a) Tj T* -0.5 0 Td (three-year enlistment.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 194.36 cm
+q
+BT 1 0 0 1 0 1.2 Tm 11 TL /F2 9.8 Tf 0 0 0 rg (LEADERSHIP & EXTRACURRICULAR) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 190.16 cm
+0 0 0 RG
+.7 w
+n 0 1 m 528 1 l S
+Q
+q
+1 0 0 1 42 187.66 cm
+Q
+q
+1 0 0 1 36 175.86 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 1 cm
+q
+BT 1 0 0 1 0 1.9 Tm 10.8 TL /F2 8.9 Tf 0 0 0 rg (Cybersecurity Newsletter Club) Tj /F1 8.9 Tf (, Temple University Japan \227 ) Tj /F3 8.9 Tf (Founder & Lead) Tj T* ET
+Q
+Q
+q
+1 0 0 1 367.2 1 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F1 8.9 Tf 10.8 TL 112.4402 0 Td (2026 \226 Present) Tj T* -112.4402 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 42 154.66 cm
+q
+BT 1 0 0 1 1 12.5 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+0 0 0 rg
+BT 1 0 0 1 10 12.5 Tm /F1 8.7 Tf 10.6 TL .5 0 Td -0.0499 Tw (Founded the organization to research, analyze, and publish technical security insights and emerging threat trends for the student body;) Tj T* 0 Tw -0.5 0 Td (leads content direction, technical review, and contributor onboarding.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 36 141.66 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 1 cm
+q
+BT 1 0 0 1 0 1.9 Tm 10.8 TL /F2 8.9 Tf 0 0 0 rg (UI/UX Hackathon) Tj /F1 8.9 Tf (, Temple University Japan \227 ) Tj /F3 8.9 Tf (1st Place Winner) Tj T* ET
+Q
+Q
+q
+1 0 0 1 367.2 1 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.9 Tm /F1 8.9 Tf 10.8 TL 132.7322 0 Td (Mar. 2026) Tj T* -132.7322 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 42 120.46 cm
+q
+BT 1 0 0 1 1 12.5 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+0 0 0 rg
+BT 1 0 0 1 10 12.5 Tm /F1 8.7 Tf 10.6 TL .5 0 Td (Refactored a broken legacy web interface into a clean, user-centered design under a tight time constraint, outperforming all competing) Tj T* -0.5 0 Td (teams.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 103.46 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 1.2 Tm /F2 9.8 Tf 11 TL (EDUCATION) Tj T* ET
+Q
+Q
+q
+1 0 0 1 42 99.26 cm
+0 0 0 RG
+.7 w
+n 0 1 m 528 1 l S
+Q
+q
+1 0 0 1 42 96.76 cm
+Q
+q
+1 0 0 1 36 74.16 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 0 11.8 cm
+q
+BT 1 0 0 1 0 1.9 Tm 10.8 TL /F2 8.9 Tf 0 0 0 rg (Temple University Japan) Tj /F1 8.9 Tf ( \227 B.S. in Cybersecurity) Tj T* ET
+Q
+Q
+q
+1 0 0 1 367.2 1 cm
+q
+BT 1 0 0 1 0 12.7 Tm 119.3733 0 Td 10.8 TL /F1 8.9 Tf 0 0 0 rg (Tokyo, Japan) Tj  T* -56.4171 0 Td (Sep. 2025 \226 Expected 2029) Tj T* -62.9562 0 Td ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 42 63.56 cm
+q
+BT 1 0 0 1 1 1.9 Tm /F1 10 Tf 12 TL 0 0 0 rg (\177) Tj ET
+BT 1 0 0 1 10 1.9 Tm .5 0 Td 10.6 TL /F2 8.7 Tf 0 0 0 rg (Relevant Coursework:) Tj /F1 8.7 Tf ( Python Programming, C Programming, Object-Oriented Programming with Java, Discrete Mathematics.) Tj T* -0.5 0 Td ET
+Q
+Q
+ 
+
+endstream
 endobj
 9 0 obj
 <<
-/Annots [ 4 0 R 5 0 R 6 0 R 7 0 R ] /Contents 13 0 R /MediaBox [ 0 0 612 792 ] /Parent 12 0 R /Resources <<
-/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
->> /Rotate 0 
-  /Trans <<
-
->> /Type /Page
+/F1 10 0 R
+/F2 11 0 R
+/F3 12 0 R
 >>
 endobj
 10 0 obj
 <<
-/PageMode /UseNone /Pages 12 0 R /Type /Catalog
+/BaseFont /Helvetica
+/Encoding /WinAnsiEncoding
+/Name /F1
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 11 0 obj
 <<
-/Author (Carl Christopher Masters) /CreationDate (D:20260730081020+00'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20260730081020+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
-  /Subject (\(unspecified\)) /Title (Carl Christopher Masters - Resume) /Trapped /False
+/BaseFont /Helvetica-Bold
+/Encoding /WinAnsiEncoding
+/Name /F2
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 12 0 obj
 <<
-/Count 1 /Kids [ 9 0 R ] /Type /Pages
+/BaseFont /Helvetica-Oblique
+/Encoding /WinAnsiEncoding
+/Name /F3
+/Subtype /Type1
+/Type /Font
 >>
 endobj
 13 0 obj
 <<
-/Filter [ /ASCII85Decode /FlateDecode ] /Length 4104
+/Author (Carl Christopher Masters)
+/CreationDate (D\07220260730081020\05300\04700\047)
+/Creator (\050unspecified\051)
+/Keywords ()
+/ModDate (D\07220260730081020\05300\04700\047)
+/Producer (ReportLab PDF Library \055 \050opensource\051)
+/Subject (\050unspecified\051)
+/Title (Carl Christopher Masters \055 Resume)
+/Trapped /False
 >>
-stream
-Gau`V=d.Q1&q9SYaHq&Am!ou\EQu-I`n68F++r'Qc\>d6W;oX#8ZMr^M>?]=AP(nF(:`0AgYiDsTK9CLpbKT8l.!L5?2a4CM-ekWr^J9k+F?ShWL7:XBkY9Vh[@+7Bc>K8RTcVKnbBYgIZESE0N6j]L?V>^A<>[.KaaN=dIjs!C#Q&Ydb19X):RMQ1:$94Ru?6Y0)LqtS6/"<r?p:uVY^:*#k/f4*=?43[R(u%XgNCt^!Y<QY0kKqd$4`]Zn=S7;(4Gpg#:a6XO0*AM1A.aJ+e*cLZmnRQL$KM`-0L"U\AFirmqaeY:W2+auIeC31S)9n\RQds1t$Y%$nd%2()YsNcuUPjT.*qj8k7+f'A`r4WfS_8leQ'G2sLS(YhU6$[CU?(S's=4ZRHKV2K/iAj)ZY%_FB/oiYM<=W]b>GIsJe2-nrt>>OQ7[oL"!]9up=)-YVTqPlb,lh9nT5P_(=W(Meff@3u=X*g\agD=%Keh7(^?qDpe9.-@5`tJoa;(90*.ioZDhDDWP/j1/VUSMgAD'f3i1PH=8PJpk>Td7lf)5JNUZK3k4-/Ad^$3U'3m^jZ^kuP,I\eMCc8/d/$PgE%>'R73DM'uZJ;US$l32*/S`7ta_jM[N9%Hk!P(7mm;E`6`;bR8#;9GqJ<R`/0AYk4/if,[ED3Pq[r\0@e\",efG(9c?ef?Y.#fJHS?5d;#B.0P;.Od8rF8.2MaeAHgt4[s`QE$T]0WT2.grpZgs(18(f.B1_fNAV^*PT40daR2V(.kaA65r2)]6Cbo6BpSRD4\:?K8$6)g5E'gmmr5U)(L^.8@[VFL,qPQ48i<p+@6O:LP4U$%8%rqcJh4-hi/-)3#\;.0'tBAW]I75HMC`%@':)\12+$*1cl;;.'sJj_R*NPc9#>,F>@3%d9[h5W?!c"if?fR)jdfS5[Y><dgi/R^`L^CH!5hCl%7@f/p'k+2=t_/&jG3'4c\I5j!a"m-KqG<m\mFB@&V=9!:cro/n_a[%QI&CHL2MCYPE1Hl4WI^3N<UATmmlECF`Ns@8*`>h"G%Z>7j3[q>!8Vn5?*e]-o$]O.?73Q3doXeH.[mL3u5Xp'6BQ]4f>IK)#Mf'*ok,/#IF0Up3aA>(\ZtcHsf+gno#&7@,5oDRf4&5W=l_*E_eR)9QY.!9,d5Plo3BjNXh],hFKSaTqW(ER!2o4pVQZ>A0Vs>T72A!a!3XC=!Cesk]\[T1HbY0JIUc@I`X=RIIJ`!s7Fd(eCnYQ]k=:od.Cu9eLIi`-&iBGq^_>D'H0sYIP3WN1IrWd!UJ^Q:u;)mO]([$[;>?u`9P6/Tl'iHN.Ej@pC:*;>k6eSh6"R70R/Z]r[[$5DT>nCWWb#*CB1a;P:XW9p3Sj5*JQi9Qh2U/%'RSDmb<$b>7],Bs":T+>h26=FlBr5(5]"]n7aYbD!Ko:3/_*KIDhlpM"0+bWmoVLIh7@OAZR;mP<hXurDSRm#'8Zp(>.mZ0"+ZLW9Ph"YTpoGF-Z9f&GsO9/`!M2fo,K)QKd-L\`YKt4GgrJh/HaX=C1V)n,)gtp!q0kftq0h<OoOVh29>i-9$9gc$4ub:W>tM(FQo6ZbHg;/@e#GW_Ssd8I[\T:PR8jM%kEpk0g>ll8)j)d/blH9i5.9<E$6[JI,'Xf[A!8;%V$:d\8kbrJL/b?WokJlaI1s+ehUPCS:S`)UK_aG\$8*W.(u&WR*H;8^(i%iA7ac/EJK[Mf^Bb^KnF-_`su]k1[S1AC)FGI9uFV5$i'K@0B+u_4pYK#G-b%"!]oO;@fSPRn^#[j1KX>iE[449"R0e*Xk"CVImHNFmm$"on/L<YMYo@5O"`!g(EXPSNoE-2mosi_--r/,>JSN`N(UW\qq+/&mK[D'*HC?S.rWLZ0Q##9)0Wspq^'+'B7_a.ObFhF(nF+"6Nj;:1fY[ME<L-f)mPIMjrF$AW<fWM=b4q%P48].Kbs0Gp=^/_mo+WS[`otk:,%oU<61]FcnVLAtpd;J!?Blb`oY)Jad&["i$i^r)X*j0AHCqI?6Ca\-!KO`C"]<hTJL5S4QZ*pUBu2Ne?Lk:lr\jmpf7YU?7t=$>3@b(+TerKq=M"ko"GnXZuE)R@Mj*hVDYWO3sgF$Ul'NQ'@CQDU]J&:t/X-T]MJf8P;%$YI)ul`\`=JA.1Cr8u%Y!'`5((@H&a&L-ms@"M[jVCKZM)V7(hXTh:HX?Do&]#0r\o>ihYN#i]&)^5UOr>CH$e?NhbqQ)V"8r!E`/i`'TLWO.A/G9djq8+i?jXY^0I%@>41?bmiM(3k7rZA/6RoPG/Lg!G'$Nk#C'/dtApUuZ43;r-?dI<kn;#P1^LEjKQZ?sFc@4AZ#5",4?!<*Rii3>1f-2%SbM3oN1L]G^L7![jjJb$aX`/'eBIUbGil;NLq&eHJ3L*WTN11a1)\)A8E0M'FJN)Bm)u5+1TfK.O:b6osSnbtd:)K^<OSI.\P_Z$1-q+9i]oTDb;qGAYn(&m:6m'E4HBJOgM]@=@;$K8\9R2tjU!Hq%S?#j<<:3,t>D&%1[7'[@JV@];NABVg;?4K;5NfkPq2'R19akmMBdIZRLtJ=A5^H0YS#?LQU97j+Q$H!B*qh$J:haIMC3MnVY\<s&C]>4fVRg)rbnl*%sh6A60_fg^N!H;tr9X`?,j,XaK6*t/ab,mWkU1l1`kW"D#f352:Op$A9m!tkK&FeH(I3*[ZC&HU1/$U*q/eS&>n\a-Fe!$i?c%DA/ZaVf2,?XHjL_@gpa/5L4=CkgqZM8d,=fe;<<Me'DR0/6$rq3R<8Bs>rG<LS@DQb=Au7s9CQ#CGn</^3_Ec#>EV?4DXe2f9D4oF'o"F3B1X7'G#*4KBd+j'^1@i*0^oGQhb'gO9)gk,D5T`fgD9I[n8$AA"Um\nAQSpF<,C?IJ_o&ImCLW9f0"n6U_fHqBkEMY*&hm1,sW51DHi1pQ2'o*tE.)V"!%lDpJ$lRnJXbMo1*B1<s1jk&)7K0a<87dC?]O$VMQog-A49hg+`^`URA3EOu*rSq1r_86*&[b86-J,Z`ddnXdZ9?(6"MhI\O.GYlIL-15.FZACT>+LQVD9b9I:t3nO7O)!iO"U&!dO-\<'LI>QTK5gO3"-::!"V3E&,EAGc3;>"Gp22"9;m>_IPVkkFhRBI%55K*N4fTJ[4gR5i1dlo%QoS$#1N7K8+LBpJ!+6BimMk!d]-+Lr;+";\kFU?RQi@=h\!R]c+bke+8$cJ_D%q#i.6^7r+=H*BQ0or^9QtZ7ZGp<hs+hJghcGeLN^*0Nr]9@OBds-min&?@&_5jdc:)'%ls]n84CgVMT]5,WVC4ncQI:Xr#&E6$(F0/<8?k.jen,B@@$mr`,<E]YJb1Nb]@_4hKK_V8gb@+QdQU/5FqUZmBaeB_e+8k]%dI,=]\X+8_pDuq,SNPbO#t7E)NBUc`C%.;f_2KfRH&S=;N4%i8I1QdN@7>-DSEE\3E!eAU3&)KiqDGnn_B=<F'0rmoC)D^(530f820VigL(#2Q^Z3*d^W@8@f9%=F3VLK[DaD@)D#"ZVbm"o@@k\21.CQ<-HbqAmq2O<":,])J0N#>aILqUG.YiW'ZEc<8\4X:rLY21QLr`J&shG7+kPq^801["R:DuXbAo;e+6"s;eEsUXBnrd=;0K@!?1#aVtt_YgG.1(h>CHVZ,&coKrGU#,18i?:^hK[=?:_&ghe+UPpb0pj"ndJ-M@^tBaBAP=Yb%dR/5APh]X1]8*@?'GKoodNe-T:#(9<l?JhcDO2A5;PYpq[?$&'aV"YhKqAJ1K$r5kW3:IL00:Kn.=%U,r$YQ6eQ?kP][<V3j`"3/K#`n#[Eo#]g1s^7YUSJl[OK."$8Yp>"+A)l6qDAVd'ZlsBRqbRk53ME+VU\Zi2a'n`Fo=j@o2.8hr(bT-p$JDjK@?Ap^Xk""itpjI?G#2s5Qk0/I+I%%cf]7;K'*DjHc9p[J^Y^:WNVt+]&(o)SS"'Lccc%>@,9893d?jfGP&`o//djL?\\:ecqg[=D/\`(D+!Wsg.r!eG-`=F?dhNHC`bj?)FVCo<rsL.#W(\5Rt"GGqNUG&ldu&\@@CP<U;1!5nG.1G9c!DZb5UieHL3"R/5qDj&W)4R-r+fqGt9Uf%ri5\j8~>endstream
 endobj
 xref
 0 14
 0000000000 65535 f 
-0000000061 00000 n 
-0000000112 00000 n 
-0000000219 00000 n 
-0000000331 00000 n 
-0000000526 00000 n 
-0000000695 00000 n 
-0000000876 00000 n 
-0000001051 00000 n 
-0000001166 00000 n 
-0000001397 00000 n 
-0000001467 00000 n 
-0000001779 00000 n 
-0000001839 00000 n 
+0000000015 00000 n 
+0000000083 00000 n 
+0000000142 00000 n 
+0000000367 00000 n 
+0000000577 00000 n 
+0000000760 00000 n 
+0000000985 00000 n 
+0000001180 00000 n 
+0000012854 00000 n 
+0000012908 00000 n 
+0000013016 00000 n 
+0000013129 00000 n 
+0000013245 00000 n 
 trailer
 <<
-/ID 
-[<7abcecb9682bae2748b4979cc4581c67><7abcecb9682bae2748b4979cc4581c67>]
-% ReportLab generated PDF document -- digest (opensource)
-
-/Info 11 0 R
-/Root 10 0 R
 /Size 14
+/Root 1 0 R
+/Info 13 0 R
+/ID [ <7abcecb9682bae2748b4979cc4581c67> <7abcecb9682bae2748b4979cc4581c67> ]
 >>
 startxref
-6035
+13596
 %%EOF
