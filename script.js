@@ -596,9 +596,28 @@ function certThumb(cert) {
     canvas.className = 'cert-thumb';
     canvas.setAttribute('role', 'img');
     canvas.setAttribute('aria-label', cert.name);
-    loadPdf(source)
-      .then(pdf => drawPdfPage(pdf, 1, canvas, 300))
-      .catch(() => canvas.replaceWith(certFallback('PDF certificate')));
+
+    const render = () => {
+      loadPdf(source)
+        .then(pdf => drawPdfPage(pdf, 1, canvas, 300))
+        .catch(() => canvas.replaceWith(certFallback('PDF certificate')));
+    };
+
+    // Image cards get deferred for free by loading="lazy"; a canvas needs the
+    // same thing done by hand, or every visitor pays to fetch and rasterize a
+    // PDF they may never scroll to. The margin mirrors the head start browsers
+    // give lazy images so the page is already drawn by the time it is reached.
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        observer.disconnect();
+        render();
+      }, { rootMargin: '400px' });
+      observer.observe(canvas);
+    } else {
+      render();
+    }
+
     return canvas;
   }
 
@@ -1247,6 +1266,11 @@ if (cursorDot && finePointer && !reduceMotion && window.innerWidth > 1024) {
     ],
     location: ['Tokyo, Japan - Temple University Japan']
   };
+
+  /* The About section is titled "Who Am I", so anyone who catches that and
+     types the real command gets the real answer. Aliased rather than copied so
+     the two can never drift, and kept out of `help` so it stays a find. */
+  COMMANDS.whoami = COMMANDS.about;
 
   function showTerminal() {
     if (isOpen) return;
