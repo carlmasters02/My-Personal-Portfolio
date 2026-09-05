@@ -209,8 +209,33 @@ const preloadLogos = () => {
 if ('requestIdleCallback' in window) requestIdleCallback(preloadLogos);
 else window.addEventListener('load', preloadLogos);
 
-/* Certifications. Empty until real credentials are uploaded. */
-const certs = [];
+/* Certifications.
+   Drop the certificate file in certs/ and add an entry below.
+
+     name     required — shown on the card and as the modal title
+     issuer   required — shown under the name
+     category required — must match a tab: Google | CS50 | CompTIA | Other
+     file     required — path to the certificate
+     thumb    optional — image to use on the card instead of the file itself
+     url      optional — issuer verification page, linked from the modal
+
+   `file` accepts any image the browser can draw (.jpg .jpeg .png .webp .avif
+   .gif .svg) or a .pdf. Cards and the modal detect the format from the
+   extension and render accordingly, so the two can be mixed freely. */
+const certs = [
+  {
+    name:     'Combat Marksmanship Trainer',
+    issuer:   'United States Marine Corps',
+    category: 'Other',
+    file:     'certs/Combat_Marksmanship_Trainer_Certificate.jpeg'
+  },
+  {
+    name:     'HITCON 2026 — Certificate of Participation',
+    issuer:   'Hacks In Taiwan Conference',
+    category: 'Other',
+    file:     'certs/HITCON_2026_Certificate_of_Attendance.pdf'
+  }
+];
 
 /* =============================================================
    UNIFIED MODAL
@@ -486,6 +511,100 @@ const certHamburgerBtn  = $('#certTabsHamburgerBtn');
 const certDropdown      = $('#certTabsDropdown');
 const certDropdownBtns  = certDropdown ? $$('.cert-tab-dropdown', certDropdown) : [];
 
+/* --- Format handling ---------------------------------------------------
+   A certificate arrives as either a plain image or a PDF. Every renderer
+   below branches on that one fact, so the two formats can sit side by side
+   in the same grid without any per-card configuration.
+   ----------------------------------------------------------------------- */
+const IMAGE_FILE = /\.(jpe?g|png|webp|avif|gif|svg)$/i;
+const PDF_FILE   = /\.pdf$/i;
+
+function certFileKind(path = '') {
+  const clean = path.split(/[?#]/)[0];
+  if (PDF_FILE.test(clean))   return 'pdf';
+  if (IMAGE_FILE.test(clean)) return 'image';
+  return 'unknown';
+}
+
+/* pdf.js is already on the page for the resume viewer, so certificates reuse
+   it instead of shipping a second renderer. Documents are cached because a
+   card thumbnail and its modal read the same file. */
+const pdfCache = new Map();
+
+function loadPdf(url) {
+  if (typeof pdfjsLib === 'undefined') {
+    return Promise.reject(new Error('pdf.js unavailable'));
+  }
+  if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+  if (!pdfCache.has(url)) pdfCache.set(url, pdfjsLib.getDocument(url).promise);
+  return pdfCache.get(url);
+}
+
+/* Draw one page at the canvas's own layout width, at device resolution so
+   small print stays readable. */
+function drawPdfPage(pdf, pageNum, canvas, fallbackWidth) {
+  return pdf.getPage(pageNum).then(page => {
+    const width = (canvas.parentElement && canvas.parentElement.clientWidth) || fallbackWidth;
+    const base = page.getViewport({ scale: 1 });
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const viewport = page.getViewport({ scale: (width / base.width) * dpr });
+
+    canvas.width  = viewport.width;
+    canvas.height = viewport.height;
+    canvas.style.width = '100%';
+    canvas.style.height = 'auto';
+
+    return page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
+  });
+}
+
+/* Shown in place of artwork when a file will not load or is not a format the
+   browser can draw. */
+function certFallback(label) {
+  const box = document.createElement('div');
+  box.className = 'cert-file-fallback';
+  const glyph = document.createElement('span');
+  glyph.className = 'cert-file-glyph';
+  glyph.textContent = '📄';
+  const text = document.createElement('span');
+  text.textContent = label;
+  box.append(glyph, text);
+  return box;
+}
+
+/* Card artwork: an <img> for images, a rendered first page for PDFs. An
+   explicit `thumb` always wins and is always treated as an image. */
+function certThumb(cert) {
+  const source = cert.thumb || cert.file;
+  const kind = cert.thumb ? 'image' : certFileKind(source);
+
+  if (kind === 'image') {
+    const img = document.createElement('img');
+    img.className = 'cert-thumb';
+    img.src = source;
+    img.alt = cert.name;
+    img.loading = 'lazy';
+    img.addEventListener('error', () => img.replaceWith(certFallback('Preview unavailable')));
+    return img;
+  }
+
+  if (kind === 'pdf') {
+    const canvas = document.createElement('canvas');
+    canvas.className = 'cert-thumb';
+    canvas.setAttribute('role', 'img');
+    canvas.setAttribute('aria-label', cert.name);
+    loadPdf(source)
+      .then(pdf => drawPdfPage(pdf, 1, canvas, 300))
+      .catch(() => canvas.replaceWith(certFallback('PDF certificate')));
+    return canvas;
+  }
+
+  return certFallback('Unsupported file');
+}
+
 function renderCertGrid(category = 'All') {
   if (!certGrid) return;
   certGrid.replaceChildren();
@@ -516,11 +635,6 @@ function renderCertGrid(category = 'All') {
     card.type = 'button';
     card.className = 'cert-card';
 
-    const img = document.createElement('img');
-    img.src = cert.image;
-    img.alt = cert.name;
-    img.loading = 'lazy';
-
     const name = document.createElement('div');
     name.className = 'cert-name';
     name.textContent = cert.name;
@@ -529,10 +643,108 @@ function renderCertGrid(category = 'All') {
     issuer.className = 'cert-issuer';
     issuer.textContent = cert.issuer;
 
-    card.append(img, name, issuer);
+    card.append(certThumb(cert), name, issuer);
     card.addEventListener('click', () => openCertModal(cert));
     certGrid.appendChild(card);
   });
+}
+
+/* Multi-page PDFs get the same paging affordance as the resume viewer. */
+function certPdfViewer(cert) {
+  const wrap = document.createElement('div');
+  wrap.className = 'cert-pdf-viewer';
+
+  const stage = document.createElement('div');
+  stage.className = 'cert-pdf-stage';
+  const canvas = document.createElement('canvas');
+  canvas.className = 'cert-modal-canvas';
+  canvas.setAttribute('role', 'img');
+  canvas.setAttribute('aria-label', cert.name);
+  stage.appendChild(canvas);
+  wrap.appendChild(stage);
+
+  const nav = document.createElement('div');
+  nav.className = 'cert-pdf-nav';
+  nav.hidden = true;
+
+  const prev = document.createElement('button');
+  prev.type = 'button';
+  prev.className = 'cert-pdf-btn';
+  prev.textContent = '‹';
+  prev.setAttribute('aria-label', 'Previous page');
+
+  const counter = document.createElement('span');
+  counter.className = 'cert-pdf-count';
+  counter.setAttribute('aria-live', 'polite');
+
+  const next = document.createElement('button');
+  next.type = 'button';
+  next.className = 'cert-pdf-btn';
+  next.textContent = '›';
+  next.setAttribute('aria-label', 'Next page');
+
+  nav.append(prev, counter, next);
+  wrap.appendChild(nav);
+
+  let doc = null;
+  let page = 1;
+  let busy = false;
+
+  function show(n) {
+    if (!doc || busy) return;
+    busy = true;
+    page = n;
+    counter.textContent = `${page} / ${doc.numPages}`;
+    prev.disabled = page <= 1;
+    next.disabled = page >= doc.numPages;
+    drawPdfPage(doc, page, canvas, 700)
+      .then(() => { busy = false; })
+      .catch(() => {
+        busy = false;
+        stage.replaceChildren(certFallback('Could not render this certificate'));
+      });
+  }
+
+  prev.addEventListener('click', () => show(page - 1));
+  next.addEventListener('click', () => show(page + 1));
+
+  loadPdf(cert.file).then(pdf => {
+    doc = pdf;
+    if (pdf.numPages > 1) nav.hidden = false;
+    // Measure against the opened modal, not a zero-width body.
+    requestAnimationFrame(() => show(1));
+  }).catch(() => {
+    stage.replaceChildren(certFallback('Could not load this certificate'));
+  });
+
+  return wrap;
+}
+
+/* Both formats get a way out of the modal: PDFs can run past the preview and
+   images can be larger than the card allows. */
+function certActions(cert) {
+  const row = document.createElement('div');
+  row.className = 'cert-actions';
+
+  const open = document.createElement('a');
+  open.className = 'btn btn-outline';
+  open.href = cert.file;
+  open.target = '_blank';
+  open.rel = 'noopener noreferrer';
+  open.textContent = 'Open full certificate';
+  row.appendChild(open);
+
+  if (cert.url) {
+    const verify = document.createElement('a');
+    verify.className = 'btn btn-primary';
+    verify.href = cert.url;
+    verify.target = '_blank';
+    verify.rel = 'noopener noreferrer';
+    verify.textContent = 'Verify';
+    row.appendChild(verify);
+  }
+
+  return row;
 }
 
 function openCertModal(cert) {
@@ -540,12 +752,23 @@ function openCertModal(cert) {
     title: cert.name,
     size: 'modal-lg',
     render: root => {
-      const img = document.createElement('img');
-      img.className = 'cert-modal-img';
-      img.src = cert.image;
-      img.alt = cert.name;
-      root.appendChild(img);
+      const kind = certFileKind(cert.file);
+
+      if (kind === 'image') {
+        const img = document.createElement('img');
+        img.className = 'cert-modal-img';
+        img.src = cert.file;
+        img.alt = cert.name;
+        img.addEventListener('error', () => img.replaceWith(certFallback('Preview unavailable')));
+        root.appendChild(img);
+      } else if (kind === 'pdf') {
+        root.appendChild(certPdfViewer(cert));
+      } else {
+        root.appendChild(certFallback('Unsupported file'));
+      }
+
       root.appendChild(para(cert.issuer));
+      root.appendChild(certActions(cert));
     }
   });
 }
@@ -575,8 +798,18 @@ if (certHamburgerBtn && certDropdown) {
   });
 }
 
-/* With no certifications loaded, the category filter is noise — hide it. */
-if (!certs.length) {
+/* The category filter only earns its space when there is something to filter.
+   Drop any tab with no certificates behind it so nobody clicks through to a
+   dead panel, and hide the row entirely when one category holds everything. */
+const certCategories = new Set(certs.map(c => c.category));
+
+[...certTabs, ...certDropdownBtns].forEach(btn => {
+  if (btn.dataset.category !== 'All' && !certCategories.has(btn.dataset.category)) {
+    btn.remove();
+  }
+});
+
+if (certCategories.size < 2) {
   if (certTabsEl) certTabsEl.style.display = 'none';
   if (certHamburgerWrap) certHamburgerWrap.style.display = 'none';
 }

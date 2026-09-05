@@ -1115,14 +1115,40 @@ body.cursor-none * { cursor: none !important; }
   color: var(--faint);
 }
 
-.cert-card img {
+/* One rule covers both card formats: <img> for images, <canvas> for the
+   first page of a PDF. */
+.cert-card .cert-thumb {
+  display: block;
   width: 100%;
   border-radius: var(--radius-sm);
   margin-bottom: 1rem;
   border: 1px solid var(--line);
+  background: var(--bg);
 }
 .cert-name { color: var(--heading); font-size: 1.05rem; font-weight: 700; }
 .cert-issuer { color: var(--muted); font-size: 0.85rem; font-family: var(--font-mono); }
+
+/* Stand-in for artwork that will not load or is not a drawable format. */
+.cert-file-fallback {
+  width: 100%;
+  min-height: 130px;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px dashed var(--green-line);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--faint);
+  text-align: center;
+  padding: 1rem;
+}
+.cert-file-glyph { font-size: 1.6rem; filter: grayscale(0.2); }
 
 /* =============================================================
    RESUME
@@ -1671,13 +1697,73 @@ body.cursor-none * { cursor: none !important; }
 .modal-body p { font-size: 0.94rem; color: var(--muted); line-height: 1.75; }
 
 /* Cert modal */
-.cert-modal-img {
+.cert-modal-img,
+.cert-modal-canvas {
+  display: block;
   width: 100%;
   max-height: 60vh;
   object-fit: contain;
   border-radius: var(--radius-sm);
   border: 1px solid var(--line);
   margin-bottom: 1.1rem;
+  background: var(--bg);
+}
+/* A PDF page is taller than it is wide, so let it scroll inside the modal
+   rather than shrinking it past readability. */
+.cert-pdf-stage {
+  max-height: 60vh;
+  overflow-y: auto;
+  border-radius: var(--radius-sm);
+}
+.cert-pdf-stage .cert-modal-canvas {
+  max-height: none;
+  margin-bottom: 0;
+}
+.cert-pdf-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0.9rem 0 0.2rem;
+}
+/* A single-page certificate hides the pager via [hidden]; the display rule
+   above would otherwise win against the user-agent default. */
+.cert-pdf-nav[hidden] { display: none; }
+.cert-pdf-btn {
+  width: 38px; height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--green);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.25s, background 0.25s, transform 0.25s var(--ease);
+}
+.cert-pdf-btn:hover:not(:disabled) {
+  border-color: var(--green);
+  background: var(--green-soft);
+  transform: scale(1.08);
+}
+.cert-pdf-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+.cert-pdf-count {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  min-width: 5ch;
+  text-align: center;
+}
+.cert-pdf-viewer .cert-file-fallback { margin-bottom: 0; min-height: 200px; }
+
+.cert-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
 }
 
 body.modal-open { overflow: hidden !important; }
