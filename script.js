@@ -216,7 +216,8 @@ else window.addEventListener('load', preloadLogos);
      issuer   required — shown under the name
      category required — must match a tab: Google | CS50 | CompTIA | Other
      file     required — path to the certificate
-     thumb    optional — image to use on the card instead of the file itself
+     preview  optional — image shown on the card and in the modal instead of
+                         rendering `file`; `file` stays the linked document
      url      optional — issuer verification page, linked from the modal
 
    `file` accepts any image the browser can draw (.jpg .jpeg .png .webp .avif
@@ -233,7 +234,11 @@ const certs = [
     name:     'HITCON 2026 — Certificate of Participation',
     issuer:   'Hacks In Taiwan Conference',
     category: 'Other',
-    file:     'certs/HITCON_2026_Certificate_of_Attendance.pdf'
+    file:     'certs/HITCON_2026_Certificate_of_Attendance.pdf',
+    // pdf.js drops the recipient name from this PDF: it is set in an embedded
+    // CFF CID font pdf.js cannot draw, at every version tested. Display a
+    // faithful render instead; `file` still downloads the original.
+    preview:  'certs/HITCON_2026_Certificate_of_Attendance.webp'
   }
 ];
 
@@ -576,10 +581,10 @@ function certFallback(label) {
 }
 
 /* Card artwork: an <img> for images, a rendered first page for PDFs. An
-   explicit `thumb` always wins and is always treated as an image. */
+   explicit `preview` always wins and is always treated as an image. */
 function certThumb(cert) {
-  const source = cert.thumb || cert.file;
-  const kind = cert.thumb ? 'image' : certFileKind(source);
+  const source = cert.preview || cert.file;
+  const kind = cert.preview ? 'image' : certFileKind(source);
 
   if (kind === 'image') {
     const img = document.createElement('img');
@@ -771,12 +776,17 @@ function openCertModal(cert) {
     title: cert.name,
     size: 'modal-lg',
     render: root => {
-      const kind = certFileKind(cert.file);
+      // A `preview` image stands in for the document itself. Some PDFs embed
+      // fonts pdf.js cannot draw, which silently drops text from the page; a
+      // faithful pre-rendered image avoids showing a certificate with pieces
+      // missing, while `file` below still links to the untouched original.
+      const source = cert.preview || cert.file;
+      const kind = cert.preview ? 'image' : certFileKind(source);
 
       if (kind === 'image') {
         const img = document.createElement('img');
         img.className = 'cert-modal-img';
-        img.src = cert.file;
+        img.src = source;
         img.alt = cert.name;
         img.addEventListener('error', () => img.replaceWith(certFallback('Preview unavailable')));
         root.appendChild(img);
