@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-A fully static personal portfolio for Carl Masters, a first-year Cybersecurity student at Temple University Japan (Tokyo). The site is built with vanilla HTML, CSS, and JavaScript — no framework. The only backend is a Supabase project used for article comments.
+A fully static personal portfolio for Carl Masters, a second-year Cybersecurity student at Temple University Japan (Tokyo) and U.S. Marine Corps veteran. The site is built with vanilla HTML, CSS, and JavaScript — no framework. The only backend is a Supabase project used for article comments.
 
-**Live domain:** carlmasters.com  
+**Live domain:** carlmasters.com
 **Repo:** github.com/carlmasters02/My-Personal-Portfolio (branch: `main`)
 
 ---
@@ -15,14 +15,19 @@ A fully static personal portfolio for Carl Masters, a first-year Cybersecurity s
 Carl_Masters_Portfolio/
 ├── index.html                  # Main single-page portfolio
 ├── styles.css                  # All global styles (matrix green theme)
-├── infinite-skill-stream.css   # Scrolling skill ticker animation
-├── script.js                   # All JS for index.html
+├── script.js                   # All JS for index.html (also loaded by article pages)
 ├── article-cybersecurity.html  # Blog article page
 ├── article-privacy.html        # Blog article page
 ├── article-resume.html         # Blog article page
-├── resume.pdf                  # Embedded and downloadable resume
-├── resume-embed.html           # Standalone resume embed page
+├── carl_masters_resume.pdf     # Embedded and downloadable resume
+├── resume-embed.html           # Standalone resume embed page (plain <embed>)
 ├── favicon.svg                 # Site favicon
+├── certs/                      # Certificate files rendered in the cert grid
+│   ├── Combat_Marksmanship_Trainer_Certificate.jpeg
+│   ├── HITCON_2026_Certificate_of_Attendance.pdf
+│   └── HITCON_2026_Certificate_of_Attendance.webp
+├── icons/                      # 24px skill logos (webp) used in modals
+│   └── c, css, git, github, html, java, javascript, python, terminal, vscode (.webp)
 └── PORTFOLIO_REFERENCE.md      # This file
 ```
 
@@ -30,325 +35,202 @@ Carl_Masters_Portfolio/
 
 ## Design System
 
-### Color Palette
+### Color Palette (CSS custom properties in `styles.css` `:root`)
 | Variable | Value | Use |
 |---|---|---|
-| `--green` / `--accent` | `#00ff41` | Primary accent, borders, text, glows |
-| `--green-dim` | `#00cc33` | Hover states, gradient ends |
-| `--bg` | `#000000` / `#0d0f14` | Page background |
-| `--bg-card` | `#0a0f0a` | Card backgrounds |
-| `--surface` | `#181b22` | Modal/overlay surfaces |
-| `--text` | `#e8eaf0` | Body text |
-| `--text-muted` | `rgba(255,255,255,0.6)` | Secondary text |
-| `--border` | `#252933` | Default borders |
+| `--green` | `#00ff41` | Primary accent, borders, text, glows |
+| `--green-hi` | `#6dff96` | Bright green highlight |
+| `--green-dim` | `#0e9a3e` | Muted/hover green |
+| `--green-soft` / `--green-line` | `rgba(0,255,65,0.07)` / `0.16` | Fills and hairline borders |
+| `--line-strong` | `rgba(0,255,65,0.28)` | Emphasized borders |
+| `--bg` / `--bg-elev` | `#06090b` / `#0a0e11` | Page background layers |
+| `--surface` / `--surface-2` | `#0c1114` / `#10161a` | Card surfaces |
+| `--panel` | `#0d1310` | Panel backgrounds |
+| `--line` | `rgba(148,190,168,0.10)` | Default borders |
+| `--text` | `#d8e4dc` | Body text |
+| `--heading` | `#f2fff6` | Headings |
+| `--muted` / `--faint` | `#8fa398` / `#5c6f65` | Secondary/tertiary text |
+| `--danger` | `#ff6b6b` | Error states |
 
-### Fonts
-- **Body text:** `Inter` (Google Fonts)
-- **Headings:** `Space Grotesk` (Google Fonts)
-- **Monospace / code / UI labels:** `JetBrains Mono`, `Share Tech Mono`, `Fira Mono` (Google Fonts)
+### Type / shape tokens
+- `--font-sans`: `Inter` · `--font-display`: `Space Grotesk` · `--font-mono`: `JetBrains Mono` (Google Fonts; note: Share Tech Mono / Fira Mono are **no longer loaded**)
+- Radii: `--radius` 16px, `--radius-md` 12px, `--radius-sm` 8px
+- `--shadow`, `--glow` (green), easings `--ease` / `--ease-out`, `--dur` 0.5s, `--max-w` 1120px
+- A legacy variable block at the end of `:root` is kept for the article pages.
 
 ### Theme
-Matrix hacker aesthetic — black background, `#00ff41` green everywhere, green glows (`box-shadow: 0 0 32px #00ff41cc`), green text shadows, animated matrix rain canvas in the background.
+Matrix hacker aesthetic — near-black background, `#00ff41` green accents, green glows, animated matrix rain canvas behind everything. Motion respects `prefers-reduced-motion`: the `reduceMotion` flag in `script.js` disables the rain, scramble, typing, custom cursor and reveal animations and shows content statically.
 
 ---
 
 ## index.html — Section by Section
 
-### Background Layer
-- **`#matrix-canvas`** — `<canvas>` fixed behind everything at `z-index: -1`, opacity `0.22`. Animated matrix rain (Japanese katakana + `0`/`1` characters) drawn via `script.js`.
-- **`#custom-cursor`** — Small `10px` green dot that replaces the system cursor on desktop (`> 768px`). Has a trail of fading dots and a radar-ping expand animation on click. Disabled on mobile.
-
----
+### Background / chrome layer
+- **`#matrix-canvas`** — `<canvas>` fixed behind everything, `aria-hidden`. Animated matrix rain (katakana + `0`/`1`) drawn via `script.js` at ~20fps; paused when the tab is hidden.
+- **`#scrollProgress`** — thin top progress bar, `scaleX` driven by scroll.
+- **`#custom-cursor`** — green dot replacing the system cursor on desktop only: `hover:hover and pointer:fine`, width > 1024px. Click spawns a `.cursor-ping` radar ring. Body gets `.cursor-none`.
 
 ### Navigation (`#navbar`)
-**Element:** `<nav id="navbar">`
+- Fixed top, transparent → `.scrolled` (blur + background) after 40px scroll. `.menu-open` while the mobile menu is active.
+- Logo `CM` with blinking `.logo-cursor`, links back to `#home`.
+- Nav links: **About, Skills, Projects, Background, Resume, Blog, Contact** (Contact has `.nav-cta` pill styling).
+- A **`.nav-indicator`** sliding underline is created by JS and tracks hover / active section (desktop > 980px only, skips the CTA).
+- Hamburger (`#hamburger`) opens the full-screen overlay menu (`nav-links.mobile-open`). Closes on link click or outside click.
 
-- Fixed to top, full width, `z-index: 1000`.
-- Transparent by default; gets `background: rgba(13,15,20,0.85)` + `backdrop-filter: blur(12px)` + bottom border when `scrolled` class is added (after 40px scroll).
-- Drops blur/background when `menu-open` class is active (mobile menu open).
+### Hero (`#home`)
+- `.hero-greeting` "Hello world. I'm"
+- `.hero-name` "CARL MASTERS" with a **text-scramble decode animation** (`data-scramble`); each letter rendered in a fixed-width cell so scrambling never reflows.
+- `.hero-typing` typing animation cycling six phrases: CYBERSECURITY STUDENT, ASPIRING CYBERSECURITY ENGINEER, INTERNATIONAL STUDENT, DATA PRIVACY ENTHUSIAST, WEB DEVELOPER, PROBLEM SOLVER.
+- `.hero-sub`: "Second-year cybersecurity student at Temple University Japan, based in Tokyo."
+- Buttons: **View My Work** (filled), **Contact Me** (outline), **Open Terminal** (outline) — the last opens the terminal easter egg, also triggered by typing `hello` anywhere.
 
-**Logo:** "CM" text with a blinking green underscore cursor (`logo-cursor` element).
+### About (`#about`) — `01 / about`, "Who Am I"
+Two-column `.about-grid`. Left: bio paragraphs + three stat counters. Right: `.code-window` fake Python class card (`about_me.py`, macOS traffic-light dots).
 
-**Nav links:** Home, About, Skills, Projects, Education, Certifications, Resume, Blog, Contact. All uppercase, `Share Tech Mono` font. The "Contact" link has `nav-cta` class — rendered as a green-bordered pill button.
+Stats (animated count-up on scroll, each opens the drill-down modal):
+| Stat | Current target | Source array in script.js |
+|---|---|---|
+| Real Projects | `4` | `projects` |
+| Languages | `6` | `languages` |
+| Hackathons | `7` | `hackathons` |
 
-**Mobile hamburger:** Three-span button (`#hamburger`). Opens a full-screen overlay menu (`nav-links.mobile-open`) at `z-index: 1002`. Hamburger transforms into an × when open. Auto-closes on outside click or any link click.
+### Skills (`#skills`) — `02 / skills`, "What I Know"
+Four `.skill-category` buttons in a 2×2 grid, each opening the category → skill modal:
 
----
-
-### Hero Section (`#home`)
-**Element:** `<section id="home" class="hero">`
-
-Content is centered vertically and horizontally with `min-height: 100svh`.
-
-| Element | Description |
+| Category | Contents |
 |---|---|
-| `.hero-greeting` | "Hello world. I'm" — small monospace text, fade-up animation on load |
-| `.hero-name` | "CARL MASTERS" — large, `clamp(2.8rem, 7vw, 5.5rem)`, green glow text shadow |
-| `.hero-typing` | Typing animation cycling through role phrases (see `script.js`) |
-| `.hero-sub` | "First-year cybersecurity student based in Tokyo, Japan" |
-| `.hero-buttons` | Three buttons: **VIEW MY WORK** (filled green), **CONTACT ME** (outline), **OPEN TERMINAL** (outline) |
+| Languages | Python, C, Java, HTML, CSS, JavaScript |
+| Core Concepts | Discrete Mathematics 1, Precalculus, Linux, OOP, Basic Digital Privacy, Basic Cybersecurity |
+| Tools | Git, GitHub, VS Code, Terminal / CLI |
+| Currently Learning | Calculus, System Design, AI / Machine Learning |
 
-**OPEN TERMINAL button (`#openTerminalBtn`):** Triggers the terminal easter egg modal. The terminal can also be triggered by typing the word `hello` anywhere on the page (keyboard buffer listener in `script.js`).
+Descriptions live in the `skillData` object in `script.js` (`Languages` is derived from the `languages` array so the two never drift). Logos from `skillLogos` (icons/*.webp) only render when every skill in the category has one.
 
----
+### Projects (`#projects`) — `03 / projects`, "What I've Built"
+Vertical `.timeline` of **products only**, four items, newest first:
 
-### About Section (`#about`)
-**Label:** `01 / about`
-
-Two-column grid (`.about-grid`): left = text + stats, right = code card.
-
-**Left side:**
-- Two paragraphs of bio text in `#00ff41`.
-- Three clickable stat counters (`.about-stats`):
-  - `4` Real Projects
-  - `5` Languages
-  - `3` Hackathons
-  - Numbers animate from 0 to target when the section scrolls into view (IntersectionObserver + `animateCounter()`).
-  - Clicking any stat opens the **About Modal** showing a drill-down list (projects, languages, or hackathons), then a detail view.
-
-**Right side (`.about-card`):**
-- Fake Python code block styled like a code editor (macOS traffic light dots, filename `about_me.py`).
-- Shows a `CarlMasters` class with `school`, `year`, `skills`, `focus`, `based`, and a `greet()` method.
-- On hover: green glow (`box-shadow: 0 0 36px 8px #00ff41cc`).
-
----
-
-### Skills Section (`#skills`)
-**Label:** `02 / skills`
-
-2×2 grid (`.skills-grid`) of skill category cards (`.skill-category`):
-
-| Category | Skills |
-|---|---|
-| Languages | Python, C, HTML, CSS, JavaScript |
-| Web | Responsive Design, DOM Manipulation, Flexbox/Grid, Web Forms |
-| Tools | Git, GitHub, VS Code, Terminal/CLI |
-| Currently Learning | Basic Cybersecurity, Digital Privacy, Operating Systems, AI/ML, Discrete Mathematics, Precalculus, Java |
-
-Each card has:
-- A `data-category` attribute.
-- Clicking opens the **Skill Explore Modal** (`#skillExploreModal`) — shows skill buttons for that category; clicking a skill shows a description.
-- On hover: lifts up (`translateY(-7px) scale(1.035)`), green glow border.
-
----
-
-### Infinite Skill Stream (`#infinite-skill-stream`)
-**Element:** `<section id="infinite-skill-stream">`
-
-Three horizontal scrolling rows of skill tags (`.skill-stream-row`). Each row is a `.skill-stream-track` containing the full list of skills duplicated once for a seamless CSS keyframe loop. Row 1 scrolls left, Row 2 scrolls right (`.row2`), Row 3 also scrolls left (`.row3`) — creating a layered parallax effect. Animation is handled entirely in `infinite-skill-stream.css`.
-
----
-
-### Projects Section (`#projects`)
-**Label:** `03 / projects`
-
-Vertical timeline layout (`.timeline`) — same structure as the Education section. Five timeline items in chronological order:
-
-| Date | Project | Tags | Link |
+| Date | Project | Anchor | Notes |
 |---|---|---|---|
-| Nov. 2025 – Present | This Portfolio | HTML, CSS, JS, Supabase, Responsive Design, DOM Manipulation, Git | carlmasters.com |
-| Jan. 2026 – Present | Freelance English Teacher Site | HTML, CSS, JS, Responsive Design, Flexbox / Grid, Web Forms | kadysenglish.com |
-| March 2026 | UI/UX Hackathon — 1st Place | UI/UX Design, Prototyping, Wireframing, etc. | — |
-| March 2026 | Builders Weekend 2026 Hackathon (TabeTalk) | Voice AI, Real-time Recognition, Bill Splitting, etc. | — |
-| June 2026 | SDGs to Startups Hackathon 2026 — 1st Place (FocusHear) | Voice AI, ElevenLabs, Assistive Technology, SDG 10, etc. | — |
+| June 2026 | **FocusHear** (`is-live`, win-badge "1st Place") | `#focushear` | focus-hear-app.vercel.app · 3 hackathon-boxes (Core Features / The Rebuild / Team) + tag pills |
+| March 2026 | **TabeTalk** | `#tabetalk` | Builders Weekend 2026 · 2 hackathon-boxes (Tech & Sponsors / Team) + tag pills |
+| Jan 2026 – Present | **Freelance English Teacher Site** (`is-live`) | — | kadysenglish.com |
+| Nov 2025 – Present | **This Portfolio** (`is-live`) | — | carlmasters.com |
 
-Each item (`.timeline-item`):
-- Fades in with stagger via IntersectionObserver + `visible` class (observed via `#projects .timeline-item` and `.timeline-item` selectors in `script.js`).
-- The Builders Weekend and SDGs to Startups items include `.hackathon-boxes` — a 2×2 grid of info cards (Team, Tech/Features, Sponsor, Organizers).
-- Clicking a tag pill opens the **Skill Card Modal** with a description from `skillDefinitions`.
+`is-live` marks ongoing/live projects; `.win-badge` marks 1st-place wins; `.hackathon-boxes` are the grid of info articles under a card; tag pills (`.timeline-tags span`) open a definition modal from `skillDefinitions`.
 
----
+### Background (`#education`) — `04 / background`, "Where I've Been"
+Two subsections on one page.
 
-### Education / Timeline Section (`#education`)
-**Label:** `04 / my background`
+**Education & Career** timeline (3 items): B.S. Cybersecurity at Temple University Japan (2025–Present, `is-live`) · U.S. Marine Corps 0842 Field Artillery Radar Operator + KMI Custodian (2021–2025) · High School Diploma, Lake Minneola HS (2017–2021). Military entries link out to official references (AN/TPS-80, AN/TPQ-48, AN/TPQ-46, KMI, CMC, CMT).
 
-Vertical timeline (`.timeline`) with a gradient green left border line. Three timeline items (`.timeline-item`) covering background only — hackathons and projects have been moved to the Projects section:
+**Events & Competitions** timeline (11 items, newest first):
 
-1. **2017–2021** — High School Diploma, Lake Minneola High School, Minneola, FL
-2. **2021–2025** — United States Marine Corps, 0842 Field Artillery Radar Operator, Okinawa, Japan & Camp Lejeune, NC. Secondary billet: KMI Custodian. Schools: Combat Marksmanship Coach + Trainer.
-3. **2025–Present** — B.S. Cybersecurity, Temple University Japan, Tokyo
+| Date | Event | Notes |
+|---|---|---|
+| Oct 2026 | Tokyo Agent Hackathon | +81 Builders / Neo4j / ai& sponsors; solo; built **AI Wargame** (red-vs-blue LLM wargame on Neo4j); 2 hackathon-boxes (+81 Builders links to plus81builders.com/en; Neo4j and ai& link to neo4j.com / aiand.com); external `event-link` + in-text "AI Wargame" link to github.com/carlmasters02/ai-wargame |
+| Aug 2026 | HITCON 2026 | Taipei; 2 hackathon-boxes (Day One / Day Two) |
+| Jul 2026 | Cursor Tokyo AI Meetup | Chiyoda City |
+| Jul 2026 | Engineering Real World AI with Google and Google DeepMind | Google Japan, Shibuya |
+| Jul 2026 | Agent Forge AI Hackathon | Solo; 2 hackathon-boxes (Tech Stack / Hosts & Partners) |
+| Jul 2026 | ai& × Moonshot Tokyo Hackathon Night | 2 hackathon-boxes (Team / Sponsors & Hosts) |
+| Jul 2026 | Vibe Coders Tokyo — Local Models with Gemma 4 | Google Shibuya |
+| Jun 2026 | OpenAI x Tokyo AI — Build with OpenAI | `event-link` → `#focushear` |
+| Jun 2026 | SDGs to Startups Hackathon 2026 (1st Place) | win-badge; `event-link` → `#focushear` |
+| Mar 2026 | Builders Weekend 2026 | `event-link` → `#tabetalk` |
+| Mar 2026 | UI/UX Hackathon (1st Place) | TUJ; win-badge |
 
-Each item:
-- Has a green dot (`.timeline-dot`) on the timeline line.
-- Contains date, title, organization, description paragraphs, and tag pills (`.timeline-tags span`).
-- Timeline items animate in from the left when scrolled into view.
-- **Clicking a timeline item** (but not a link or tag) opens the **Timeline Event Modal** (`#timelineEventModal`) — a full-width modal cloning the item's content for easy reading.
-- **Clicking a tag pill** opens the **Skill Card Modal** (`#skillCardModal`) with a description of that skill. All tag descriptions are defined in the large `skillDefinitions` object in `index.html`.
+`.event-link` = small green "See X" anchor linking either to an internal project anchor (`#focushear`, `#tabetalk`) or an external repo (opens in a new tab with `rel="noopener noreferrer"`).
 
----
+### Credentials (`#resume`) — `05 / credentials`
+Two parts on one page.
 
-### Certifications Section (`#certifications`)
-**Label:** `05 / certifications`
+**Resume viewer:** pdf.js (cdnjs v3.11.174, pinned with `integrity` hash) renders `carl_masters_resume.pdf` onto `#resumeCanvas` inside a `.resume-window` styled like an editor chrome bar. Prev/Next buttons (`#resumePrevBtn` / `#resumeNextBtn`), page indicator (`#resumePageIndicator`), download button (`#downloadResumeBtn`). Renders at device pixel ratio (capped at 2×); a 20s watchdog and error paths replace the canvas with a "use the download button" message instead of spinning forever. **The old `resume_preview.jpg` fallback no longer exists.**
 
-Category tab bar (`.cert-tabs`) with: All, Google, CS50, CompTIA, Other.
+**Certifications:** category tabs (`All, Google, CS50, CompTIA, Other`) + a hamburger dropdown variant on small screens. The grid (`#certGrid`) is rendered from the `certs` array in `script.js`. Tabs with no certs behind them are removed automatically; the tab bar hides entirely if fewer than two categories have certs. With 2 active certs (both `Other`), the grid shows real cards; an empty category would show a single "IN PROGRESS / 🔒" card. Card thumbnails and the cert modal handle both images and PDFs (PDFs reused via the pdf.js instance already on the page, with a `pdfCache`; PDF thumbs lazy-render via IntersectionObserver). The HITCON PDF uses `preview:` — its `.webp` render — because pdf.js cannot draw the embedded CFF CID font (would drop the recipient name); `file` still links/downloads the original PDF.
 
-- On desktop: horizontal pill buttons.
-- On mobile (≤600px): tabs hidden, replaced by a hamburger button (`#certTabsHamburgerBtn`) that opens a dropdown (`.cert-tabs-dropdown`).
-- The cert grid (`#certGrid`) is rendered by JS (`renderCertGrid()`).
-- The `certs` array in `script.js` is currently **empty**, so the grid shows 6 placeholder "CLASSIFIED / 🔒" cards.
-- When certs exist: clicking a card opens a **cert preview modal** (`certModal`) showing the image, name, and issuer.
-
-**To add a certification:** Push an object to the `certs` array at the top of `script.js`:
-```js
-{ name: 'CompTIA Security+', issuer: 'CompTIA', category: 'CompTIA', image: 'path/to/image.png' }
-```
-
----
-
-### Resume Section (`#resume`)
-**Label:** `06 / resume`
-
-PDF viewer rendered via `pdf.js` (CDN: `cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174`). The resume is loaded from `resume.pdf`.
-
-- Displayed inside a green-glowing card (`.resume-card-glow`) on an HTML `<canvas id="resumeCanvas">`.
-- Prev/Next arrow buttons (`#resumePrevBtn`, `#resumeNextBtn`) for multi-page PDFs. Hidden if only 1 page.
-- Page indicator label (`#resumePageIndicator`).
-- Download button (`#downloadResumeBtn`) — direct download of `resume.pdf`.
-- Fallback: if `pdfjsLib` fails to load, a `resume_preview.jpg` image is shown instead.
-- Scales responsively to container width on resize.
-
----
-
-### Blog Section (`#blog`)
-**Label:** `07 / blog`
-
-3-column grid (`.blog-grid`, drops to 2 col at 900px, 1 col at 580px) of blog cards (`.blog-card`):
+### Blog (`#blog`) — `06 / blog`, "My Articles"
+3 cards (`.blog-card`), same as before:
 
 | Article | Tag | File |
 |---|---|---|
 | How to Write a Resume That Actually Gets Read | Career Advice | `article-resume.html` |
 | Everyday Cybersecurity Habits That Actually Matter | Cybersecurity | `article-cybersecurity.html` |
-| The Privacy Stack: Open Source and Encrypted Alternatives | Privacy | `article-privacy.html` |
+| The Privacy Stack: Open Source and Encrypted Alternatives for Every App You Use | Privacy | `article-privacy.html` |
 
-Each card has: tag pill, title, preview text, and a "READ MORE" button linking to the article file.
+### Contact (`#contact`) — `07 / contact`, "Let's Talk"
+- Lead paragraph states internship/entry-level goals (SOC analyst, pentesting, security research, cybersecurity engineering).
+- Formspree form `https://formspree.io/f/mreonwao`: Name / Email / Subject / Message (+ hidden `_subject`). Validated in JS; errors from Formspree's JSON response are surfaced verbatim in `#formStatus`.
+- Icon links: Email (`carl.masters.professional@protonmail.com`), GitHub (`carlmasters02`), LinkedIn (`carl-masters-724951297`).
+- Tokyo clock (`#tokyo-time`): `TOKYO HH:MM:SS JST`, updated every second.
 
----
+### Footer + back-to-top
+"Designed & Built by Carl Masters" / "© 2026 — All rights reserved". `#backToTopBtn` appears after 400px scroll.
 
-### Contact Section (`#contact`)
-**Label:** "Let's Talk"
-
-- Contact form (`#contactForm`) submits via **Formspree** (`https://formspree.io/f/mreonwao`). Fields: Name, Email, Subject, Message. Hidden `_subject` field. Validated in `script.js` before sending.
-- On success/error: status message shown in `#formStatus`.
-- Three circular icon-only link buttons (`.contact-icon-btn`): **Email** (`carl.masters.professional@protonmail.com`), **GitHub** (`carlmasters02`), **LinkedIn** (`carl-masters-724951297`).
-- **Tokyo time display** (`#tokyo-time`): live `Asia/Tokyo` clock updated every second in the format `TOKYO TIME (JST): HH:MM:SS`.
-
----
-
-### Footer
-Simple centered footer. "Designed & Built by Carl Masters" + "© 2026".
-
----
-
-### Back to Top Button (`#backToTopBtn`)
-Fixed green circle button at bottom-right. Appears after scrolling 300px (`visible` class toggles opacity). Smooth scrolls to top on click.
+### Unified modal (`#modal`)
+A **single overlay** (`#modal` → `#modalCard` / `#modalTitle` / `#modalBody` / `#modalClose`) serves every modal on the site instead of the old per-feature modals. The `Modal` module in `script.js` provides `open({ title, size, render })` / `close()` with focus trap, Escape, overlay-click close, and focus restoration. Sizes used: default, `modal-sm` (tag definitions), `modal-lg` (certs). Renderers build DOM with `listButton` / `detailView` / `para` helpers. Article pages load `script.js` but contain no modal markup — the module degrades to a no-op.
 
 ---
 
 ## script.js — Feature Reference
 
+Data at top of file: `projects` (4), `languages` (6, with `logo` paths), `hackathons` (7), `skillData` (4 categories), `skillDefinitions` (timeline tag pills), `skillLogos`, `certs` (2).
+
 | Feature | Trigger / Location | Notes |
 |---|---|---|
-| Home menu scroll-to-top | `#homeMenuBtn` click | Smooth scrolls to top |
-| About modal | `.stat` click | Shows projects/languages/hackathons list; drill-down to detail view |
-| Skill Explore modal | `.skill-category` click | Two-level: category → skill description |
-| Terminal easter egg | Type `hello` anywhere OR `#openTerminalBtn` click | Full terminal UI with commands: `help`, `about`, `clear`, `exit`, `skills`, `location` |
-| Binary decode reveal | Section scroll into view | IntersectionObserver flashes `0`/`1` overlay over each section for ~1 second on first reveal |
-| Back to Top button | Scroll > 300px | Toggles `visible` class |
-| Custom cursor | Desktop only (>768px) | Green dot tracks mouse; trail dots fade out; radar ping on click |
-| Certifications grid | Page load | Renders from `certs[]` array; shows placeholder cards if empty |
-| Resume PDF viewer | Page load | pdf.js CDN; page nav; download button |
-| Typing animation | Page load | Cycles phrases in `.hero-typing` |
-| Matrix rain | Constant | Canvas animation, `setInterval(drawMatrix, 50)` |
-| Navbar scroll state | `scroll` event | Adds `scrolled` class after 40px |
-| Active nav link | `scroll` event | Highlights link matching current section |
-| Mobile hamburger | `#hamburger` click | Full-screen overlay nav |
-| Animated stat counters | IntersectionObserver | Counts from 0 to `data-target` value |
-| Project card reveal | IntersectionObserver | Fade-in with stagger delay per card |
-| Timeline item reveal | IntersectionObserver | Slide-in from left, stagger delay |
-| Skill card modal | Any `.skill-tag` click | Shows skill title + description from `skillDefinitions` |
-| Timeline event modal | `.timeline-item` click | Clones and displays timeline item content |
-| Contact form | Submit event | Validates → Formspree POST → shows success/error |
-| Tokyo time clock | `setInterval(1000)` | Live JST clock in contact section |
+| Unified modal | All modal features | Focus trap, Escape, restore focus; no-op on article pages |
+| About stats → drill-down modal | `.stat[data-stat]` click | `statViews` maps projects/languages/hackathons → list → detail |
+| Skill category modal | `.skill-category` click | Category → skill description two-level view |
+| Timeline tag pill modal | `.timeline-tags span` click | Definition from `skillDefinitions`; pills are keyboard-accessible (tabindex/role/Enter/Space) |
+| Logo preload | `requestIdleCallback` | Warms all icons/*.webp so modals never pop in empty |
+| Certifications grid | Page load | `renderCertGrid()`; image + PDF thumbnails; dead tabs removed; tab bar hidden when < 2 categories |
+| Cert modal | Cert card click | `preview`/`file` handling; multi-page PDF viewer with prev/next; "Open full certificate" + optional "Verify" (`cert.url`) buttons |
+| Navbar scroll state | `scroll` | `.scrolled` after 40px (suppressed while mobile menu open) |
+| Active nav link + sliding indicator | `scroll` / hover / resize / fonts ready | `.active` on current section; `.nav-indicator` underlines it (desktop only) |
+| Mobile hamburger | `#hamburger` click | Full-screen overlay menu; outside-click and link-click close |
+| Scroll progress bar | `scroll` / `resize` | `scaleX` on `#scrollProgress` |
+| Back to top | Scroll > 400px | Smooth scroll (instant under reduced motion) |
+| Scroll reveal | IntersectionObserver on `.reveal` | Adds `.in`, `--rd` stagger per timeline item; `.drawn` on the timeline draws the spine; `--dot-delay` pops each dot as the spine passes |
+| Stat counters | IntersectionObserver (0.5) | rAF ease-out cubic count to `data-target` over 1400ms |
+| Hero name scramble | Page load (fonts ready) | Fixed-width glyph cells; runs once |
+| Hero typing | Page load (900ms delay) | Six phrases, 70/40ms type/delete cadence |
+| Matrix rain | Constant | rAF throttled to ~20fps; stops on `visibilitychange` |
+| Custom cursor | Desktop fine pointer, >1024px | `translate3d` dot + `.cursor-ping` on click |
+| Terminal easter egg | Type `hello` OR `#openTerminalBtn` | Boots a fake OS; commands: `help`, `about`, `skills`, `projects`, `location`, `clear`, `exit`, plus hidden `whoami` alias of `about` |
+| Tokyo clock | `setInterval(1000)` | `TOKYO HH:MM:SS JST` chip in contact |
+| Resume PDF viewer | Page load | pdf.js, 20s watchdog, DPR-capped render, re-render on resize |
+| Contact form | Submit | Validates → Formspree POST → success/error in `#formStatus`; surfaces server error messages |
+
+**Reduced motion:** `prefers-reduced-motion: reduce` short-circuits rain, scramble, typing, cursor, counters, reveals and smooth scroll.
 
 ---
 
 ## Article Pages
 
-All three article pages share the same structure and are self-contained HTML files (no external JS except Supabase and `script.js`).
+Three self-contained articles sharing one structure: CSP meta (Supabase allow-listed in `connect-src`), `styles.css`, Google Fonts, small inline comment-section styles, pinned Supabase UMD script, then nav + `.article-page` main (back link, `.article-tag` pill, H1, `.article-body`, comments) + `script.js`.
 
-### Shared Structure
-```
-Head:
-  - CSP meta tag (connect-src allows Supabase)
-  - styles.css link
-  - Google Fonts
-  - Inline article-specific styles (comments section styles)
-  - Supabase CDN script (pinned to @2.108.2)
+| File | Title | Tag | `POST_SLUG` |
+|---|---|---|---|
+| `article-cybersecurity.html` | Everyday Cybersecurity Habits That Actually Matter | Cybersecurity | `article-cybersecurity` |
+| `article-privacy.html` | The Privacy Stack: Open Source and Encrypted Alternatives | Privacy | `article-privacy` |
+| `article-resume.html` | How to Write a Resume That Actually Gets Read | Career Advice | `article-resume` |
 
-Body:
-  - #custom-cursor
-  - #matrix-canvas
-  - <nav> (links back to index.html sections)
-  - <main class="article-page">
-      - Back to Blog link
-      - Article tag pill
-      - Article title (h1)
-      - Article body (.article-body)
-      - Comments section
-  - script.js
-```
-
-### Article Files
-
-| File | Title | Tag |
-|---|---|---|
-| `article-cybersecurity.html` | Everyday Cybersecurity Habits That Actually Matter | Cybersecurity |
-| `article-privacy.html` | The Privacy Stack: Open Source and Encrypted Alternatives | Privacy |
-| `article-resume.html` | The International Resume Blueprint | Career Advice |
-
-### Comments System
-
-Each article has an inline comment section at the bottom powered by **Supabase**.
+### Comments system (Supabase)
 
 **Active Supabase project:**
-- **Name:** My Personal Portfolio
-- **Project ID:** `nrwqzxxqivsknkxusdjq`
-- **URL:** `https://nrwqzxxqivsknkxusdjq.supabase.co`
-- **Region:** `ap-northeast-1` (Tokyo)
-- **Status:** ACTIVE_HEALTHY
+- **Name:** My Personal Portfolio · **Project ID:** `nrwqzxxqivsknkxusdjq`
+- **URL:** `https://nrwqzxxqivsknkxusdjq.supabase.co` · **Region:** `ap-northeast-1` (Tokyo) · **Status:** ACTIVE_HEALTHY
+- The `anon` key is inlined in each article page (`SUPABASE_ANON_KEY`).
 
-**Database table:** `public.comments`
+**Table:** `public.comments` — `id uuid`, `post_slug text`, `name text`, `message text`, `created_at timestamptz`.
+**RLS:** `comments_select_public` (anon SELECT), `comments_insert_public` (anon INSERT).
+**Form:** name + message, honeypot (`#comment-hp`), oldest-first display.
 
-| Column | Type | Default |
-|---|---|---|
-| `id` | `uuid` | `gen_random_uuid()` |
-| `post_slug` | `text` | — |
-| `name` | `text` | — |
-| `message` | `text` | — |
-| `created_at` | `timestamptz` | `now()` |
-
-**RLS Policies:**
-- `comments_select_public` — `anon` role can SELECT all rows
-- `comments_insert_public` — `anon` role can INSERT
-
-**Post slugs used:**
-- `article-cybersecurity`
-- `article-privacy`
-- `article-resume`
-
-**Comment form features:**
-- Name + message fields (no email, no auth required)
-- Honeypot field (`#comment-hp`) for basic spam filtering
-- On submit: inserts to Supabase, then reloads comment list
-- Comments displayed oldest-first with name, formatted date/time, and message
-
-**Supabase CDN script (all 3 articles):**
+**Pinned Supabase CDN (all 3 articles):**
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/dist/umd/supabase.min.js"
   integrity="sha384-JWEyvHh+lRf0sN/WWY+QTQwX+CyWqmNg4tkc8GQzAMEtR2wGNrCJlvnu1lHD1kDm"
   crossorigin="anonymous"></script>
 ```
-> The URL is pinned to `@2.108.2`. If Supabase releases a new version and you want to upgrade, you must recompute the SHA384 hash: `curl -s <new-url> | openssl dgst -sha384 -binary | openssl base64 -A`
 
 ---
 
@@ -356,9 +238,9 @@ Each article has an inline comment section at the bottom powered by **Supabase**
 
 | Dependency | Used In | Version / Source |
 |---|---|---|
-| Google Fonts (Inter, JetBrains Mono, Space Grotesk, Share Tech Mono) | All pages | fonts.googleapis.com |
+| Google Fonts (Inter, Space Grotesk, JetBrains Mono) | All pages | fonts.googleapis.com |
 | Supabase JS | Article pages | `@2.108.2` via jsDelivr CDN |
-| pdf.js | `index.html` (resume viewer) | `3.11.174` via cdnjs |
+| pdf.js | `index.html` (resume + cert PDFs) | `3.11.174` via cdnjs (SRI-pinned) |
 | Formspree | `index.html` (contact form) | `f/mreonwao` |
 
 ---
@@ -375,10 +257,10 @@ Each article has an inline comment section at the bottom powered by **Supabase**
 
 ## Content Security Policy
 
-**`index.html` CSP:**
+**`index.html`:**
 ```
 default-src 'self';
-script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+script-src 'self' https://cdnjs.cloudflare.com;
 style-src 'self' fonts.googleapis.com 'unsafe-inline';
 font-src fonts.gstatic.com;
 connect-src 'self' https://formspree.io;
@@ -387,8 +269,9 @@ frame-src 'none';
 object-src 'none';
 worker-src blob: https://cdnjs.cloudflare.com
 ```
+> Note: `'unsafe-inline'` is **not** in `index.html` script-src anymore — all index JS is external (`script.js` + the pinned pdf.js CDN script). If you ever inline a `<script>` block in index.html, you must add `'unsafe-inline'` back.
 
-**Article pages CSP:**
+**Article pages:**
 ```
 default-src 'self';
 script-src 'self' cdn.jsdelivr.net 'unsafe-inline';
@@ -404,25 +287,50 @@ object-src 'none'
 
 ## Common Tasks
 
+**Writing style for event/project descriptions:** no em dashes (`&mdash;`) in the body copy; use periods or commas instead. (Em dashes in `timeline-date` / `timeline-org` metadata are fine ― that is existing convention.)
+
+**Add / update a hackathon (three places):**
+1. Insert a `.timeline-item` at the top of the **Events & Competitions** timeline in `index.html` (newest first), optionally with `.win-badge`, `.hackathon-boxes`, and an `event-link`.
+2. Append an entry to the `hackathons` array at the top of `script.js` (`name`, `desc`, `tags`, `team`) — this feeds the About stat drill-down modal.
+3. Bump the Hackathons `data-target` in the About stats (`index.html`).
+
+**Add a project:**
+Copy an existing `.timeline-item` in `#projects` (use `is-live` if ongoing, give it an `id` if events should deep-link to it) **and** add a matching entry to the `projects` array in `script.js` (feeds the About modal), then bump the Projects `data-target`.
+
 **Add a certification:**
-In `script.js`, push to the `certs` array at the top:
+Drop the file in `certs/` and push onto `certs` in `script.js`:
 ```js
-const certs = [
-  { name: 'CompTIA Security+', issuer: 'CompTIA', category: 'CompTIA', image: 'certs/security-plus.png' }
-];
+{
+  name: 'CompTIA Security+', issuer: 'CompTIA', category: 'CompTIA',
+  file: 'certs/security-plus.pdf',          // image or pdf
+  preview: 'certs/security-plus.webp',       // optional — shown instead of rendering `file`
+  url: 'https://verify.example/...'              // optional Verify button
+}
 ```
+`category` must match a tab (`Google | CS50 | CompTIA | Other`). Tabs/cards/grid all render automatically; use `preview` when pdf.js can't render the PDF faithfully.
 
 **Add a blog article:**
 1. Create `article-newname.html` by copying an existing article file.
-2. Change `POST_SLUG` in the inline script to a unique slug (e.g., `'article-newname'`).
-3. Add a new `.blog-card` div in `index.html` `#blog` section.
+2. Change `POST_SLUG` in the inline script to a unique slug (e.g. `'article-newname'`).
+3. Add a new `.blog-card` in `#blog` in `index.html`.
 
 **Update the resume:**
-Replace `resume.pdf` in the project root. The PDF viewer and download button both reference that filename directly.
+Replace `carl_masters_resume.pdf` in the project root (viewer, download button, and `resume-embed.html` all reference that filename).
 
 **Update the Supabase CDN hash (when upgrading versions):**
 ```bash
 curl -s "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@VERSION/dist/umd/supabase.min.js" \
   | openssl dgst -sha384 -binary | openssl base64 -A
 ```
-Then update the `integrity` attribute and the URL version in all three article files.
+Then update the `integrity` attribute and URL in all three article files.
+
+---
+
+## Key renamed/removed since older notes
+
+- `resume.pdf` → **`carl_masters_resume.pdf`**
+- `infinite-skill-stream.css` and the skill-stream section → **removed**
+- Per-feature modals (`#skillCardModal`, `#skillExploreModal`, `#timelineEventModal`, `certModal`) → **unified `#modal`**
+- Binary-decode section reveal → replaced by the `.reveal` / `.in` + timeline `.drawn` system
+- Placeholder "CLASSIFIED" cert cards → real `certs` array rendering (empty state is a single "IN PROGRESS" card)
+- Timeline items no longer open a cloned-content modal — only tag pills are clickable

@@ -89,6 +89,12 @@ const hackathons = [
     desc: 'A one-day hackathon building production-ready AI agents themed around Tokyo and Japanese culture. Every build had to integrate at least one partner platform, so most of the day went into learning unfamiliar tooling across GPU infrastructure, model APIs, and agentic coding environments.',
     tags: ['AI Agents', 'GPU Infrastructure', 'Model APIs', 'Agentic Coding'],
     team: 'Entered solo.'
+  },
+  {
+    name: 'Tokyo Agent Hackathon (+81 Builders)',
+    desc: 'A one-day hackathon hosted by +81 Builders with Neo4j and ai& as sponsors, on an open-innovation theme: build anything with AI that actually works by sundown. Built AI Wargame, a live red-versus-blue simulation where two LLM agents fight over a procedurally generated corporate network. A DeepSeek attacker hunts the crown-jewel database under fog of war while a Kimi defender triages noisy alerts, with Neo4j as the game board and attack-path engine and ai& serving both models. Matches export as real MITRE ATT&CK Navigator layers and STIX bundles.',
+    tags: ['AI Agents', 'Neo4j', 'Red vs Blue Simulation', 'FastAPI', 'WebSockets', 'MITRE ATT&CK'],
+    team: 'Entered solo.'
   }
 ];
 
