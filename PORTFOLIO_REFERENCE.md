@@ -153,7 +153,7 @@ Two parts on one page.
 
 | Article | Tag | File |
 |---|---|---|
-| How to Write a Resume That Actually Gets Read | Career Advice | `article-resume.html` |
+| Resumes and CVs: How to Write One That Works Anywhere in the World | Career Advice | `article-resume.html` |
 | Everyday Cybersecurity Habits That Actually Matter | Cybersecurity | `article-cybersecurity.html` |
 | The Privacy Stack: Open Source and Encrypted Alternatives for Every App You Use | Privacy | `article-privacy.html` |
 
@@ -212,7 +212,7 @@ Three self-contained articles sharing one structure: CSP meta (Supabase allow-li
 |---|---|---|---|
 | `article-cybersecurity.html` | Everyday Cybersecurity Habits That Actually Matter | Cybersecurity | `article-cybersecurity` |
 | `article-privacy.html` | The Privacy Stack: Open Source and Encrypted Alternatives | Privacy | `article-privacy` |
-| `article-resume.html` | How to Write a Resume That Actually Gets Read | Career Advice | `article-resume` |
+| `article-resume.html` | Resumes and CVs: How to Write One That Works Anywhere in the World | Career Advice | `article-resume` |
 
 ### Comments system (Supabase)
 
