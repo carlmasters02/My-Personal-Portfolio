@@ -82,15 +82,15 @@
             </p>
             <div class="about-stats">
               <button type="button" class="stat" data-stat="projects">
-                <span class="stat-number" data-target="4">0</span>
+                <span class="stat-number">7</span>
                 <span class="stat-label">Real Projects</span>
               </button>
               <button type="button" class="stat" data-stat="languages">
-                <span class="stat-number" data-target="6">0</span>
+                <span class="stat-number">3</span>
                 <span class="stat-label">Languages</span>
               </button>
               <button type="button" class="stat" data-stat="hackathons">
-                <span class="stat-number" data-target="7">0</span>
+                <span class="stat-number">7</span>
                 <span class="stat-label">Hackathons</span>
               </button>
             </div>
@@ -106,8 +106,7 @@
             <pre><code><span class="kw">class</span> <span class="cls">CarlMasters</span>:
     school  = <span class="str">"Temple Univ. Japan"</span>
     year    = <span class="str">"2nd Year Cybersecurity"</span>
-    skills  = [<span class="str">"Python"</span>, <span class="str">"C"</span>,
-               <span class="str">"Java"</span>, <span class="str">"HTML/CSS/JS"</span>]
+    skills  = [<span class="str">"Python"</span>, <span class="str">"C"</span>, <span class="str">"Java"</span>]
     focus   = [<span class="str">"Cybersecurity &amp; Privacy"</span>,
                <span class="str">"Operating Systems"</span>,
                <span class="str">"AI / ML"</span>]
@@ -134,9 +133,6 @@
               <span class="tag">Python</span>
               <span class="tag">C</span>
               <span class="tag">Java</span>
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
             </div>
             <span class="skill-hint">Explore</span>
           </button>
@@ -161,16 +157,44 @@
               <span class="tag">GitHub</span>
               <span class="tag">VS Code</span>
               <span class="tag">Terminal / CLI</span>
+              <span class="tag">Supabase (Auth, Database, Row-Level Security)</span>
+              <span class="tag">Vercel</span>
+              <span class="tag">Cloudflare Workers</span>
+              <span class="tag">LLM APIs (OpenAI, Anthropic, Gemini, ElevenLabs)</span>
+              <span class="tag">Stripe</span>
             </div>
             <span class="skill-hint">Explore</span>
           </button>
 
-          <button type="button" class="skill-category reveal" data-category="Currently Learning" style="--rd:0.24s">
+          <button type="button" class="skill-category reveal" data-category="AI-Assisted Development" style="--rd:0.24s">
+            <h3 class="skill-cat-title">AI-Assisted Development</h3>
+            <div class="skill-tags">
+              <span class="tag">OpenCode</span>
+              <span class="tag">Claude Code</span>
+              <span class="tag">Codex</span>
+              <span class="tag">Cursor</span>
+            </div>
+            <span class="skill-hint">Explore</span>
+          </button>
+
+          <button type="button" class="skill-category reveal" data-category="Environments" style="--rd:0.32s">
+            <h3 class="skill-cat-title">Environments</h3>
+            <div class="skill-tags">
+              <span class="tag">Linux (Fedora, Kali, Whonix, Tails)</span>
+              <span class="tag">virt-manager</span>
+            </div>
+            <span class="skill-hint">Explore</span>
+          </button>
+
+          <button type="button" class="skill-category reveal" data-category="Currently Learning" style="--rd:0.4s">
             <h3 class="skill-cat-title">Currently Learning</h3>
             <div class="skill-tags">
               <span class="tag">Calculus</span>
               <span class="tag">System Design</span>
               <span class="tag">AI / Machine Learning</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">HTML/CSS</span>
             </div>
             <span class="skill-hint">Explore</span>
           </button>
@@ -188,11 +212,51 @@
         </div>
         <div class="timeline">
 
+          <div class="timeline-item is-live reveal" id="aegis">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">September 2026</span>
+              </div>
+              <h3>AEGIS Threat Dashboard</h3>
+              <p class="timeline-org"><a href="https://aegisthreatdashboard.com" target="_blank" rel="noopener noreferrer">aegisthreatdashboard.com</a></p>
+              <p>A live SOC-style dashboard that maps five public threat-intelligence feeds (Cloudflare Radar,
+                 ransomware.live, CISA KEV, SANS ISC DShield, abuse.ch) onto a 3D globe. Nothing is simulated;
+                 when a source is down, its panel says so. A Cloudflare Worker caches every feed on a 5-minute
+                 refresh to respect upstream rate limits.</p>
+              <div class="timeline-tags">
+                <span>Cloudflare Workers</span>
+                <span>Threat Intelligence</span>
+                <span>Data Visualization</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal" id="g2-translator">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">August 2026</span>
+              </div>
+              <h3>G2 Smart Glasses Translator</h3>
+              <p class="timeline-org">GitHub: <a href="https://github.com/carlmasters02/g2-vi-en-realtime" target="_blank" rel="noopener noreferrer">g2-vi-en-realtime</a> &middot; <a href="https://github.com/carlmasters02/g2-relay" target="_blank" rel="noopener noreferrer">g2-relay</a></p>
+              <p>Live Vietnamese-to-English translation for Even Realities G2 smart glasses, whose built-in
+                 translator doesn't support Vietnamese. English appears in the heads-up display about one second
+                 behind the speaker. A Cloudflare Worker relay keeps the OpenAI key server-side and rejects clients
+                 without a shared relay secret, because browsers can't attach auth headers to WebSocket connections.</p>
+              <div class="timeline-tags">
+                <span>OpenAI Realtime API</span>
+                <span>Cloudflare Workers</span>
+                <span>Wearables</span>
+              </div>
+            </div>
+          </div>
+
           <div class="timeline-item is-live reveal" id="focushear">
             <div class="timeline-dot"></div>
             <div class="timeline-content">
               <div class="timeline-meta">
-                <span class="timeline-date">June 2026</span>
+                <span class="timeline-date">June 2026 &ndash; Present</span>
                 <span class="win-badge">1st Place</span>
               </div>
               <h3>FocusHear</h3>
@@ -212,8 +276,8 @@
                 <article class="hackathon-box">
                   <h4>The Rebuild</h4>
                   <p>Vertical Slice Architecture rebuild on a GPT-4o and ElevenLabs Scribe pipeline, Supabase Auth
-                     with Stripe billing, saved voice and face profiles, live caption translation, and a trained
-                     ONNX-based LSTM sign-language model replacing the original demo classifier.</p>
+                     with Stripe billing, saved voice and face profiles, live caption translation, and a sign-language
+                     model (ONNX-based LSTM, trained by teammate Cassady Mead) replacing the original demo classifier.</p>
                 </article>
                 <article class="hackathon-box">
                   <h4>Team</h4>
@@ -227,6 +291,26 @@
                 <span>Sign Language Recognition</span>
                 <span>Assistive Technology</span>
                 <span>Supabase Auth</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item is-live reveal" id="noiflow">
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <div class="timeline-meta">
+                <span class="timeline-date">June 2026 &ndash; Present</span>
+              </div>
+              <h3>NóiFlow AI</h3>
+              <p class="timeline-org"><a href="https://noiflow-ai.vercel.app" target="_blank" rel="noopener noreferrer">noiflow-ai.vercel.app</a></p>
+              <p>A teacher-controlled AI workspace for English classes in Vietnam. Teachers turn lesson vocabulary
+                 into bilingual flashcards, readings, and speaking prompts that students practice with instant AI
+                 feedback. Every AI-generated draft stays under teacher review before publishing, and analytics
+                 surface each class's weakest words.</p>
+              <div class="timeline-tags">
+                <span>Supabase</span>
+                <span>Gemini API</span>
+                <span>Vercel</span>
               </div>
             </div>
           </div>
@@ -268,7 +352,7 @@
             <div class="timeline-dot"></div>
             <div class="timeline-content">
               <div class="timeline-meta">
-                <span class="timeline-date">Jan. 2026 &mdash; Present</span>
+                <span class="timeline-date">Jan. 2026 &ndash; Present</span>
               </div>
               <h3>Freelance English Teacher Site</h3>
               <p class="timeline-org"><a href="https://kadysenglish.com" target="_blank" rel="noopener noreferrer">kadysenglish.com</a></p>
@@ -288,7 +372,7 @@
             <div class="timeline-dot"></div>
             <div class="timeline-content">
               <div class="timeline-meta">
-                <span class="timeline-date">Nov. 2025 &mdash; Present</span>
+                <span class="timeline-date">Nov. 2025 &ndash; Present</span>
               </div>
               <h3>This Portfolio</h3>
               <p class="timeline-org"><a href="https://carlmasters.com" target="_blank" rel="noopener noreferrer">carlmasters.com</a></p>
@@ -323,7 +407,7 @@
             <div class="timeline-dot"></div>
             <div class="timeline-content">
               <div class="timeline-meta">
-                <span class="timeline-date">2025 &mdash; Present</span>
+                <span class="timeline-date">2025 &ndash; Present</span>
               </div>
               <h3>B.S. Cybersecurity</h3>
               <p class="timeline-org">Temple University Japan &mdash; Tokyo, Japan</p>
@@ -331,12 +415,12 @@
                 concepts, and core math for <a href="https://bulletin.temple.edu/undergraduate/science-technology/cybersecurity-bs/#requirementstext" target="_blank" rel="noopener noreferrer">Cybersecurity</a> at <a href="https://www.tuj.ac.jp/" target="_blank" rel="noopener noreferrer">Temple University Japan</a>. Learning
                 to think like a security professional from the ground up.</p>
               <div class="timeline-tags">
-                <span>Network Security</span>
-                <span>Ethical Hacking</span>
-                <span>Algorithms &amp; Data Structures</span>
+                <span>Python Programming</span>
+                <span>C Programming</span>
+                <span>Object-Oriented Programming (Java)</span>
                 <span>Discrete Mathematics</span>
-                <span>Object-Oriented Programming</span>
               </div>
+              <p class="timeline-upcoming"><span>Upcoming:</span> Network Security, Ethical Hacking, Algorithms &amp; Data Structures</p>
             </div>
           </div>
 
@@ -344,7 +428,7 @@
             <div class="timeline-dot"></div>
             <div class="timeline-content">
               <div class="timeline-meta">
-                <span class="timeline-date">2021 &mdash; 2025</span>
+                <span class="timeline-date">2021 &ndash; 2025</span>
               </div>
               <h3>United States Marine Corps</h3>
               <p class="timeline-org">0842 &mdash; Field Artillery Radar Operator &nbsp;|&nbsp; Camp Hansen, Okinawa, Japan &amp; Camp Lejeune, North Carolina, USA</p>
@@ -365,7 +449,7 @@
             <div class="timeline-dot"></div>
             <div class="timeline-content">
               <div class="timeline-meta">
-                <span class="timeline-date">2017 &mdash; 2021</span>
+                <span class="timeline-date">2017 &ndash; 2021</span>
               </div>
               <h3>High School Diploma</h3>
               <p class="timeline-org">Lake Minneola High School &mdash; Minneola, Florida, USA</p>
@@ -663,14 +747,16 @@
         </div>
 
         <h3 class="subsection-title reveal">Certifications</h3>
-        <div class="cert-tabs" id="certTabs">
+        <!-- Filters hidden until certificates span more than one category.
+             Remove `hidden` from both rows below to bring them back. -->
+        <div class="cert-tabs" id="certTabs" hidden>
           <button class="cert-tab active" data-category="All">All</button>
           <button class="cert-tab" data-category="Google">Google</button>
           <button class="cert-tab" data-category="CS50">CS50</button>
           <button class="cert-tab" data-category="CompTIA">CompTIA</button>
           <button class="cert-tab" data-category="Other">Other</button>
         </div>
-        <div class="cert-tabs-hamburger" id="certTabsHamburger">
+        <div class="cert-tabs-hamburger" id="certTabsHamburger" hidden>
           <button class="cert-hamburger-btn" id="certTabsHamburgerBtn" aria-label="Show categories" aria-expanded="false">&#9776;</button>
           <div class="cert-tabs-dropdown" id="certTabsDropdown">
             <button class="cert-tab-dropdown active" data-category="All">All</button>
@@ -695,25 +781,15 @@
 
           <article class="blog-card reveal">
             <div class="blog-card-meta">
-              <span class="blog-tag">AI</span>
-              <span class="blog-readtime">21 min read</span>
+              <span class="blog-tag">Privacy</span>
+              <span class="blog-readtime">53 min read</span>
             </div>
-            <h3 class="blog-card-title">Local AI: How to Run Your Own Models Privately and Securely</h3>
-            <p class="blog-card-preview">Your prompts don't have to leave your computer. How to pick the right hardware and open models, and how to lock down the five layers of risk that come with running AI yourself.</p>
-            <a href="article-local-ai.html" class="blog-read-more">Read more</a>
+            <h3 class="blog-card-title">The Privacy Stack: Open Source and Encrypted Alternatives for Every App You Use</h3>
+            <p class="blog-card-preview">Big Tech apps are convenient, but they come at a cost. These privacy-respecting swaps are just as good, sometimes better.</p>
+            <a href="article-privacy.html" class="blog-read-more">Read more</a>
           </article>
 
           <article class="blog-card reveal" style="--rd:0.1s">
-            <div class="blog-card-meta">
-              <span class="blog-tag">Career Advice</span>
-              <span class="blog-readtime">29 min read</span>
-            </div>
-            <h3 class="blog-card-title">Resumes and CVs: How to Write One That Works Anywhere in the World</h3>
-            <p class="blog-card-preview">Resume or CV? Here's how to build one that gets past the software, holds a recruiter's attention, and fits the country you're applying in.</p>
-            <a href="article-resume.html" class="blog-read-more">Read more</a>
-          </article>
-
-          <article class="blog-card reveal" style="--rd:0.2s">
             <div class="blog-card-meta">
               <span class="blog-tag">Cybersecurity</span>
               <span class="blog-readtime">34 min read</span>
@@ -723,14 +799,24 @@
             <a href="article-cybersecurity.html" class="blog-read-more">Read more</a>
           </article>
 
+          <article class="blog-card reveal" style="--rd:0.2s">
+            <div class="blog-card-meta">
+              <span class="blog-tag">AI</span>
+              <span class="blog-readtime">21 min read</span>
+            </div>
+            <h3 class="blog-card-title">Local AI: How to Run Your Own Models Privately and Securely</h3>
+            <p class="blog-card-preview">Your prompts don't have to leave your computer. How to pick the right hardware and open models, and how to lock down the five layers of risk that come with running AI yourself.</p>
+            <a href="article-local-ai.html" class="blog-read-more">Read more</a>
+          </article>
+
           <article class="blog-card reveal" style="--rd:0.3s">
             <div class="blog-card-meta">
-              <span class="blog-tag">Privacy</span>
-              <span class="blog-readtime">53 min read</span>
+              <span class="blog-tag">Career Advice</span>
+              <span class="blog-readtime">29 min read</span>
             </div>
-            <h3 class="blog-card-title">The Privacy Stack: Open Source and Encrypted Alternatives for Every App You Use</h3>
-            <p class="blog-card-preview">Big Tech apps are convenient, but they come at a cost. These privacy-respecting swaps are just as good, sometimes better.</p>
-            <a href="article-privacy.html" class="blog-read-more">Read more</a>
+            <h3 class="blog-card-title">Resumes and CVs: How to Write One That Works Anywhere in the World</h3>
+            <p class="blog-card-preview">Resume or CV? Here's how to build one that gets past the software, holds a recruiter's attention, and fits the country you're applying in.</p>
+            <a href="article-resume.html" class="blog-read-more">Read more</a>
           </article>
 
         </div>

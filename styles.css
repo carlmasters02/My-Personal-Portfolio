@@ -922,6 +922,16 @@ body.cursor-none * { cursor: none !important; }
   transform: translateY(-1px);
 }
 
+/* Courses not taken yet: plain text under the coursework pills, so it reads
+   as secondary to them. */
+.timeline-content > .timeline-upcoming {
+  margin-top: 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.6;
+}
+.timeline-upcoming span { color: var(--text); }
+
 /* Product cards are link targets from the events list below */
 #focushear, #tabetalk { scroll-margin-top: 96px; }
 
@@ -1022,6 +1032,8 @@ body.cursor-none * { cursor: none !important; }
   box-shadow: var(--shadow);
 }
 .cert-tabs-dropdown.open { display: flex; }
+/* The display rules above (and the mobile swap) would override [hidden]. */
+.cert-tabs[hidden], .cert-tabs-hamburger[hidden] { display: none; }
 
 .cert-tab-dropdown {
   width: 100%;
