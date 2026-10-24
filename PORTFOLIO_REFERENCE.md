@@ -17,6 +17,7 @@ Carl_Masters_Portfolio/
 ├── styles.css                  # All global styles (matrix green theme)
 ├── script.js                   # All JS for index.html (also loaded by article pages)
 ├── article-cybersecurity.html  # Blog article page
+├── article-local-ai.html       # Blog article page
 ├── article-privacy.html        # Blog article page
 ├── article-resume.html         # Blog article page
 ├── carl_masters_resume.pdf     # Embedded and downloadable resume
@@ -149,10 +150,11 @@ Two parts on one page.
 **Certifications:** category tabs (`All, Google, CS50, CompTIA, Other`) + a hamburger dropdown variant on small screens. The grid (`#certGrid`) is rendered from the `certs` array in `script.js`. Tabs with no certs behind them are removed automatically; the tab bar hides entirely if fewer than two categories have certs. With 2 active certs (both `Other`), the grid shows real cards; an empty category would show a single "IN PROGRESS / 🔒" card. Card thumbnails and the cert modal handle both images and PDFs (PDFs reused via the pdf.js instance already on the page, with a `pdfCache`; PDF thumbs lazy-render via IntersectionObserver). The HITCON PDF uses `preview:` — its `.webp` render — because pdf.js cannot draw the embedded CFF CID font (would drop the recipient name); `file` still links/downloads the original PDF.
 
 ### Blog (`#blog`) — `06 / blog`, "My Articles"
-3 cards (`.blog-card`), same as before:
+4 cards (`.blog-card`) in a 2-column grid, each with a tag pill and a read-time label (`.blog-card-meta`):
 
 | Article | Tag | File |
 |---|---|---|
+| Local AI: How to Run Your Own Models Privately and Securely | AI | `article-local-ai.html` |
 | Resumes and CVs: How to Write One That Works Anywhere in the World | Career Advice | `article-resume.html` |
 | Everyday Cybersecurity Habits That Actually Matter | Cybersecurity | `article-cybersecurity.html` |
 | The Privacy Stack: Open Source and Encrypted Alternatives for Every App You Use | Privacy | `article-privacy.html` |
@@ -206,11 +208,12 @@ Data at top of file: `projects` (4), `languages` (6, with `logo` paths), `hackat
 
 ## Article Pages
 
-Three self-contained articles sharing one structure: CSP meta (Supabase allow-listed in `connect-src`), `styles.css`, Google Fonts, small inline comment-section styles, pinned Supabase UMD script, then nav + `.article-page` main (back link, `.article-tag` pill, H1, `.article-body`, comments) + `script.js`.
+Four self-contained articles sharing one structure: CSP meta (Supabase allow-listed in `connect-src`), `styles.css`, Google Fonts, small inline comment-section styles, pinned Supabase UMD script, then nav + `.article-page` main (back link, `.article-tag` pill, H1, `.article-body`, comments) + `script.js`.
 
 | File | Title | Tag | `POST_SLUG` |
 |---|---|---|---|
 | `article-cybersecurity.html` | Everyday Cybersecurity Habits That Actually Matter | Cybersecurity | `article-cybersecurity` |
+| `article-local-ai.html` | Local AI: How to Run Your Own Models Privately and Securely | AI | `article-local-ai` |
 | `article-privacy.html` | The Privacy Stack: Open Source and Encrypted Alternatives | Privacy | `article-privacy` |
 | `article-resume.html` | Resumes and CVs: How to Write One That Works Anywhere in the World | Career Advice | `article-resume` |
 
@@ -225,7 +228,7 @@ Three self-contained articles sharing one structure: CSP meta (Supabase allow-li
 **RLS:** `comments_select_public` (anon SELECT), `comments_insert_public` (anon INSERT).
 **Form:** name + message, honeypot (`#comment-hp`), oldest-first display.
 
-**Pinned Supabase CDN (all 3 articles):**
+**Pinned Supabase CDN (all 4 articles):**
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/dist/umd/supabase.min.js"
   integrity="sha384-JWEyvHh+lRf0sN/WWY+QTQwX+CyWqmNg4tkc8GQzAMEtR2wGNrCJlvnu1lHD1kDm"
@@ -322,7 +325,7 @@ Replace `carl_masters_resume.pdf` in the project root (viewer, download button, 
 curl -s "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@VERSION/dist/umd/supabase.min.js" \
   | openssl dgst -sha384 -binary | openssl base64 -A
 ```
-Then update the `integrity` attribute and URL in all three article files.
+Then update the `integrity` attribute and URL in all four article files.
 
 ---
 

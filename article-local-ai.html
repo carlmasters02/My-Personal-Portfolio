@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdn.jsdelivr.net 'unsafe-inline'; style-src 'self' fonts.googleapis.com 'unsafe-inline'; font-src fonts.gstatic.com; connect-src https://nrwqzxxqivsknkxusdjq.supabase.co; img-src 'self' data:; frame-src 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local AI: How to Run Your Own Models Privately and Securely | Carl Masters</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    body { background: #0a0f0b; color: #e0e0e0; }
+    .article-page { max-width: 780px; margin: 0 auto; padding: 7rem 1.5rem 4rem; }
+    .article-back { display: inline-flex; align-items: center; gap: 0.5em; font-family: var(--font-mono); font-size: 0.82rem; color: #00ff41; text-decoration: none; letter-spacing: 0.06em; margin-bottom: 2.5rem; transition: opacity 0.2s; }
+    .article-back:hover { opacity: 0.7; }
+    .article-tag { display: inline-block; background: rgba(0,255,65,0.12); color: #00ff41; border: 1px solid rgba(0,255,65,0.4); border-radius: 999px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.22em 0.85em; margin-bottom: 1.2rem; }
+    .article-title { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; color: #ffffff; line-height: 1.25; margin-bottom: 0.75rem; border-bottom: 4px solid #00ff41; display: inline-block; padding-bottom: 0.1em; }
+    .article-date { font-family: var(--font-mono); font-size: 0.78rem; color: #00cc33; letter-spacing: 0.06em; margin: 1.2rem 0 2.2rem; display: block; }
+    .article-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-bottom: 1.2rem; }
+    .article-meta .article-tag { margin-bottom: 0; }
+    .article-readtime { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: #8fa398; }
+    .article-body h2 { font-size: 1.25rem; font-weight: 700; color: #00ff41; margin: 2.2rem 0 0.7rem; font-family: var(--font-mono); letter-spacing: 0.04em; text-transform: uppercase; }
+    .article-body p { color: rgba(255,255,255,0.82); line-height: 1.8; margin-bottom: 1.2rem; font-size: 1.02rem; }
+    .article-body ul { color: rgba(255,255,255,0.82); line-height: 1.8; margin: 0 0 1.2rem 1.5rem; font-size: 1.02rem; }
+    .article-body ul li { margin-bottom: 0.45rem; }
+    .article-body strong { color: #ffffff; }
+    .article-body a { text-decoration: underline; text-underline-offset: 3px; }
+    .swap-label { display: inline-block; font-family: var(--font-mono); font-size: 0.72rem; color: #0a0f0b; background: #00ff41; border-radius: 4px; padding: 0.1em 0.55em; font-weight: 700; letter-spacing: 0.04em; margin-right: 0.4em; vertical-align: middle; }
+    @media (max-width: 900px) {
+      .article-page { padding: 6rem 1.5rem 3.5rem; }
+    }
+    @media (max-width: 720px) {
+      .article-page { padding: 5.5rem 1.25rem 3rem; }
+    }
+    @media (max-width: 480px) {
+      .article-page { padding: 5rem 1rem 2.5rem; }
+      .article-body p, .article-body ul { font-size: 0.95rem; }
+      .article-body ul { margin-left: 1.1rem; }
+      .article-body h2 { font-size: 1.05rem; }
+      .article-back { font-size: 0.78rem; }
+    }
+    @media (max-width: 360px) {
+      .article-page { padding: 4.5rem 0.8rem 2rem; }
+      .article-body p, .article-body ul { font-size: 0.9rem; }
+      .article-body ul { margin-left: 0.9rem; }
+    }
+    /* ── Comments section ── */
+    .comments-section { margin-top: 4rem; }
+    .comment-card { background: #0b1a0e; border: 1px solid rgba(0,255,65,0.18); border-radius: 0.8rem; padding: 1.2rem 1.4rem; margin-bottom: 0.85rem; }
+    .comment-author { font-family: var(--font-mono); font-size: 0.88rem; color: #00ff41; font-weight: 600; margin-bottom: 0.2rem; }
+    .comment-date { font-family: var(--font-mono); font-size: 0.7rem; color: rgba(0,204,51,0.5); margin-bottom: 0.55rem; }
+    .comment-message { color: rgba(255,255,255,0.85); font-size: 0.97rem; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+    .comments-empty, .comments-loading { font-family: var(--font-mono); font-size: 0.8rem; color: rgba(0,204,51,0.45); margin-bottom: 1.5rem; }
+    .comment-form-wrap { margin-top: 2rem; background: #0b1a0e; border: 1px solid rgba(0,255,65,0.18); border-radius: 0.8rem; padding: 1.6rem 1.6rem 1.4rem; }
+    .comments-heading { font-family: var(--font-mono); font-size: 0.78rem; color: #00ff41; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.3rem; }
+    .comment-form-label { font-family: var(--font-mono); font-size: 0.72rem; color: #00cc33; text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 0.4rem; }
+    .comment-form-input, .comment-form-textarea { width: 100%; background: #060e07; border: 1px solid rgba(0,255,65,0.2); border-radius: 0.4rem; padding: 0.65rem 0.85rem; color: #e0e0e0; font-family: var(--font-mono); font-size: 0.88rem; margin-bottom: 1rem; box-sizing: border-box; transition: border-color 0.2s; }
+    .comment-form-input:focus, .comment-form-textarea:focus { outline: none; border-color: rgba(0,255,65,0.55); }
+    .comment-form-textarea { resize: vertical; min-height: 90px; }
+    .comment-form-error { color: #ff6b35; font-family: var(--font-mono); font-size: 0.78rem; margin-bottom: 0.7rem; }
+    .comment-submit-btn { background: transparent; border: 1.5px solid #00ff41; color: #00ff41; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.6rem; border-radius: 0.35rem; cursor: pointer; transition: background 0.2s, color 0.2s; }
+    .comment-submit-btn:hover:not(:disabled) { background: rgba(0,255,65,0.1); }
+    .comment-submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/dist/umd/supabase.min.js" integrity="sha384-JWEyvHh+lRf0sN/WWY+QTQwX+CyWqmNg4tkc8GQzAMEtR2wGNrCJlvnu1lHD1kDm" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="custom-cursor"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Home">
+        <span class="logo-cm">
+          <span class="logo-cm-text">CM</span><span class="logo-cursor" aria-hidden="true"></span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#skills">Skills</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#education">Background</a></li>
+        <li><a href="index.html#resume">Resume</a></li>
+        <li><a href="index.html#blog">Blog</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="article-page">
+    <a href="index.html#blog" class="article-back">&#8592; Back to Blog</a>
+    <div class="article-meta">
+      <span class="article-tag">AI</span>
+      <span class="article-readtime">21 min read</span>
+    </div>
+    <h1 class="article-title">Local AI: How to Run Your Own Models Privately and Securely</h1>
+
+    <div class="article-body">
+      <p>Every time you type a question into a cloud AI service, it leaves your device. Your prompt travels to a data center owned by one of a handful of companies, gets processed on their hardware, and, depending on the company and your settings, may be stored for years, read by human reviewers, or used to train future models. People now tell AI chatbots things they would never post publicly: health worries, relationship problems, financial details, confidential work documents, and private code. All of it sits on someone else's servers, under someone else's rules.</p>
+
+      <p>There is another way. Open-weight AI models, models whose underlying files are published for anyone to download, have improved so quickly that many of them now run comfortably on an ordinary laptop or a small desktop computer. When you run a model locally, your prompts never leave your machine. There is no account, no monthly bill, no usage cap, and no company deciding to change or retire the model you depend on. You can even use it with the internet switched off entirely.</p>
+
+      <p>Local AI is not automatically safe, however. Downloading AI models and running AI software introduces security risks of its own, several of which are easy to overlook. This article covers both halves of the picture: why local AI is worth it, what hardware and models to choose, and the five layers of risk you need to understand to run it in the most private and secure way possible.</p>
+
+      <h2>What Local AI Actually Means</h2>
+
+      <p>A large language model, the technology behind chatbots like ChatGPT, is at its core a very large file of numbers called weights. These weights are what the model learned during training, and running the model means doing math on them. Companies like OpenAI and Anthropic keep their best models' weights secret and only let you use them through their apps and servers. A growing number of organizations, including Google, OpenAI, Alibaba's Qwen team, Mistral, and DeepSeek, also publish the weights of some of their models for anyone to download. These are called open-weight models, and they are what make local AI possible.</p>
+
+      <p>Running a model locally takes two things: the model file itself, and a program called a runtime, or inference engine, that loads the file and lets you chat with it. Tools like Ollama and LM Studio, covered later in this article, combine both into a simple app. You pick a model, it downloads once, and from then on everything happens on your own hardware.</p>
+
+      <p>Two terms come up constantly when choosing a model. The first is <strong>parameters</strong>, the count of numbers in the model, usually written in billions, as in a 27B model with 27 billion parameters. More parameters generally means a more capable model, but also one that needs more memory. The second is <strong>quantization</strong>, a compression technique that stores each number with fewer bits so the model takes up less space. A model quantized to around 4 bits per parameter is roughly a quarter of its original size and loses surprisingly little quality, which is why 4-bit versions are the standard choice for running models at home.</p>
+
+      <h2>Why Run AI Locally</h2>
+
+      <p><strong>Privacy is the biggest reason.</strong> With a local model, your conversations are files on your own computer, and nothing is sent anywhere. Compare that with the policies of the major cloud services. In September 2025, Anthropic began using conversations from its consumer Claude plans to train its models unless users opt out, and extended data retention to up to five years for users who allow it. OpenAI uses consumer ChatGPT conversations to improve its models by default unless you turn that setting off. Google says conversations in its Gemini apps that are selected for review by human reviewers are kept for up to three years, even after you delete your activity. And as the companion article <a href="article-privacy.html">The Privacy Stack</a> describes, a court order in 2025 forced OpenAI to preserve ChatGPT conversations users had deleted. None of these policies apply to a model running on your own machine.</p>
+
+      <p><strong>Cost is the second.</strong> The standard paid tiers of ChatGPT, Claude, and Google's Gemini each cost about 20 dollars a month, or roughly 240 dollars a year, and their top tiers run from 100 to 200 dollars a month. A local model has no subscription at all. If you already own a reasonably modern computer, you can start running capable models today for free. If you buy dedicated hardware, it is a one-time cost that keeps working for years, plus the electricity it uses.</p>
+
+      <p><strong>Control is the third.</strong> Cloud providers change, restrict, and retire models whenever they decide to. In February 2026, OpenAI removed GPT-4o from ChatGPT despite a public petition and a social media campaign from users who relied on it. A model file on your own drive works the same way tomorrow as it does today, for as long as you want to keep it. There are no rate limits, no outages caused by someone else's servers, no account that can be suspended, and no internet connection required.</p>
+
+      <h2>The Honest Tradeoffs</h2>
+
+      <p>Local AI is not a perfect replacement for the largest cloud models, and it is worth being clear about why. The most capable models in the world are still closed, and the very largest open-weight models are too big for normal home hardware. The research group Epoch AI found in 2026 that the best open-weight models trailed the best closed models by about four months on average. The models small enough to run on a single consumer graphics card are further behind, but Epoch found that they have consistently caught up to where the frontier was within six to twelve months. In practice, that means a model you run at home today is roughly as capable as the best cloud AI was six months to a year earlier, which is more than enough for writing, summarizing, brainstorming, studying, answering questions, and a great deal of coding.</p>
+
+      <p>The other tradeoffs are practical. Larger models need more memory and therefore more expensive hardware. Local models usually respond more slowly than a cloud service running on a data center full of specialized chips. And you take on the responsibility of keeping your setup updated and secure, which is what the second half of this article is about. For many people, the right approach is a mix: a local model for anything private or sensitive, and a cloud service only for the occasional task that genuinely needs the most powerful model available.</p>
+
+      <h2>Understanding Hardware: Memory Is Everything</h2>
+
+      <p>The single most important number for local AI is how much memory your computer can devote to the model. The entire model has to fit in memory to run at a usable speed. On a Windows or Linux computer with a dedicated graphics card, that means the card's video memory, called VRAM. On an Apple silicon Mac, the processor and graphics share one pool of unified memory, so most of the Mac's total memory can be used for AI.</p>
+
+      <p>A useful rule of thumb: at the common 4-bit quantization, a model needs about 0.6 gigabytes of memory for every billion parameters, plus extra room for the conversation itself, which grows the longer your chat or document gets. A 9B model needs roughly 6 gigabytes, a 27B model roughly 16 to 17 gigabytes, and a 120B model roughly 65 to 70 gigabytes. The exact file size is always listed next to each model download, and it is the most reliable guide.</p>
+
+      <p>Many of the best new models use a design called mixture of experts. Instead of using every parameter for every word, these models contain many specialized sub-networks and only activate a small portion of them at a time. A model described as 35B-A3B has 35 billion parameters in total but uses only about 3 billion for each word it generates. The whole model still has to fit in memory, but it runs far faster than a model that uses all 35 billion at once, which makes these models especially well suited to home hardware.</p>
+
+      <p>Once a model fits, speed depends mostly on memory bandwidth, how quickly the hardware can read the model's numbers. As a rough guide, the number of words a model can generate per second is limited by the memory bandwidth divided by the amount of the model it has to read for each word. This is why two machines with the same amount of memory can feel very different: one with high bandwidth will respond several times faster than one with low bandwidth.</p>
+
+      <h2>Running AI on the Computer You Already Have</h2>
+
+      <p>Before buying anything, try the computer you already own. A laptop or desktop with 16 gigabytes of memory can run small but genuinely useful models, and Apple silicon Macs are particularly good at this because of their unified memory. A Mac with 16 gigabytes can comfortably run models in the 4B to 12B range, and one with 32 gigabytes or more can run the strong 27B to 35B class of models covered below.</p>
+
+      <p>On a Windows or Linux desktop, a dedicated NVIDIA graphics card is the most common and best-supported option. A card with 16 gigabytes of VRAM, such as the RTX 5060 Ti 16GB, which launched at 429 dollars, handles models up to around 14B well and can run some larger mixture-of-experts models. A card with 24 to 32 gigabytes, such as the RTX 5090 with 32 gigabytes, runs the 27B to 35B class at excellent speed. The RTX 5090 launched at 1,999 dollars, but memory shortages pushed graphics card prices far higher during 2026, so check current prices before you buy. If a model is slightly too large for your graphics card, most runtimes can split it between the card and your regular system memory, though the part running on system memory will be noticeably slower.</p>
+
+      <h2>Dedicated AI Machines: Mac Mini, Mac Studio, and Mini PCs</h2>
+
+      <p>If you want a machine that runs AI all the time, for yourself or for your household, a small dedicated computer is often a better choice than a gaming PC. These machines are quiet, use relatively little power, and can provide AI to your other devices over your home network, a setup the security sections below explain how to do safely.</p>
+
+      <p>The <strong>Mac mini</strong> is a popular entry point. Apple's current model with the M5 Pro chip can be configured with up to 64 gigabytes of unified memory at 307 gigabytes per second of bandwidth, starting at 1,699 dollars in the United States, which is enough to run the strong mid-size models with plenty of room for long conversations. The <strong>Mac Studio</strong> goes much further: up to 128 gigabytes with the M5 Max chip, starting at 2,499 dollars, and up to 512 gigabytes with the M5 Ultra, starting at 5,499 dollars, with roughly 1.2 terabytes per second of bandwidth. The largest configurations can run models that would otherwise require several server-class graphics cards.</p>
+
+      <p>Outside of Apple, two kinds of compact machines have become popular for local AI. Mini PCs built on AMD's Ryzen AI Max+ 395 chip, such as the Framework Desktop, offer up to 128 gigabytes of memory, of which around 96 gigabytes can be used by the graphics processor; the 128-gigabyte Framework Desktop launched at 1,999 dollars but was listed at 3,449 dollars in 2026. NVIDIA's DGX Spark packs 128 gigabytes of memory into a small box designed specifically for AI; it launched at 3,999 dollars, but NVIDIA raised the price of the 128-gigabyte model twice during 2026, first citing memory supply constraints and then, in October, to 6,950 dollars, when it also added a 64-gigabyte version at 4,999 dollars. Both of these platforms prioritize memory capacity over speed: their memory bandwidth is roughly 256 to 273 gigabytes per second, compared with about 1.8 terabytes per second on an RTX 5090, so they can hold large models but generate text from them more slowly.</p>
+
+      <p>Which to choose comes down to what you value. A graphics card in a desktop gives the most speed per dollar for models that fit in its memory. A Mac mini or Mac Studio gives the simplest setup, low power use, and large memory pools. A Ryzen AI Max mini PC or DGX Spark gives large memory at a lower price than a high-memory Mac Studio, at the cost of speed. For most people starting out, the computer they already own, followed by a Mac mini or a 16 to 32 gigabyte graphics card, covers almost every need.</p>
+
+      <h2>The Best Open Models to Run Right Now</h2>
+
+      <p>Open models improve every few months, so treat this as a snapshot of late 2026 and expect newer versions to appear. Unless noted otherwise, the models below are released by their original developers under the Apache 2.0 license, which allows personal and commercial use with very few restrictions.</p>
+
+      <p><strong>For 8 to 16 gigabytes of memory</strong>, the small models from Alibaba's Qwen3.5 family, released in February 2026 in sizes from 0.8B to 9B, and Google's Gemma 4 family are the strongest choices. Gemma 4 launched in April 2026 with small E2B and E4B models designed for phones and laptops, which can also understand images and audio, and Google added a 12B model in May. Google publishes official 4-bit versions of Gemma 4 that are specially trained to lose as little quality as possible when compressed. OpenAI's gpt-oss-20b, released in August 2025, is another excellent option; OpenAI says it runs within 16 gigabytes of memory.</p>
+
+      <p><strong>For 24 to 64 gigabytes</strong>, this is the sweet spot of local AI in 2026. Qwen3.8-27B, released in August 2026, is one of the most widely used local models available and handles both text and images. Qwen3.6-35B-A3B is a mixture-of-experts model that uses only about 3 billion parameters at a time, which makes it remarkably fast for its capability. Google's Gemma 4 31B and its mixture-of-experts sibling, Gemma 4 26B-A4B, are similarly strong all-round choices with long context windows of up to 256,000 tokens, enough to work through long documents. Meta's Muse Glimmer 30B, released in August 2026, was built specifically to run on consumer hardware and to work well with AI agents; Meta says its official 4-bit version fits within a 24 to 32 gigabyte graphics card.</p>
+
+      <p><strong>For 96 to 128 gigabytes</strong>, OpenAI's gpt-oss-120b, which OpenAI designed to run on a single 80-gigabyte server graphics card, needs around 65 gigabytes in its local versions, and Mistral's Mistral Small 4, a 119-billion-parameter mixture-of-experts model that uses about 6 billion at a time, adds strong reasoning and coding abilities. The very largest open models, such as DeepSeek's 763-billion-parameter V4.1-Flash, released in September 2026 under the similarly permissive MIT license, need hundreds of gigabytes even when compressed, which puts them within reach of only the largest Mac Studio configurations or multi-graphics-card servers.</p>
+
+      <p>Licenses are worth checking before you rely on a model, especially for work. Meta's Llama models, which helped start the open model movement, use Meta's own community license rather than a standard open-source license; the Llama 4 license, for example, requires a "Built with Llama" label, imposes conditions on very large companies, and grants no rights to individuals or companies based in the European Union for its multimodal models. Meta has since changed course: its newer Muse Glimmer model, mentioned above, is released under the standard Apache 2.0 license instead.</p>
+
+      <h2>The Software: Ollama, LM Studio, and Friends</h2>
+
+      <p><strong>Ollama</strong> is one of the most popular ways to run local models. It is open source, runs on Windows, macOS, and Linux, and downloads and runs a model with a single command, such as ollama run followed by the model's name. It also includes a simple desktop app and a local server that other programs can connect to. Ollama now offers optional cloud-hosted models as well, which, unlike local models, send your prompts to Ollama's servers; Ollama says it does not store or log that content or train on it, but for a strictly local setup you can switch the cloud features off entirely by setting the environment variable OLLAMA_NO_CLOUD to 1.</p>
+
+      <p><strong>LM Studio</strong> is the most beginner-friendly option, with a polished graphical interface for browsing, downloading, and chatting with models. It is free, including for use at work since July 2025, though unlike Ollama the app itself is not open source. On Apple silicon Macs it supports Apple's MLX framework, which is often the fastest way to run models on a Mac.</p>
+
+      <p><strong>Jan</strong> is a fully open-source desktop chat app designed to work completely offline, and <strong>llama.cpp</strong> is the open-source engine that powers much of the local AI world, including parts of Ollama and LM Studio, for users who want maximum control. <strong>Open WebUI</strong> is a self-hosted web interface that looks and feels like ChatGPT, with document search and support for multiple user accounts, and connects to Ollama or any compatible server. It is a popular way to share one local AI machine with the rest of a household.</p>
+
+      <h2>The Five Layers of Local AI Risk</h2>
+
+      <p>Running AI on your own hardware removes the biggest privacy risk, which is handing your data to someone else. But it adds new risks that cloud users never have to think about, because you are now downloading files from the internet and running server software on your own machine. Security researchers have documented real attacks at five distinct layers of the local AI stack. None of them are reasons to avoid local AI. They are reasons to set it up carefully.</p>
+
+      <h2>Layer 1: Untrustworthy Downloads</h2>
+
+      <p>Some AI model file formats can contain executable code. The older PyTorch format, based on a Python feature called pickle, can run code the moment a model is loaded. In 2024, the security company JFrog flagged around 100 models on Hugging Face, the largest public hub for AI models, with code-execution payloads, including one that opened a hidden connection to a real outside server; JFrog said about 10 of them were truly malicious and the rest appeared to be researchers' tests. In 2025, ReversingLabs found malicious models that used a deliberately broken file format to slip past Hugging Face's security scanner. Hugging Face does scan uploads with tools from the security company Protect AI, which by April 2025 had flagged 352,000 unsafe or suspicious issues across 51,700 models, but files marked unsafe are labeled rather than removed, and can still be downloaded.</p>
+
+      <p>The AI software itself is a target too. Throughout 2026, security firms including Kaspersky and Darktrace documented fake download pages and fake installers for popular AI tools, often promoted through search ads, that delivered infostealers, the password- and session-stealing malware covered in <a href="article-cybersecurity.html">Everyday Cybersecurity Habits That Actually Matter</a>. A developer's computer, full of saved logins and access keys, is an especially valuable prize.</p>
+
+      <p>The defense is to be deliberate about where everything comes from. Download Ollama, LM Studio, and other tools only from their official websites, typed directly rather than found through a search ad. Download models from the original developer's official account, such as Qwen, google, or openai on Hugging Face, or from the curated libraries built into Ollama and LM Studio. Prefer the GGUF and safetensors formats, which are designed to hold data rather than executable code, and avoid older pickle-based files with extensions like .bin, .pt, or .pkl from unknown uploaders.</p>
+
+      <h2>Layer 2: Malicious Templates</h2>
+
+      <p>Every chat model needs a template that formats your conversation into the exact structure the model expects. In the GGUF format, this template is stored inside the model file and is written in a small programming language called Jinja. That makes it a hiding place. In July 2025, the security firm Pillar Security demonstrated poisoned GGUF templates that stayed completely dormant during normal use but secretly injected attacker-chosen instructions whenever a prompt touched a specific topic. In their demonstration, a model behaved normally for ordinary questions but slipped malicious script code into its answers whenever it was asked to write web pages. The model's weights were untouched, so the model itself looked clean, and Pillar reported that the poisoned files passed the automated security scans on Hugging Face. Pillar also noted that Hugging Face's website shows the template of only the first file in a repository, so an attacker could hide a payload in one of the other compressed versions.</p>
+
+      <p>Templates have caused more direct damage too. In 2024, a flaw nicknamed Llama Drama, tracked as CVE-2024-34359, was found in llama-cpp-python, a popular tool for running models from Python. It processed templates without any safety restrictions, so a malicious model file could run code on your computer when it was used. It was fixed in version 0.2.72.</p>
+
+      <p>The defense is the same discipline as the first layer, plus one extra step: stick to model files from official developers or well-known, established publishers, keep your AI software updated, and be especially wary of re-uploaded or modified versions of popular models from unfamiliar accounts. If you want to check a model's template yourself, Ollama shows it with the command ollama show followed by the model name and the --template option, and LM Studio displays it in the model's settings.</p>
+
+      <h2>Layer 3: Vulnerabilities in the AI Software Itself</h2>
+
+      <p>Local AI tools are software, and software has bugs. Ollama, as one of the most popular tools, has had several serious ones. In 2024, the cloud security company Wiz disclosed a flaw it named Probllama, CVE-2024-37032, that let an attacker who could reach an Ollama server overwrite files on it and potentially take control of the machine; it was fixed in version 0.1.34. In May 2026, the security firm Cyera published details of a flaw it named Bleeding Llama, CVE-2026-7482, rated 9.1 out of 10 for severity. By uploading a deliberately malformed model file, an attacker with no password could trick Ollama into reading beyond the edge of its memory and send back whatever was there: environment variables containing API keys and passwords, system prompts, and the conversations of anyone else using the same server. Cyera estimated that around 300,000 Ollama servers were reachable from the internet. Ollama had already fixed the flaw in version 0.17.1, released in February 2026, but the release notes did not describe it as a security fix, so many users never realized they needed to update.</p>
+
+      <p>The defense is simple and important: keep your AI software updated, and do not rely on release notes to tell you when an update matters. Check your Ollama version with the command ollama -v and compare it with the latest release on Ollama's official site, turn on automatic updates in LM Studio and the Ollama app, and update any Docker containers you run. Just as importantly, keep your AI server off the internet, which is the next layer.</p>
+
+      <h2>Layer 4: Exposing Your AI Server to the Network</h2>
+
+      <p>Ollama runs a server in the background that apps connect to. By default, a normal installation only listens on 127.0.0.1, port 11434, an address that only programs on your own computer can reach. The trouble starts when people change that. Guides for sharing a model with other devices often say to set the OLLAMA_HOST setting to 0.0.0.0, which tells Ollama to accept connections from any network it is connected to. Ollama has no password or login of its own, so on an untrusted network, or on a machine that is reachable from the internet, anyone who finds it can use it. The official Ollama Docker image also listens on all interfaces inside its container, so publishing its port carelessly has the same effect.</p>
+
+      <p>This is not a theoretical problem. In January 2026, researchers from SentinelOne and Censys reported finding about 175,000 Ollama servers publicly exposed to the internet across 130 countries, nearly half of them with tool-calling abilities that let the AI take actions, and described criminals scanning for these servers and reselling access to them. Exposed servers are exactly what flaws like Bleeding Llama prey on.</p>
+
+      <p>Even a server that never leaves your own computer can be reached through your web browser. In 2024, the security firm NCC Group disclosed CVE-2024-28224, a DNS rebinding flaw in Ollama. DNS rebinding is a trick in which a malicious website manipulates how your browser looks up its address, so that the site's code ends up talking to services on your own computer. In this case, simply visiting a malicious page could give it full access to a local Ollama server, including the ability to chat with your models, delete them, and potentially read files. It was fixed in version 0.1.29, but it shows why local servers need protection too.</p>
+
+      <p>The defense: leave the default setting alone unless you truly need to share your model. If you do, never forward the port on your router to the internet. Instead, use a private network tool like Tailscale, which is based on the WireGuard encryption protocol and connects only your own devices, or put the server behind a reverse proxy, a gatekeeper program that requires a password before passing requests through, and allow only your local network in your firewall. If you run Ollama in Docker, publish the port only to your own machine with -p 127.0.0.1:11434:11434. Do not set OLLAMA_ORIGINS, the setting that controls which websites can talk to Ollama, to an asterisk, which allows every website. And if you share a model with your household through Open WebUI, keep its user accounts and passwords turned on.</p>
+
+      <h2>Layer 5: Poisoned Models and AI Agents</h2>
+
+      <p>The most subtle risk lives in the model itself. Because a model's behavior is stored in billions of numbers rather than readable code, it is possible to train a model with a hidden backdoor: behavior that only appears when a specific trigger shows up. In 2024, researchers at Anthropic published a paper called Sleeper Agents showing that deliberately planted backdoors, such as writing secure code normally but inserting vulnerabilities when told the year is 2024, survived the standard safety training techniques meant to remove harmful behavior.</p>
+
+      <p>This becomes dangerous when a model is connected to tools. AI agents, such as coding assistants that can read your files and run commands, turn a model's words directly into actions on your computer. In October 2026, the security company ProjectDiscovery demonstrated exactly this. They trained a backdoor into Qwen2.5-7B, an older open model, and connected it to OpenAI's Codex coding agent. The model behaved perfectly on normal requests, but when a hidden trigger phrase appeared, it used the agent's ability to run commands to download a script that read the project's .env files, the configuration files where developers often store passwords and API keys, sent their contents to an outside server, and also tried to grab SSH keys. The secrets in their demonstration were fake, but the attack worked, and it cost about 8 dollars in rented computing time and under 50 dollars in total to build. The researchers specifically warned about abliterated models, community versions with their safety restrictions removed, which are popular downloads and an easy place to hide this kind of modification.</p>
+
+      <p>The defense is to limit what any model can touch. Run AI agents inside a sandbox, such as a container or a separate user account, that can only see the folders it actually needs. Keep secrets out of project folders where possible, and never give an agent access to your whole home directory. Require approval before an agent runs commands, and block or monitor its network access so a compromised model cannot send data out. Prefer official models from their original developers over modified or uncensored community versions, especially for anything with tool access. And treat a model like any other untrusted program: benchmarks measure how capable a model is, not whether it has been tampered with.</p>
+
+      <h2>A Private and Fortified Local AI Setup</h2>
+
+      <p>Putting it all together, a well-secured local AI setup looks like this:</p>
+      <ul>
+        <li><strong>Get software from official sources only</strong>, typing the website address yourself rather than clicking search ads.</li>
+        <li><strong>Download models from their original developers</strong> in the GGUF or safetensors format, and avoid pickle-based files and modified versions from unknown accounts.</li>
+        <li><strong>Keep every tool updated</strong>, with automatic updates on, and check versions yourself rather than relying on release notes.</li>
+        <li><strong>Leave the server on 127.0.0.1</strong>, never expose port 11434 to the internet, and share it only through Tailscale or a password-protected reverse proxy.</li>
+        <li><strong>Turn off cloud features</strong> in Ollama with OLLAMA_NO_CLOUD set to 1 if you want a strictly local setup.</li>
+        <li><strong>Sandbox AI agents</strong>, give them access only to the folders they need, require approval for commands, and keep secrets out of reach.</li>
+        <li><strong>Treat community models with caution</strong>, especially abliterated or uncensored versions, and never connect one to tools that can touch your files or network.</li>
+      </ul>
+
+      <h2>Closing Thoughts</h2>
+
+      <p>For most of the short history of modern AI, using a capable model meant sending your words to a company's data center and accepting whatever terms came with it. That is no longer true. The open models available today are capable enough for most everyday tasks, they run on hardware many people already own, and they keep every word you type on your own machine.</p>
+
+      <p>Owning your AI also means owning its security. The risks covered here are real and documented, but every one of them has a straightforward defense: trusted sources, regular updates, a server that stays private, and agents that only touch what they need. Start small. Install Ollama or LM Studio, download one model from its official developer, and see what it can do. Then build from there, deliberately and safely. Your conversations, your documents, and your ideas should belong to you, and with local AI, they can.</p>
+    </div>
+
+    <section class="comments-section">
+      <div id="comments-list"><p class="comments-loading">Loading comments...</p></div>
+      <div class="comment-form-wrap">
+        <p class="comments-heading">LEAVE A COMMENT</p>
+        <form id="comment-form" novalidate>
+          <label class="comment-form-label" for="comment-name">Name</label>
+          <input class="comment-form-input" type="text" id="comment-name" placeholder="Your name" autocomplete="name" required />
+          <label class="comment-form-label" for="comment-message">Message</label>
+          <textarea class="comment-form-textarea" id="comment-message" placeholder="Your message..." rows="4" required></textarea>
+          <p class="comment-form-error" id="comment-form-error" style="display:none;"></p>
+          <input type="text" id="comment-hp" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;border:0;padding:0;" />
+          <button class="comment-submit-btn" type="submit" id="comment-submit-btn">POST COMMENT</button>
+        </form>
+      </div>
+    </section>
+    <script>
+    (function () {
+      var SUPABASE_URL     = 'https://nrwqzxxqivsknkxusdjq.supabase.co';
+      var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5yd3F6eHhxaXZza25reHVzZGpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4NzQzNDEsImV4cCI6MjA5MTQ1MDM0MX0.XIsvFBQ1MfP2RtVZEJ7V8puD0-willRK1MoigskOLkU';
+      var POST_SLUG        = 'article-local-ai';
+
+      var listEl = document.getElementById('comments-list');
+      var form   = document.getElementById('comment-form');
+      var nameEl = document.getElementById('comment-name');
+      var msgEl  = document.getElementById('comment-message');
+      var errEl  = document.getElementById('comment-form-error');
+      var btn    = document.getElementById('comment-submit-btn');
+
+      // Guard: verify Supabase CDN loaded before doing anything
+      if (typeof window.supabase === 'undefined') {
+        console.error('[Comments] Supabase CDN failed to load. window.supabase is undefined.');
+        listEl.innerHTML = '<p class="comments-empty">Could not initialize comments. Please refresh the page.</p>';
+        return;
+      }
+
+      var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log('[Comments] Supabase client initialized for slug:', POST_SLUG);
+
+      function esc(s) {
+        return String(s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+
+      async function load() {
+        listEl.innerHTML = '<p class="comments-loading">Loading comments...</p>';
+        var res = await client
+          .from('comments')
+          .select('id,name,message,created_at')
+          .eq('post_slug', POST_SLUG)
+          .order('created_at', { ascending: true });
+        if (res.error) {
+          console.error('[Comments] fetch error:', res.error);
+          listEl.innerHTML = '<p class="comments-empty">Could not load comments. Please refresh the page.</p>';
+          return;
+        }
+        console.log('[Comments] fetched', res.data ? res.data.length : 0, 'comments');
+        if (!res.data || res.data.length === 0) {
+          listEl.innerHTML = '<p class="comments-empty">No comments yet. Be the first to leave one.</p>';
+          return;
+        }
+        listEl.innerHTML = res.data.map(function (c) {
+          var d  = new Date(c.created_at);
+          var ds = d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
+                 + ' \u00b7 '
+                 + d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+          return '<div class="comment-card">'
+            + '<div class="comment-author">' + esc(c.name) + '</div>'
+            + '<div class="comment-date">' + ds + '</div>'
+            + '<div class="comment-message">' + esc(c.message) + '</div>'
+            + '</div>';
+        }).join('');
+      }
+
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        errEl.style.display = 'none';
+        var name = nameEl.value.trim();
+        var msg  = msgEl.value.trim();
+        if (!name || !msg) return;
+        var hp = document.getElementById('comment-hp');
+        if (hp && hp.value.length > 0) return;
+        btn.disabled = true;
+        btn.textContent = 'POSTING\u2026';
+        var res = await client
+          .from('comments')
+          .insert([{ post_slug: POST_SLUG, name: name, message: msg }]);
+        btn.disabled = false;
+        btn.textContent = 'POST COMMENT';
+        if (res.error) {
+          console.error('[Comments] insert error:', res.error);
+          errEl.textContent = 'Comment could not be posted. Please try again.';
+          errEl.style.display = 'block';
+          return;
+        }
+        nameEl.value = '';
+        msgEl.value  = '';
+        await load();
+      });
+
+      load();
+    })();
+    </script>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
