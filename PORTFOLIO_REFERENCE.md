@@ -28,8 +28,9 @@ Carl_Masters_Portfolio/
 │   ├── HITCON_2026_Certificate_of_Attendance.pdf
 │   └── HITCON_2026_Certificate_of_Attendance.webp
 ├── icons/                      # 24px skill logos (webp) used in modals
-│   └── c, claude-code, cloudflare-workers, codex, css, cursor, git, github, html, java, javascript, linux,
-│       llm-apis, opencode, python, stripe, supabase, terminal, typescript, vercel, virt-manager, vscode (.webp)
+│   └── anthropic-api, c, claude-code, cloudflare-workers, codex, css, cursor, elevenlabs-api, gemini-api, git,
+│       github, html, java, javascript, linux, llm-apis, openai-api, opencode, python, stripe, supabase,
+│       terminal, typescript, vercel, virt-manager, vscode (.webp)
 └── PORTFOLIO_REFERENCE.md      # This file
 ```
 
@@ -83,7 +84,7 @@ Matrix hacker aesthetic — near-black background, `#00ff41` green accents, gree
 - `.hero-greeting` "Hello world. I'm"
 - `.hero-name` "CARL MASTERS" with a **text-scramble decode animation** (`data-scramble`); each letter rendered in a fixed-width cell so scrambling never reflows.
 - `.hero-typing` typing animation cycling six phrases: CYBERSECURITY STUDENT, ASPIRING CYBERSECURITY ENGINEER, INTERNATIONAL STUDENT, DATA PRIVACY ENTHUSIAST, WEB DEVELOPER, PROBLEM SOLVER.
-- `.hero-sub`: "Second-year cybersecurity student at Temple University Japan, based in Tokyo."
+- `.hero-sub`: "Cybersecurity student based in Tokyo · U.S. Marine Corps veteran · 2× 1st-place hackathon winner"
 - Buttons: **View My Work** (filled), **Contact Me** (outline), **Open Terminal** (outline) — the last opens the terminal easter egg, also triggered by typing `hello` anywhere.
 
 ### About (`#about`) — `01 / about`, "Who Am I"
@@ -92,34 +93,33 @@ Two-column `.about-grid`. Left: bio paragraphs + three stat counters. Right: `.c
 Stats (each opens the drill-down modal). The final number is written as the `.stat-number` text in the HTML so it reads correctly without JS; `script.js` stores it as `data-target`, resets to 0, and counts up on scroll:
 | Stat | Number in HTML | Source array in script.js |
 |---|---|---|
-| Real Projects | `7` | `projects` |
+| Real Projects | `8` | `projects` |
 | Languages | `3` | `languages` |
 | Hackathons | `7` | `hackathons` |
 
 ### Skills (`#skills`) — `02 / skills`, "What I Know"
-Six `.skill-category` buttons in a two-column grid (one column under 900px), each opening the category → skill modal:
+Four `.skill-category` buttons in a 2×2 grid (one column under 900px), each opening the category → skill modal:
 
 | Category | Contents |
 |---|---|
 | Languages | Python, C, Java |
-| Core Concepts | Discrete Mathematics 1, Precalculus, Linux, OOP, Basic Digital Privacy, Basic Cybersecurity |
-| Tools | Git, GitHub, VS Code, Terminal / CLI, Supabase (Auth, Database, Row-Level Security), Vercel, Cloudflare Workers, LLM APIs (OpenAI, Anthropic, Gemini, ElevenLabs), Stripe |
-| AI-Assisted Development | OpenCode, Claude Code, Codex, Cursor |
-| Environments | Linux (Fedora, Kali, Whonix, Tails), virt-manager |
-| Currently Learning | Calculus, System Design, AI / Machine Learning, JavaScript, TypeScript, HTML/CSS |
+| Platforms & APIs | Supabase, Vercel, Cloudflare Workers, Git, GitHub, OpenAI API, Anthropic API, Gemini API, ElevenLabs API |
+| Systems | Linux (Fedora, Kali, Whonix, Tails), Command line, virt-manager |
+| Security | COMSEC / KMI, Operational Security (OPSEC) |
 
 Descriptions live in the `skillData` object in `script.js` (`Languages` is derived from the `languages` array so the two never drift). Logos from `skillLogos` (icons/*.webp) only render when every skill in the category has one.
 
 ### Projects (`#projects`) — `03 / projects`, "What I've Built"
-Vertical `.timeline` of **products only**, seven items, newest first:
+Vertical `.timeline` of **products only**, eight items, newest first:
 
 | Date | Project | Anchor | Notes |
 |---|---|---|---|
+| October 2026 | **AI Wargame** | `#ai-wargame` | Solo, Tokyo Agent Hackathon · github.com/carlmasters02/ai-wargame |
 | September 2026 | **AEGIS Threat Dashboard** (`is-live`) | `#aegis` | aegisthreatdashboard.com |
 | August 2026 | **G2 Smart Glasses Translator** | `#g2-translator` | GitHub: g2-vi-en-realtime · g2-relay |
 | June 2026 – Present | **FocusHear** (`is-live`, win-badge "1st Place") | `#focushear` | focus-hear-app.vercel.app · 3 hackathon-boxes (Core Features / The Rebuild / Team) + tag pills |
 | June 2026 – Present | **NóiFlow AI** (`is-live`) | `#noiflow` | noiflow-ai.vercel.app |
-| March 2026 | **TabeTalk** | `#tabetalk` | Builders Weekend 2026 · 2 hackathon-boxes (Tech & Sponsors / Team) + tag pills |
+| March 2026 | **TabeTalk** (`.status-badge` "Working prototype · public launch planned") | `#tabetalk` | Builders Weekend 2026 · 2 hackathon-boxes (Tech & Sponsors / Team) + tag pills |
 | Jan 2026 – Present | **Freelance English Teacher Site** (`is-live`) | — | kadysenglish.com |
 | Nov 2025 – Present | **This Portfolio** (`is-live`) | — | carlmasters.com |
 
@@ -130,7 +130,7 @@ Two subsections on one page.
 
 **Education & Career** timeline (3 items): B.S. Cybersecurity at Temple University Japan (2025–Present, `is-live`) · U.S. Marine Corps 0842 Field Artillery Radar Operator + KMI Custodian (2021–2025) · High School Diploma, Lake Minneola HS (2017–2021). Military entries link out to official references (AN/TPS-80, AN/TPQ-48, AN/TPQ-46, KMI, CMC, CMT).
 
-**Events & Competitions** timeline (11 items, newest first):
+**Events & Competitions** timeline (12 items, newest first; same-month order is confirmed, keep it):
 
 | Date | Event | Notes |
 |---|---|---|
@@ -156,7 +156,7 @@ Two parts on one page.
 **Certifications:** category tabs (`All, Google, CS50, CompTIA, Other`) + a hamburger dropdown variant on small screens. Both filter rows currently carry the `hidden` attribute in `index.html`; remove it to show them again. The grid (`#certGrid`) is rendered from the `certs` array in `script.js`. Tabs with no certs behind them are removed automatically; the tab bar hides entirely if fewer than two categories have certs. With 2 active certs (both `Other`), the grid shows real cards; an empty category would show a single "IN PROGRESS / 🔒" card. Card thumbnails and the cert modal handle both images and PDFs (PDFs reused via the pdf.js instance already on the page, with a `pdfCache`; PDF thumbs lazy-render via IntersectionObserver). The HITCON PDF uses `preview:` — its `.webp` render — because pdf.js cannot draw the embedded CFF CID font (would drop the recipient name); `file` still links/downloads the original PDF.
 
 ### Blog (`#blog`) — `06 / blog`, "My Articles"
-4 cards (`.blog-card`) in a 2-column grid, each with a tag pill and a read-time label (`.blog-card-meta`). Order is deliberate (top-left, top-right, bottom-left, bottom-right):
+4 cards (`.blog-card`) in a 2-column grid, each with a tag pill, a read-time label, and an "Updated Oct 24, 2026" `<time>` (`.blog-card-meta`; article pages carry the same line in `.article-meta`). Order is deliberate (top-left, top-right, bottom-left, bottom-right):
 
 | Article | Tag | File |
 |---|---|---|
@@ -181,7 +181,7 @@ A **single overlay** (`#modal` → `#modalCard` / `#modalTitle` / `#modalBody` /
 
 ## script.js — Feature Reference
 
-Data at top of file: `projects` (7), `languages` (3, with `logo` paths), `hackathons` (7), `skillData` (6 categories), `skillDefinitions` (timeline tag pills), `skillLogos`, `certs` (2).
+Data at top of file: `projects` (8), `languages` (3, with `logo` paths), `hackathons` (7), `skillData` (4 categories), `skillDefinitions` (timeline tag pills), `skillLogos`, `certs` (2).
 
 | Feature | Trigger / Location | Notes |
 |---|---|---|

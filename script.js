@@ -14,13 +14,13 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const projects = [
   {
     title: 'This Portfolio',
-    desc: 'Designed and coded from scratch to practice modern HTML, CSS, and vanilla JavaScript, with animations, responsive layout, and all. A project that\'s also the thing showing you the project.',
+    desc: 'Built with AI-assisted development while learning HTML, CSS, and JavaScript, with animations, responsive layout, and all. A project that\'s also the thing showing you the project.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     link: 'https://carlmasters.com'
   },
   {
     title: 'Freelance English Teacher Site',
-    desc: 'A business website built for a freelance English teacher to advertise their services. Features a clean landing page, a services section, and a contact form. My first project built for a real client.',
+    desc: 'A business website built for a freelance English teacher, with services and contact sections. My first project built for a real client.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     link: 'https://kadysenglish.com'
   },
@@ -38,7 +38,7 @@ const projects = [
   },
   {
     title: 'NóiFlow AI',
-    desc: 'A teacher-controlled AI workspace for English classes in Vietnam. Teachers turn lesson vocabulary into bilingual flashcards, readings, and speaking prompts that students practice with instant AI feedback. Every AI-generated draft stays under teacher review before publishing, and analytics surface each class\'s weakest words.',
+    desc: 'A teacher-controlled AI workspace for English classes in Vietnam. It turns lesson vocabulary into bilingual flashcards, readings, and speaking prompts, and teachers review every AI draft before students see it. Analytics surface each class\'s weakest words.',
     tech: ['Supabase', 'Gemini API', 'Vercel'],
     link: 'https://noiflow-ai.vercel.app'
   },
@@ -53,6 +53,12 @@ const projects = [
     desc: 'A live SOC-style dashboard that maps five public threat-intelligence feeds (Cloudflare Radar, ransomware.live, CISA KEV, SANS ISC DShield, abuse.ch) onto a 3D globe. Nothing is simulated; when a source is down, its panel says so. A Cloudflare Worker caches every feed on a 5-minute refresh to respect upstream rate limits.',
     tech: ['Cloudflare Workers', 'Threat Intelligence', 'Data Visualization'],
     link: 'https://aegisthreatdashboard.com'
+  },
+  {
+    title: 'AI Wargame (Tokyo Agent Hackathon)',
+    desc: 'Built solo at the Tokyo Agent Hackathon. Two LLM agents, a DeepSeek attacker and a Kimi defender, compete over a simulated corporate network stored as a Neo4j graph, with every match streamed to a live dashboard. Pure simulation: no exploit code and no real traffic. Ran 100 seeded matches to tune the balance.',
+    tech: ['Python', 'Neo4j', 'LLM APIs'],
+    link: 'https://github.com/carlmasters02/ai-wargame'
   }
 ];
 
@@ -68,8 +74,8 @@ const languages = [
 const hackathons = [
   {
     name: 'UI/UX Hackathon — 1st Place',
-    desc: 'Competed with a team in a UI/UX-focused hackathon hosted by Temple University Japan. Our team took first place by designing and prototyping a clean, user-centered interface concept under a tight time constraint.',
-    tags: ['UI/UX Design', 'Prototyping', 'Teamwork'],
+    desc: 'A local hackathon at Temple University Japan. Our team fixed a deliberately broken website and presented the redesign to judges, winning 1st place. No shipped product; the deliverable was the presented redesign.',
+    tags: ['UI/UX Design', 'Presentation', 'Teamwork'],
     team: 'Temple University Japan team.'
   },
   {
@@ -82,13 +88,13 @@ const hackathons = [
     name: 'SDGs to Startups Hackathon 2026 — 1st Place',
     desc: 'Built FocusHear in 48 hours, a real-time assistive communication platform giving deaf and hard-of-hearing users the ability to choose whose voice they hear in any environment. Tackled SDG 10: Reduced Inequalities. Features: Selective Listening (tap a face, hear only that person), Sign Language Bridge (ASL fingerspelling via hand tracking), and Chat Mode (voice-enrolled speaker diarization with color-coded log).',
     tags: ['Voice AI', 'Assistive Technology', 'Accessibility', 'ElevenLabs', 'Speaker Diarization', 'Sign Language Bridge'],
-    team: 'Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
+    team: 'Carl Masters (lead engineer), Cassady Mead (core contributor; trained the sign-language recognition model), Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
   },
   {
     name: 'OpenAI x Tokyo AI Hackathon — Build with OpenAI',
-    desc: 'Brought a massively rebuilt FocusHear to an invite-only Build with OpenAI event hosted by OpenAI and Tokyo AI. Since the SDGs to Startups prototype, the app went through a full architecture rebuild: a GPT-4o + ElevenLabs Scribe AI pipeline, Supabase Auth with Stripe billing, saved voice and face profiles with automatic in-session recognition, a sound-alert and live-translation system, and a real ONNX-based LSTM sign-language model. Advanced to the first round against a strong field of international teams.',
+    desc: 'Brought a massively rebuilt FocusHear to an invite-only Build with OpenAI event hosted by OpenAI and Tokyo AI. Since the SDGs to Startups prototype, the app went through a full architecture rebuild: a GPT-4o + ElevenLabs Scribe AI pipeline, Supabase Auth with Stripe billing, saved voice and face profiles with automatic in-session recognition, a sound-alert and live-translation system, and an ONNX-based LSTM sign-language model trained by teammate Cassady Mead. Advanced to the first round against a strong field of international teams.',
     tags: ['Voice AI', 'GPT-4o', 'ElevenLabs Scribe', 'Sign Language Recognition', 'Supabase Auth', 'Stripe Billing'],
-    team: 'Carl Masters, Cassady Mead, Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
+    team: 'Carl Masters (lead engineer), Cassady Mead (core contributor; trained the sign-language recognition model), Juthathip (Jenny) Loedsinaudom, and Thiago Komeno.'
   },
   {
     name: 'ai& × Moonshot Tokyo Hackathon Night',
@@ -104,8 +110,8 @@ const hackathons = [
   },
   {
     name: 'Tokyo Agent Hackathon (+81 Builders)',
-    desc: 'A one-day hackathon hosted by +81 Builders with Neo4j and ai& as sponsors, on an open-innovation theme: build anything with AI that actually works by sundown. Built AI Wargame, a live red-versus-blue simulation where two LLM agents fight over a procedurally generated corporate network. A DeepSeek attacker hunts the crown-jewel database under fog of war while a Kimi defender triages noisy alerts, with Neo4j as the game board and attack-path engine and ai& serving both models. Matches export as real MITRE ATT&CK Navigator layers and STIX bundles.',
-    tags: ['AI Agents', 'Neo4j', 'Red vs Blue Simulation', 'FastAPI', 'WebSockets', 'MITRE ATT&CK'],
+    desc: 'A one-day hackathon hosted by +81 Builders with Neo4j and ai& as sponsors, on an open-innovation theme: build anything with AI that actually works by sundown. Built AI Wargame, a live simulation where two LLM agents, a DeepSeek attacker and a Kimi defender, compete over a simulated corporate network stored in Neo4j, with ai& serving both models and every match streamed to a live dashboard. Pure simulation: no exploit code and no real traffic.',
+    tags: ['AI Agents', 'Neo4j', 'Attacker vs Defender Simulation'],
     team: 'Entered solo.'
   }
 ];
@@ -113,42 +119,25 @@ const hackathons = [
 const skillData = {
   /* Same three entries as the About counter, so both read from one list. */
   'Languages': Object.fromEntries(languages.map(l => [l.name, l.desc])),
-  'Core Concepts': {
-    'Discrete Mathematics 1': 'Logic, sets, combinatorics, and proof technique. This is close to the language that cryptography and algorithm analysis are written in, so it is the coursework I expect to matter most as I move deeper into security.',
-    'Precalculus':            'Function behaviour, transformations, and the groundwork for calculus. Less visible in day-to-day code than discrete math, but it is the prerequisite for the calculus that machine learning actually runs on.',
-    'Linux':                  'My daily driver rather than a class exercise. I run Fedora as my main system, use Kali for security tooling, and Whonix and Tails for privacy and anonymity work. Between them I have gotten comfortable with package management, permissions, and the tradeoffs each distribution is actually built around.',
-    'OOP':                    'Classes, inheritance, encapsulation, and polymorphism, mostly through Java and Python coursework. The useful part has been learning where object-oriented structure genuinely helps and where it just adds layers, which matters when a deadline rewards clarity over cleverness.',
-    'Basic Digital Privacy':  'The area I care about most outside of coursework. I run and test privacy-respecting tooling, encrypted alternatives to mainstream apps, and hardened operating systems, and I write about the tradeoffs on this site. Privacy is a set of defaults and habits, not a single product you install.',
-    'Basic Cybersecurity':    'Threat modelling, encryption, secure coding practice, and network defence. I came to this after four years handling cryptographic keying material and operational security in the Marine Corps, so the discipline side was familiar well before the technical side was.'
-  },
-  'Tools': {
-    'Git':            'Version control across everything I build. I work in branches, keep commits scoped to a single change, and have resolved real conflicts on team projects under hackathon time pressure, which is where commit hygiene stops being theoretical.',
-    'GitHub':         'Where my work lives and where team collaboration happens: pull requests, issues, and reviews during hackathons, plus hosting for this site. Reading through other repositories there has taught me nearly as much as writing my own code.',
-    'VS Code':        'My main editor, configured rather than left stock. Extensions, keybindings, and an integrated terminal keep me in one window, and leaning on the debugger instead of guesswork is a habit I am glad I built early.',
-    'Terminal / CLI': 'Where a lot of the actual work happens. Navigation, file and process management, package tooling, and Git are all faster for me in a shell than a GUI, and it stops being a preference once you are working with security tooling.',
-    'Supabase (Auth, Database, Row-Level Security)': 'The backend I build on most. FocusHear and NóiFlow AI both run on it, and so do the comments on this site\'s articles. In FocusHear I used Supabase Auth for sign-in and defined row-level security rules so each user\'s saved voice and face data stays private to them.',
-    'Vercel': 'Where FocusHear and NóiFlow AI are hosted. It takes a project from a working build to a live URL quickly, which matters most when a demo is only hours away.',
+  'Platforms & APIs': {
+    'Supabase':           'The backend I build on most. FocusHear and NóiFlow AI both run on it, and so do the comments on this site\'s articles. In FocusHear I used Supabase Auth for sign-in and defined row-level security rules so each user\'s saved voice and face data stays private to them.',
+    'Vercel':             'Where FocusHear and NóiFlow AI are hosted. It takes a project from a working build to a live URL quickly, which matters most when a demo is only hours away.',
     'Cloudflare Workers': 'Small server-side functions that run on Cloudflare\'s network. AEGIS uses one to cache five threat-intelligence feeds on a 5-minute refresh, and my G2 smart glasses translator uses one as a relay that keeps the OpenAI key server-side.',
-    'LLM APIs (OpenAI, Anthropic, Gemini, ElevenLabs)': 'The model APIs behind my recent projects: GPT-4o and ElevenLabs Scribe in FocusHear, Gemini in NóiFlow AI, and the OpenAI Realtime API in the G2 translator. API keys stay on a server, never in the browser.',
-    'Stripe': 'Handles subscription billing in the FocusHear rebuild, from the checkout flow to keeping each user\'s plan in sync with their account.'
+    'Git':                'Version control across everything I build. I work in branches, keep commits scoped to a single change, and have resolved real conflicts on team projects under hackathon time pressure, which is where commit hygiene stops being theoretical.',
+    'GitHub':             'Where my work lives and where team collaboration happens: pull requests, issues, and reviews during hackathons, plus hosting for this site. Reading through other repositories there has taught me nearly as much as writing my own code.',
+    'OpenAI API':         'GPT-4o runs the language side of the FocusHear rebuild, and the OpenAI Realtime API streams live Vietnamese-to-English translation in my G2 smart glasses translator. API keys stay on a server, never in the browser.',
+    'Anthropic API':      'Anthropic\'s API for the Claude family of models.',
+    'Gemini API':         'Google\'s Gemini models power NóiFlow AI, turning lesson vocabulary into bilingual flashcards, readings, and speaking prompts for teachers to review.',
+    'ElevenLabs API':     'ElevenLabs Scribe handles speech-to-text in FocusHear, including speaker diarization, so each line of a live transcript is tagged with who said it.'
   },
-  'AI-Assisted Development': {
-    'OpenCode':    'An open-source coding agent that runs in the terminal and works with models from different providers, so the model behind it can change without changing how I work.',
-    'Claude Code': 'Anthropic\'s agentic coding tool. It works in the terminal and editor, reading the codebase, running commands, and making changes across files.',
-    'Codex':       'OpenAI\'s coding agent, which can take a task, work through it on its own, and come back with changes to review.',
-    'Cursor':      'An AI code editor built on VS Code, so it fits the setup I already use while adding inline suggestions and chat about the code in front of me.'
-  },
-  'Environments': {
+  'Systems': {
     'Linux (Fedora, Kali, Whonix, Tails)': 'Fedora is my daily driver. Kali covers security tooling, while Whonix and Tails are for privacy and anonymity work. Each is built around different tradeoffs, and moving between them has made me comfortable with package management, permissions, and the command line.',
-    'virt-manager': 'My main tool for running virtual machines on Linux, on top of KVM and QEMU. I run Kali and Whonix as VMs, which keeps security tooling and anonymity work isolated from the system I actually depend on.'
+    'Command line':                        'Where a lot of the actual work happens. Navigation, file and process management, package tooling, and Git are all faster for me in a shell than a GUI, and it stops being a preference once you are working with security tooling.',
+    'virt-manager':                        'My main tool for running virtual machines on Linux, on top of KVM and QEMU. I run Kali and Whonix as VMs, which keeps security tooling and anonymity work isolated from the system I actually depend on.'
   },
-  'Currently Learning': {
-    'Calculus':              'Limits, derivatives, and integrals. I am taking it because it sits directly underneath the machine learning I keep building with, and I would rather understand why gradient descent works than treat the training step as a black box.',
-    'System Design':         'How larger systems fit together: components, data flow, tradeoffs, and what breaks under load. Hackathons keep showing me that the hard part is rarely the code, it is deciding where state lives and which failure modes are acceptable.',
-    'AI / Machine Learning': 'Both a subject I am studying and a tool I build with. Across recent hackathons I have shipped on top of speech and language models, including a real-time transcription pipeline and a trained sign-language classifier. I treat models as components I have to understand and debug, not as a shortcut around knowing how the system works.',
-    'JavaScript':            'The language of the browser, and the next one I want to know as well as Python, C, and Java. I am working toward reading, debugging, and writing front-end code comfortably on my own.',
-    'TypeScript':            'JavaScript with static types. Much of the tooling I build on is written in it, and catching type errors before the code runs fits the way Java already taught me to think.',
-    'HTML/CSS':              'The structure and styling behind every site I have shipped, this one included. I am learning semantic markup, Flexbox, and Grid well enough to build and fix layouts by hand.'
+  'Security': {
+    'COMSEC / KMI':                 'As a Key Management Infrastructure (KMI) Custodian in the Marine Corps, I safeguarded, loaded, and accounted for COMSEC key material on AN/PRC-117G and AN/PRC-152 radios. Handling cryptographic keys is all procedure and accountability, with no room for shortcuts.',
+    'Operational Security (OPSEC)': 'Practiced across radar and intelligence operations in the Marine Corps: keeping details about operations, equipment, and personnel from adding up to something an adversary could use. The same mindset shapes how I approach my own privacy.'
   }
 };
 
@@ -159,11 +148,11 @@ const skillDefinitions = {
   'Java': 'Applied object-oriented principles through Java coursework, building familiarity with class hierarchies, interfaces, and foundational design patterns.',
   'JavaScript': 'Created dynamic, interactive web experiences with modern JavaScript. Skilled in DOM manipulation, asynchronous programming, and integrating APIs for responsive UIs.',
   'HTML': 'Structured accessible, semantic web pages and applications. Strong understanding of HTML5 standards and best practices for SEO and usability.',
-  'CSS': 'Designed visually appealing, responsive layouts using advanced CSS techniques including Flexbox, Grid, and custom animations.',
+  'CSS': 'Styled responsive layouts with CSS, including Flexbox, Grid, and animations.',
   'Git': 'Managed source code and collaborated on projects using Git. Experienced with branching, merging, and resolving conflicts in team environments.',
   'Supabase': 'Used Supabase as a hosted Postgres backend, covering database tables, authentication, and client-side data access.',
   'Responsive Design': 'Engineered mobile-first, adaptive interfaces that deliver seamless experiences across devices. Applies best practices for accessibility and performance.',
-  'DOM Manipulation': 'Expert in modifying and interacting with web page elements programmatically to create engaging, real-time user interfaces.',
+  'DOM Manipulation': 'Updating page elements with JavaScript in response to what the user does, such as the pop-ups and animations on this site.',
   'Flexbox / Grid': 'Utilized CSS Flexbox and Grid to create complex, responsive layouts that adapt to any screen size.',
   'Web Forms': 'Developed accessible, user-friendly web forms with validation and dynamic feedback for optimal user experience.',
   'Network Security': 'Studying how to protect networks from intrusion, unauthorized access, and attacks. Covers firewalls, VPNs, IDS/IPS, and secure network architecture.',
@@ -217,7 +206,7 @@ const skillDefinitions = {
   'ElevenLabs Scribe': 'Used the ElevenLabs Scribe API as the transcription backbone of FocusHear, delivering high-accuracy real-time speech-to-text with latency low enough for live conversation.',
   'Speaker Diarization': 'Used ElevenLabs\' diarization system to automatically detect who is speaking on every conversational turn, enabling color-coded live transcripts where each speaker is always clearly identified.',
   'Sign Language Bridge': 'Built a real-time hand position tracking system that maps hand shapes to ASL fingerspelling letters, displayed alongside live captions so users who communicate through sign are never excluded from the conversation.',
-  'Sign Language Recognition': 'Trained and deployed an ONNX-based LSTM model for sign language recognition, replacing an earlier demo classifier with a genuinely trained model.',
+  'Sign Language Recognition': 'FocusHear recognizes sign language with an ONNX-based LSTM model trained by teammate Cassady Mead, replacing the earlier demo classifier.',
   'Real-time Transcription': 'Implemented live speech-to-text transcription using ElevenLabs Scribe, delivering high-accuracy captions in real time with low enough latency to be usable in actual conversations.',
   'SDG 10': 'Built FocusHear in direct response to UN Sustainable Development Goal 10: Reduced Inequalities, specifically the inequality faced by 430 million people with disabling hearing loss who lack access to selective listening technology that hearing people take for granted.',
   'GPT-4o': 'Used GPT-4o as the reasoning layer of the rebuilt FocusHear pipeline, handling intent detection, tone classification, and live caption translation.',
@@ -225,7 +214,10 @@ const skillDefinitions = {
   'Python Programming': 'Completed coursework in Python, the language I reach for first in both coursework and hackathon builds.',
   'C Programming': 'Completed coursework in C covering manual memory management, pointers, and how data actually sits in memory.',
   'Object-Oriented Programming (Java)': 'Completed coursework in object-oriented programming in Java, covering class hierarchies, interfaces, and the design patterns built on top of them.',
-  'Gemini API': 'Google\'s Gemini models power NóiFlow AI, turning lesson vocabulary into flashcards, readings, and speaking prompts and giving students instant feedback as they practice.',
+  'Gemini API': 'Google\'s Gemini models power NóiFlow AI, turning lesson vocabulary into bilingual flashcards, readings, and speaking prompts for teachers to review.',
+  'Precalculus': 'Completed coursework in functions, transformations, and the groundwork for calculus.',
+  'Neo4j': 'A graph database. AI Wargame stores its simulated corporate network in Neo4j, and the attacker and defender agents compete over that graph.',
+  'LLM APIs': 'Model APIs used to run AI agents. AI Wargame pits a DeepSeek attacker against a Kimi defender, both served through ai&\'s inference API.',
   'Vercel': 'Hosting and deployment platform behind FocusHear and NóiFlow AI.',
   'Cloudflare Workers': 'Serverless functions running on Cloudflare\'s network. Used to cache public threat-intelligence feeds for AEGIS and to run the relay that keeps the OpenAI key off the client for the G2 translator.',
   'Threat Intelligence': 'Public data on active threats: exploited vulnerabilities, ransomware activity, attack traffic, and malware infrastructure. AEGIS pulls five such feeds, including CISA\'s Known Exploited Vulnerabilities catalog.',
@@ -241,26 +233,18 @@ const skillDefinitions = {
    counterpart in the About modal. */
 const skillLogos = {
   ...Object.fromEntries(languages.map(l => [l.name, l.logo])),
-  'Git':            'icons/git.webp',
-  'GitHub':         'icons/github.webp',
-  'VS Code':        'icons/vscode.webp',
-  'Terminal / CLI': 'icons/terminal.webp',
-  'Supabase (Auth, Database, Row-Level Security)':    'icons/supabase.webp',
-  'Vercel':                                           'icons/vercel.webp',
-  'Cloudflare Workers':                               'icons/cloudflare-workers.webp',
-  'LLM APIs (OpenAI, Anthropic, Gemini, ElevenLabs)': 'icons/llm-apis.webp',
-  'Stripe':                                           'icons/stripe.webp',
-  'OpenCode':                                         'icons/opencode.webp',
-  'Claude Code':                                      'icons/claude-code.webp',
-  'Codex':                                            'icons/codex.webp',
-  'Cursor':                                           'icons/cursor.webp',
-  'Linux (Fedora, Kali, Whonix, Tails)':              'icons/linux.webp',
-  'virt-manager':                                     'icons/virt-manager.webp',
-  // Currently Learning shows logos only once Calculus, System Design, and
-  // AI / Machine Learning have one too.
-  'JavaScript':                                       'icons/javascript.webp',
-  'TypeScript':                                       'icons/typescript.webp',
-  'HTML/CSS':                                         'icons/html.webp'
+  'Supabase':           'icons/supabase.webp',
+  'Vercel':             'icons/vercel.webp',
+  'Cloudflare Workers': 'icons/cloudflare-workers.webp',
+  'Git':                'icons/git.webp',
+  'GitHub':             'icons/github.webp',
+  'OpenAI API':         'icons/openai-api.webp',
+  'Anthropic API':      'icons/anthropic-api.webp',
+  'Gemini API':         'icons/gemini-api.webp',
+  'ElevenLabs API':     'icons/elevenlabs-api.webp',
+  'Linux (Fedora, Kali, Whonix, Tails)': 'icons/linux.webp',
+  'Command line':       'icons/terminal.webp',
+  'virt-manager':       'icons/virt-manager.webp'
 };
 
 /* Warm every logo while the page is idle so a modal never opens to empty

@@ -831,6 +831,21 @@ body.cursor-none * { cursor: none !important; }
   margin-bottom: 0.9rem;
 }
 
+/* Project status note: outlined and muted so it never competes with a win */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 0.28rem 0.8rem;
+}
+
 /* Solid fill so a win reads instantly against the outlined tag chips */
 .win-badge {
   display: inline-flex;
@@ -921,16 +936,6 @@ body.cursor-none * { cursor: none !important; }
   color: var(--green-hi);
   transform: translateY(-1px);
 }
-
-/* Courses not taken yet: plain text under the coursework pills, so it reads
-   as secondary to them. */
-.timeline-content > .timeline-upcoming {
-  margin-top: 0.8rem;
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  line-height: 1.6;
-}
-.timeline-upcoming span { color: var(--text); }
 
 /* Product cards are link targets from the events list below */
 #focushear, #tabetalk { scroll-margin-top: 96px; }
@@ -1317,6 +1322,11 @@ body.cursor-none * { cursor: none !important; }
   text-transform: uppercase;
   color: var(--muted);
 }
+
+/* The revision date sits apart from the read time, at the far end of the row,
+   so the two never read as one label. Same rule on the article pages. */
+.blog-updated,
+.article-updated { margin-left: auto; }
 
 .blog-card-title {
   font-size: 1.12rem;
