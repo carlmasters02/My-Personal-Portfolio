@@ -114,15 +114,15 @@ Vertical `.timeline` of **products only**, nine items, newest first:
 
 | Date | Project | Anchor | Notes |
 |---|---|---|---|
-| October 2026 | **PickYourLinux** (`is-live`) | `#pickyourlinux` | pickyourlinux.com |
+| October 2026 | **PickYourLinux** (`is-live`) | `#pickyourlinux` | pickyourlinux.com · GitHub: PickYourLinux |
 | October 2026 | **AI Wargame** | `#ai-wargame` | Solo, Tokyo Agent Hackathon · github.com/carlmasters02/ai-wargame |
-| September 2026 | **AEGIS Threat Dashboard** (`is-live`) | `#aegis` | aegisthreatdashboard.com |
+| September 2026 | **AEGIS Threat Dashboard** (`is-live`) | `#aegis` | aegisthreatdashboard.com · GitHub: AEGIS-threat-dashboard |
 | August 2026 | **G2 Smart Glasses Translator** | `#g2-translator` | GitHub: g2-vi-en-realtime · g2-relay |
 | June 2026 – Present | **FocusHear** (`is-live`, win-badge "1st Place") | `#focushear` | focus-hear-app.vercel.app · 3 hackathon-boxes (Core Features / The Rebuild / Team) + tag pills |
 | June 2026 – Present | **NóiFlow AI** (`is-live`) | `#noiflow` | noiflow-ai.vercel.app |
 | March 2026 | **TabeTalk** (`.status-badge` "Working prototype · public launch planned") | `#tabetalk` | Builders Weekend 2026 · 2 hackathon-boxes (Tech & Sponsors / Team) + tag pills |
 | Jan 2026 – Present | **Freelance English Teacher Site** (`is-live`) | — | kadysenglish.com |
-| Nov 2025 – Present | **This Portfolio** (`is-live`) | — | carlmasters.com |
+| Nov 2025 – Present | **This Portfolio** (`is-live`) | — | carlmasters.com · GitHub: My-Personal-Portfolio |
 
 `is-live` marks ongoing/live projects; `.win-badge` marks 1st-place wins; `.hackathon-boxes` are the grid of info articles under a card; tag pills (`.timeline-tags span`) open a definition modal from `skillDefinitions`.
 
