@@ -204,7 +204,7 @@ Data at top of file: `projects` (9), `languages` (3, with `logo` paths), `hackat
 | Hero typing | Page load (900ms delay) | Six phrases, 70/40ms type/delete cadence |
 | Matrix rain | Constant | rAF throttled to ~20fps; stops on `visibilitychange` |
 | Custom cursor | Desktop fine pointer, >1024px | `translate3d` dot + `.cursor-ping` on click |
-| Terminal easter egg | Type `hello` OR `#openTerminalBtn` | Boots a fake OS; commands: `help`, `about`, `skills`, `projects`, `location`, `clear`, `exit`, plus hidden `whoami` alias of `about` |
+| Terminal easter egg | Type `hello` OR `#openTerminalBtn` | Boots a fake OS; commands: `help`, `about`, `skills`, `projects`, `hackathons`, `location`, `clear`, `exit`, plus hidden `whoami` alias of `about` |
 | Tokyo clock | `setInterval(1000)` | `TOKYO HH:MM:SS JST` chip in contact |
 | Resume PDF viewer | Page load | pdf.js, 20s watchdog, DPR-capped render, re-render on resize |
 | Contact form | Submit | Validates → Formspree POST → success/error in `#formStatus`; surfaces server error messages |
@@ -305,7 +305,7 @@ object-src 'none'
 3. Bump the Hackathons number in the About stats (`index.html`).
 
 **Add a project:**
-Copy an existing `.timeline-item` in `#projects` (use `is-live` if ongoing, give it an `id` if events should deep-link to it) **and** add a matching entry to the `projects` array in `script.js` (feeds the About modal), then bump the Projects number in the About stats.
+Copy an existing `.timeline-item` in `#projects` (use `is-live` if ongoing, give it an `id` if events should deep-link to it) **and** add a matching entry to the `projects` array in `script.js` (feeds the About modal and the terminal's `projects` command; give it a short `term` tagline), then bump the Projects number in the About stats.
 
 **Add a certification:**
 Drop the file in `certs/` and push onto `certs` in `script.js`:

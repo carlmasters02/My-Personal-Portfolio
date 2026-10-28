@@ -14,54 +14,63 @@ const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const projects = [
   {
     title: 'This Portfolio',
+    term: 'this site',
     desc: 'Built with AI-assisted development while learning HTML, CSS, and JavaScript, with animations, responsive layout, and all. A project that\'s also the thing showing you the project.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     link: 'https://carlmasters.com'
   },
   {
     title: 'Freelance English Teacher Site',
+    term: 'client site',
     desc: 'A business website built for a freelance English teacher, with services and contact sections. My first project built for a real client.',
     tech: ['HTML', 'CSS', 'JavaScript'],
     link: 'https://kadysenglish.com'
   },
   {
     title: 'TabeTalk (Builders Weekend 2026)',
+    term: 'AI bill splitting (Builders Weekend 2026)',
     desc: 'Built with a 5-person team at Builders Weekend 2026, this AI-powered dining app uses voice samples and real-time voice recognition to track who ordered what, then auto-assigns check items after the bill is scanned so each guest can pay their share seamlessly.',
     tech: ['Voice AI', 'APIs', 'Real-time Processing'],
     link: null
   },
   {
     title: 'FocusHear (SDGs to Startups 2026 — 1st Place)',
+    term: 'assistive comms (1st place, SDGs to Startups)',
     desc: 'Built in 48 hours at the SDGs to Startups Hackathon, FocusHear is a real-time assistive communication platform for people with hearing loss. Lets users tap a face to hear only that person, bridges sign language via hand tracking, and provides color-coded live speaker transcription.',
     tech: ['Voice AI', 'ElevenLabs', 'Assistive Technology', 'Real-time Transcription'],
     link: 'https://focus-hear-app.vercel.app/'
   },
   {
     title: 'NóiFlow AI',
+    term: 'AI workspace for English teachers',
     desc: 'A teacher-controlled AI workspace for English classes in Vietnam. It turns lesson vocabulary into bilingual flashcards, readings, and speaking prompts, and teachers review every AI draft before students see it. Analytics surface each class\'s weakest words.',
     tech: ['Supabase', 'Gemini API', 'Vercel'],
     link: 'https://noiflow-ai.vercel.app'
   },
   {
     title: 'G2 Smart Glasses Translator',
+    term: 'live VI-to-EN captions on smart glasses',
     desc: 'Live Vietnamese-to-English translation for Even Realities G2 smart glasses, whose built-in translator doesn\'t support Vietnamese. English appears in the heads-up display about one second behind the speaker. A Cloudflare Worker relay keeps the OpenAI key server-side and rejects clients without a shared relay secret, because browsers can\'t attach auth headers to WebSocket connections.',
     tech: ['OpenAI Realtime API', 'Cloudflare Workers', 'Wearables'],
     link: 'https://github.com/carlmasters02/g2-vi-en-realtime'
   },
   {
     title: 'AEGIS Threat Dashboard',
+    term: 'live threat-intel globe',
     desc: 'A live SOC-style dashboard that maps five public threat-intelligence feeds (Cloudflare Radar, ransomware.live, CISA KEV, SANS ISC DShield, abuse.ch) onto a 3D globe. Nothing is simulated; when a source is down, its panel says so. A Cloudflare Worker caches every feed on a 5-minute refresh to respect upstream rate limits.',
     tech: ['Cloudflare Workers', 'Threat Intelligence', 'Data Visualization'],
     link: 'https://aegisthreatdashboard.com'
   },
   {
     title: 'AI Wargame (Tokyo Agent Hackathon)',
+    term: 'LLM attacker vs defender sim',
     desc: 'Built solo at the Tokyo Agent Hackathon. Two LLM agents, a DeepSeek attacker and a Kimi defender, compete over a simulated corporate network stored as a Neo4j graph, with every match streamed to a live dashboard. Pure simulation: no exploit code and no real traffic. Ran 100 seeded matches to tune the balance.',
     tech: ['Python', 'Neo4j', 'LLM APIs'],
     link: 'https://github.com/carlmasters02/ai-wargame'
   },
   {
     title: 'PickYourLinux',
+    term: 'distro-picker quiz',
     desc: 'A guide for people new to Linux or looking for a new distro. I struggled to pick one when I started out, so I built the tool I wish I\'d had. A multiple-choice quiz uses filter questions to narrow 56 distros down to the one that fits you best and recommends a specific edition. An interactive family tree also shows how each distro descends from Debian, Fedora, or Arch.',
     tech: ['JavaScript', 'D3.js', 'Linux'],
     link: 'https://pickyourlinux.com'
@@ -1318,23 +1327,30 @@ if (cursorDot && finePointer && !reduceMotion && window.innerWidth > 1024) {
     }
   });
 
+  /* Projects, skills, and hackathons read from the same data as the modals,
+     so the terminal stays current whenever those lists change. */
+  const shortName = s => s.replace(/\s*(\(|—).*$/, '');
+  const projectNames = projects.map(p => shortName(p.title));
+  const pad = Math.max(...projectNames.map(n => n.length)) + 2;
+
   const COMMANDS = {
     help: [
-      'about     - learn about Carl Masters',
-      'skills    - list technical skills',
-      'projects  - list recent projects',
-      'location  - show current location',
-      'clear     - clear the terminal',
-      'exit      - close this terminal'
+      'about       - learn about Carl Masters',
+      'skills      - list technical skills',
+      'projects    - list recent projects',
+      'hackathons  - list hackathons entered',
+      'location    - show current location',
+      'clear       - clear the terminal',
+      'exit        - close this terminal'
     ],
-    about: ['Carl Masters: Cybersecurity student, aspiring cybersecurity engineer, and digital privacy advocate.'],
-    skills: ['Python, C, Java, Git, Cybersecurity, AI/ML, Leadership'],
-    projects: [
-      'carlmasters.com     - this portfolio',
-      'kadysenglish.com    - client site',
-      'TabeTalk            - AI bill splitting (Builders Weekend 2026)',
-      'FocusHear           - assistive comms (1st place, SDGs to Startups)'
+    about: [
+      'Carl Masters: second-year Cybersecurity student at Temple University Japan.',
+      'U.S. Marine Corps veteran and 2x 1st-place hackathon winner.',
+      'Into cybersecurity and digital privacy, AI/ML, and Linux.'
     ],
+    skills: Object.entries(skillData).map(([group, items]) => `${group}: ${Object.keys(items).join(', ')}`),
+    projects: projects.map((p, i) => `${projectNames[i].padEnd(pad)}- ${p.term}`),
+    hackathons: hackathons.map(h => h.name),
     location: ['Tokyo, Japan - Temple University Japan']
   };
 
