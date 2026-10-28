@@ -59,6 +59,12 @@ const projects = [
     desc: 'Built solo at the Tokyo Agent Hackathon. Two LLM agents, a DeepSeek attacker and a Kimi defender, compete over a simulated corporate network stored as a Neo4j graph, with every match streamed to a live dashboard. Pure simulation: no exploit code and no real traffic. Ran 100 seeded matches to tune the balance.',
     tech: ['Python', 'Neo4j', 'LLM APIs'],
     link: 'https://github.com/carlmasters02/ai-wargame'
+  },
+  {
+    title: 'PickYourLinux',
+    desc: 'A guide for people new to Linux or looking for a new distro. I struggled to pick one when I started out, so I built the tool I wish I\'d had. A multiple-choice quiz uses filter questions to narrow 56 distros down to the one that fits you best and recommends a specific edition. An interactive family tree also shows how each distro descends from Debian, Fedora, or Arch.',
+    tech: ['JavaScript', 'D3.js', 'Linux'],
+    link: 'https://pickyourlinux.com'
   }
 ];
 
@@ -223,6 +229,8 @@ const skillDefinitions = {
   'Threat Intelligence': 'Public data on active threats: exploited vulnerabilities, ransomware activity, attack traffic, and malware infrastructure. AEGIS pulls five such feeds, including CISA\'s Known Exploited Vulnerabilities catalog.',
   'Data Visualization': 'Turning raw data into something readable at a glance. AEGIS plots live threat-intelligence feeds onto a 3D globe in the style of a security operations center dashboard.',
   'OpenAI Realtime API': 'OpenAI\'s low-latency streaming API for speech, used for live Vietnamese-to-English translation that lands about one second behind the speaker.',
+  'D3.js': 'A JavaScript library for data-driven graphics. PickYourLinux uses its force layout to draw the interactive family tree of 56 Linux distros.',
+  'Linux': 'My daily environment, across Fedora, Kali, Whonix, and Tails. PickYourLinux grew out of how hard it was to choose a distro when I first switched.',
   'Wearables': 'Building for hardware worn on the body. The G2 translator targets Even Realities G2 smart glasses, showing translated text in their heads-up display.',
   'Stripe Billing': 'Integrated Stripe to handle Pro subscription billing, including checkout flow and subscription state.',
   'Production Security': 'Applied production security practices across the rebuild: server-side secret handling, authenticated API routes, and least-privilege data access.'
