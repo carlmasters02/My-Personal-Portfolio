@@ -94,8 +94,8 @@
     <a href="index.html#blog" class="article-back">&#8592; Back to Blog</a>
     <div class="article-meta">
       <span class="article-tag">Cybersecurity</span>
-      <span class="article-readtime">34 min read</span>
-      <time class="article-readtime article-updated" datetime="2026-10-24">Updated Oct 24, 2026</time>
+      <span class="article-readtime">36 min read</span>
+      <time class="article-readtime article-updated" datetime="2026-10-31">Updated Oct 31, 2026</time>
     </div>
     <h1 class="article-title">Everyday Cybersecurity Habits That Actually Matter</h1>
 
@@ -177,6 +177,14 @@
       <p>A third technique, called MFA fatigue, targets accounts that use push notifications for approval. An attacker who already has your password triggers login prompt after login prompt on your phone, hoping you will eventually tap Approve just to make them stop. The 2022 breach of Uber began this way: the attacker, using a contractor's stolen password, spammed the contractor with approval prompts and then messaged them on WhatsApp pretending to be from Uber's IT team, saying the prompts would stop once one was approved. If you ever receive a login approval you did not request, deny it, and treat it as a sign that your password has been stolen and needs to be changed immediately.</p>
 
       <p>The defenses follow from how these attacks work. Use passkeys or hardware security keys on your most important accounts, since they are immune to relay phishing. Never download pirated software or programs from unofficial sources, one of the most common ways infostealer infections begin, along with the ClickFix trick described later in this article. And if you suspect an account has been compromised, do not just change the password. Use the option most services offer to sign out of all other sessions or devices, because a stolen session cookie can keep working even after the password has changed.</p>
+
+      <h2>One Ecosystem or Many Providers?</h2>
+
+      <p>By this point you have a password manager, an authenticator, and probably passkeys on your most important accounts. A related question is whether all of those should come from the same company. Many providers offer an entire ecosystem under a single account: Google, Apple, and Microsoft on the mainstream side, and Proton on the privacy-focused side, bundle email, cloud storage, passwords, and more together. The alternative is to compartmentalize, spreading your services across separate providers that have no connection to each other. Neither approach is wrong, and each comes with real tradeoffs.</p>
+
+      <p>An ecosystem is convenient. There is one login to protect, one bill to pay, and one company to research and trust, and the services are designed to work together, such as a password manager that creates email aliases for your inbox automatically. For many people, that simplicity is what makes good security habits stick. The cost is that everything rides on one account and one company. If that account is taken over, the attacker gets all of it at once. If the account is locked or suspended, you can lose access to everything on the same day. And if the company changes owners, leadership, or direction, every service you use from it changes along with it. Compartmentalizing limits what security professionals call the blast radius, meaning how much damage a single failure can cause: a problem with one provider stays with that provider. The tradeoff is more accounts to manage, each needing its own strong password and two-factor authentication, and more companies holding pieces of your data.</p>
+
+      <p>The best approach for most people sits in between, and it comes down to separating the keys to your accounts rather than separating everything. Your email is the most important account you own, because almost every other service resets its password through it, so whoever controls your email can take over the rest. Your password manager holds the login to everything else. Your two-factor codes are the backstop if a password leaks. Keeping these three apart, for example Bitwarden for passwords, Aegis or 2FAS for codes, and a separate provider for email, means one compromise does not hand over the whole chain. For the same reason, think twice before storing your two-factor codes inside your password manager, a feature several of them offer: if that one vault is breached, the attacker has both your password and your second factor, and two-factor authentication quietly becomes one-factor. If you do keep these tools in one ecosystem, protect that account with a passkey or hardware security key, because it has become the key to everything. Beyond those three, bundling services such as cloud storage, a VPN, or a calendar is mostly a question of convenience, and staying within one trusted ecosystem for them is a perfectly reasonable choice.</p>
 
       <h2>Recognize Phishing Attempts</h2>
 
