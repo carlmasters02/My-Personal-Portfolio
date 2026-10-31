@@ -157,7 +157,7 @@ Two parts on one page.
 **Certifications:** category tabs (`All, Google, CS50, CompTIA, Other`) + a hamburger dropdown variant on small screens. Both filter rows currently carry the `hidden` attribute in `index.html`; remove it to show them again. The grid (`#certGrid`) is rendered from the `certs` array in `script.js`. Tabs with no certs behind them are removed automatically; the tab bar hides entirely if fewer than two categories have certs. With 2 active certs (both `Other`), the grid shows real cards; an empty category would show a single "IN PROGRESS / 🔒" card. Card thumbnails and the cert modal handle both images and PDFs (PDFs reused via the pdf.js instance already on the page, with a `pdfCache`; PDF thumbs lazy-render via IntersectionObserver). The HITCON PDF uses `preview:` — its `.webp` render — because pdf.js cannot draw the embedded CFF CID font (would drop the recipient name); `file` still links/downloads the original PDF.
 
 ### Blog (`#blog`) — `06 / blog`, "My Articles"
-4 cards (`.blog-card`) in a 2-column grid, each with a tag pill, a read-time label, and an "Updated Oct 24, 2026" `<time>` (`.blog-card-meta`; article pages carry the same line in `.article-meta`). Order is deliberate (top-left, top-right, bottom-left, bottom-right):
+4 cards (`.blog-card`) in a 2-column grid, each with a tag pill, a read-time label, and an "Updated" `<time>` (Oct 31, 2026 for the privacy article, Oct 24, 2026 for the rest) (`.blog-card-meta`; article pages carry the same line in `.article-meta`). Order is deliberate (top-left, top-right, bottom-left, bottom-right):
 
 | Article | Tag | File |
 |---|---|---|
