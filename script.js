@@ -22,8 +22,8 @@ const projects = [
   {
     title: 'Freelance English Teacher Site',
     term: 'client site',
-    desc: 'A business website built for a freelance English teacher, with services and contact sections. My first project built for a real client.',
-    tech: ['HTML', 'CSS', 'JavaScript'],
+    desc: 'A business website built for a freelance English teacher, with services and a Formspree-powered contact form. My first project built for a real client.',
+    tech: ['HTML', 'CSS', 'JavaScript', 'Formspree'],
     link: 'https://kadysenglish.com'
   },
   {
@@ -44,7 +44,7 @@ const projects = [
     title: 'NóiFlow AI',
     term: 'AI workspace for English teachers',
     desc: 'A teacher-controlled AI workspace for English classes in Vietnam. It turns lesson vocabulary into bilingual flashcards, readings, and speaking prompts, and teachers review every AI draft before students see it. Analytics surface each class\'s weakest words.',
-    tech: ['Supabase', 'Gemini API', 'Vercel'],
+    tech: ['Supabase', 'OpenAI API', 'Vercel'],
     link: 'https://noiflow-ai.vercel.app'
   },
   {
@@ -140,9 +140,9 @@ const skillData = {
     'Cloudflare Workers': 'Small server-side functions that run on Cloudflare\'s network. AEGIS uses one to cache five threat-intelligence feeds on a 5-minute refresh, and my G2 smart glasses translator uses one as a relay that keeps the OpenAI key server-side.',
     'Git':                'Version control across everything I build. I work in branches, keep commits scoped to a single change, and have resolved real conflicts on team projects under hackathon time pressure, which is where commit hygiene stops being theoretical.',
     'GitHub':             'Where my work lives and where team collaboration happens: pull requests, issues, and reviews during hackathons, plus hosting for this site. Reading through other repositories there has taught me nearly as much as writing my own code.',
-    'OpenAI API':         'GPT-4o runs the language side of the FocusHear rebuild, and the OpenAI Realtime API streams live Vietnamese-to-English translation in my G2 smart glasses translator. API keys stay on a server, never in the browser.',
+    'OpenAI API':         'GPT-4o runs the language side of the FocusHear rebuild, OpenAI models turn lesson vocabulary into flashcards, readings, and speaking prompts in NóiFlow AI, and the OpenAI Realtime API streams live Vietnamese-to-English translation in my G2 smart glasses translator. API keys stay on a server, never in the browser.',
     'Anthropic API':      'Anthropic\'s API for the Claude family of models.',
-    'Gemini API':         'Google\'s Gemini models power NóiFlow AI, turning lesson vocabulary into bilingual flashcards, readings, and speaking prompts for teachers to review.',
+    'Gemini API':         'Google\'s API for the Gemini family of models.',
     'ElevenLabs API':     'ElevenLabs Scribe handles speech-to-text in FocusHear, including speaker diarization, so each line of a live transcript is tagged with who said it.'
   },
   'Systems': {
@@ -229,8 +229,10 @@ const skillDefinitions = {
   'Python Programming': 'Completed coursework in Python, the language I reach for first in both coursework and hackathon builds.',
   'C Programming': 'Completed coursework in C covering manual memory management, pointers, and how data actually sits in memory.',
   'Object-Oriented Programming (Java)': 'Completed coursework in object-oriented programming in Java, covering class hierarchies, interfaces, and the design patterns built on top of them.',
-  'Gemini API': 'Google\'s Gemini models power NóiFlow AI, turning lesson vocabulary into bilingual flashcards, readings, and speaking prompts for teachers to review.',
+  'OpenAI API': 'OpenAI\'s models power NóiFlow AI, turning lesson vocabulary into bilingual flashcards, readings, and speaking prompts for teachers to review.',
   'Precalculus': 'Completed coursework in functions, transformations, and the groundwork for calculus.',
+  'Calculus I (in progress)': 'Currently taking Calculus I, covering limits, derivatives, and an introduction to integrals.',
+  'Formspree': 'A hosted form backend. The contact form on kadysenglish.com submits through Formspree, so a static HTML, CSS, and JavaScript site can take messages without a server of its own.',
   'Neo4j': 'A graph database. AI Wargame stores its simulated corporate network in Neo4j, and the attacker and defender agents compete over that graph.',
   'LLM APIs': 'Model APIs used to run AI agents. AI Wargame pits a DeepSeek attacker against a Kimi defender, both served through ai&\'s inference API.',
   'Vercel': 'Hosting and deployment platform behind FocusHear and NóiFlow AI.',
