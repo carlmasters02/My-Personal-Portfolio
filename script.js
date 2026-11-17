@@ -76,6 +76,20 @@ const projects = [
     link: 'https://pickyourlinux.com'
   },
   {
+    title: 'PatchSwarm (Agent Forge AI Hackathon)',
+    term: 'exploit-proven CVE patching',
+    desc: 'Built at the November Agent Forge AI Hackathon. An agent swarm that proves which CVEs in a codebase are actually exploitable by attacking the project in a Daytona sandbox, patches them, re-runs the same attack to confirm the fix, has a Qwen model on Nosana review the diff, and opens a pull request only after a human approves.',
+    tech: ['Python', 'AgentField', 'Daytona', 'Vulnerability Triage'],
+    link: 'https://github.com/carlmasters02/patch-swarm'
+  },
+  {
+    title: 'RoomLedger (Daytona HackSprint Tokyo)',
+    term: 'photo-to-insurance ledger',
+    desc: 'Built at Daytona HackSprint Tokyo. Turns photos of your home into a claim-ready contents ledger and an earthquake fix list. Each room runs in its own disposable Daytona sandbox that strips GPS and EXIF data before an open Qwen vision model on Nosana identifies and values each item.',
+    tech: ['Python', 'Daytona', 'Nosana', 'Computer Vision'],
+    link: 'https://github.com/carlmasters02/room-ledger'
+  },
+  {
     title: 'Komainu (Agent Harness Build Night)',
     term: 'security-first coding agent',
     desc: 'A security-first coding agent built on OpenCode. It assumes a prompt injection will eventually fool the model and puts six layers around it: an OS sandbox, a check on every command and URL, taint tracking once untrusted content enters the session, secret redaction, a vulnerability scan on every file the agent writes, and a tamper-evident audit log. It also remembers misbehaving sources across projects and checks pasted images for hidden prompt injections. In a 15-attack benchmark that assumes the model fully obeys the attacker, none succeed silently.',
@@ -258,7 +272,7 @@ const skillDefinitions = {
   'Precalculus': 'Completed coursework in functions, transformations, and the groundwork for calculus.',
   'Calculus I (in progress)': 'Currently taking Calculus I, covering limits, derivatives, and an introduction to integrals.',
   'Formspree': 'A hosted form backend. The contact form on kadysenglish.com submits through Formspree, so a static HTML, CSS, and JavaScript site can take messages without a server of its own.',
-  'Neo4j': 'A graph database. AI Wargame stores its simulated corporate network in Neo4j, and the attacker and defender agents compete over that graph.',
+  'Neo4j': 'A graph database. AI Wargame stores its simulated corporate network in Neo4j, and Komainu can sync its threat memory to it so one person\'s catch protects a whole team.',
   'LLM APIs': 'Model APIs used to run AI agents. AI Wargame pits a DeepSeek attacker against a Kimi defender, both served through ai&\'s inference API.',
   'Vercel': 'Hosting and deployment platform behind FocusHear and NóiFlow AI.',
   'Cloudflare Workers': 'Serverless functions running on Cloudflare\'s network. Used to cache public threat-intelligence feeds for AEGIS and to run the relay that keeps the OpenAI key off the client for the G2 translator.',
@@ -271,6 +285,11 @@ const skillDefinitions = {
   'TypeScript': 'JavaScript with static types. Komainu\'s security engine and its OpenCode plugin are written in TypeScript and type-checked against the real OpenCode plugin API.',
   'Sandboxing': 'Running code where it cannot reach what it should not. Komainu runs every shell command an agent issues inside an OS sandbox (bubblewrap on Linux, Seatbelt on macOS), with credential files unreadable, writes limited to the project, and network access behind a domain allowlist.',
   'Prompt Injection Defense': 'Protecting an AI agent from instructions hidden in the content it reads, such as a poisoned README or web page. Komainu does not trust detection alone: once untrusted content enters a session, risky actions need human approval, and the sandbox limits the damage if the model is fooled anyway.',
+  'Daytona': 'Disposable cloud sandboxes for running untrusted code. PatchSwarm runs real exploits inside them so they never touch the host, and RoomLedger gives each room photo its own sandbox that is destroyed afterwards.',
+  'Nosana': 'A decentralized GPU network for running open models. PatchSwarm uses a Qwen model on Nosana as an independent patch reviewer, and RoomLedger uses an open Qwen vision model there to identify and value items.',
+  'Computer Vision': 'Getting structured information out of images. RoomLedger detects household items in room photos, draws numbered boxes around them, and estimates what each one is worth.',
+  'AgentField': 'An open-source control plane for AI agents. Every step of PatchSwarm is an AgentField reasoner, so each request is routed, traced, and recorded.',
+  'Vulnerability Triage': 'Deciding which security findings actually matter. PatchSwarm triages by proof: a CVE counts as exploitable only if a real attack against the project succeeds in a sandbox.',
   'Stripe Billing':'Integrated Stripe to handle Pro subscription billing, including checkout flow and subscription state.',
   'Production Security': 'Applied production security practices across the rebuild: server-side secret handling, authenticated API routes, and least-privilege data access.'
 };

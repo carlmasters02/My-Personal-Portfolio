@@ -93,7 +93,7 @@ Two-column `.about-grid`. Left: bio paragraphs + three stat counters. Right: `.c
 Stats (each opens the drill-down modal). The final number is written as the `.stat-number` text in the HTML so it reads correctly without JS; `script.js` stores it as `data-target`, resets to 0, and counts up on scroll:
 | Stat | Number in HTML | Source array in script.js |
 |---|---|---|
-| Real Projects | `10` | `projects` |
+| Real Projects | `12` | `projects` |
 | Languages | `3` | `languages` |
 | Hackathons | `10` | `hackathons` |
 
@@ -110,20 +110,24 @@ Four `.skill-category` buttons in a 2×2 grid (one column under 900px), each ope
 Descriptions live in the `skillData` object in `script.js` (`Languages` is derived from the `languages` array so the two never drift). Logos from `skillLogos` (icons/*.webp) only render when every skill in the category has one.
 
 ### Projects (`#projects`) — `03 / projects`, "What I've Built"
-Vertical `.timeline` of **products only**, ten items, newest first:
+Vertical `.timeline` of selected projects, 12 items, newest first. Subheaders (`timeline-org`) hold only the event and links; teammates and roles go in the description or hackathon-boxes, never the subheader.
 
 | Date | Project | Anchor | Notes |
 |---|---|---|---|
-| November 2026 – Present | **Komainu** (`is-live`) | `#komainu` | With Sususu, Agent Harness Build Night · github.com/carlmasters02/komainu |
-| October 2026 | **PickYourLinux** (`is-live`) | `#pickyourlinux` | pickyourlinux.com · GitHub: PickYourLinux |
-| October 2026 | **AI Wargame** | `#ai-wargame` | Solo, Tokyo Agent Hackathon · github.com/carlmasters02/ai-wargame |
-| September 2026 | **AEGIS Threat Dashboard** (`is-live`) | `#aegis` | aegisthreatdashboard.com · GitHub: AEGIS-threat-dashboard |
-| August 2026 | **G2 Smart Glasses Translator** | `#g2-translator` | GitHub: g2-vi-en-realtime · g2-relay |
-| June 2026 – Present | **FocusHear** (`is-live`, win-badge "1st Place") | `#focushear` | focus-hear-app.vercel.app · 3 hackathon-boxes (Core Features / The Rebuild / Team) + tag pills |
+| November 2026 – Present | **Komainu** (`is-live`) | `#komainu` | Agent Harness Build Night · komainu |
+| November 2026 | **RoomLedger** | `#roomledger` | Daytona HackSprint Tokyo · room-ledger |
+| November 2026 | **PatchSwarm** | `#patchswarm` | Agent Forge AI Hackathon (Nov) · patch-swarm |
+| October 2026 | **PickYourLinux** (`is-live`) | `#pickyourlinux` | pickyourlinux.com · PickYourLinux |
+| October 2026 | **AI Wargame** | `#ai-wargame` | Tokyo Agent Hackathon · ai-wargame |
+| September 2026 | **AEGIS Threat Dashboard** (`is-live`) | `#aegis` | aegisthreatdashboard.com · AEGIS-threat-dashboard |
+| August 2026 | **G2 Smart Glasses Translator** | `#g2-translator` | g2-vi-en-realtime · g2-relay |
+| June 2026 – Present | **FocusHear** (`is-live`, win-badge "1st Place") | `#focushear` | focus-hear-app.vercel.app · 3 hackathon-boxes + tag pills |
 | June 2026 – Present | **NóiFlow AI** (`is-live`) | `#noiflow` | noiflow-ai.vercel.app |
-| March 2026 | **TabeTalk** (`.status-badge` "Working prototype · public launch planned") | `#tabetalk` | Builders Weekend 2026 · 2 hackathon-boxes (Tech & Sponsors / Team) + tag pills |
+| March 2026 | **TabeTalk** (`.status-badge`) | `#tabetalk` | Builders Weekend 2026 · 2 hackathon-boxes |
 | Jan 2026 – Present | **Freelance English Teacher Site** (`is-live`) | — | kadysenglish.com |
-| Nov 2025 – Present | **This Portfolio** (`is-live`) | — | carlmasters.com · GitHub: My-Personal-Portfolio |
+| Nov 2025 – Present | **This Portfolio** (`is-live`) | — | carlmasters.com · My-Personal-Portfolio |
+
+Event cards link to a built project with an internal `#anchor` `event-link` (e.g. `#komainu`, `#patchswarm`, `#roomledger`, `#ai-wargame`), not to GitHub; the GitHub link lives on the project card.
 
 `is-live` marks ongoing/live projects; `.win-badge` marks 1st-place wins; `.hackathon-boxes` are the grid of info articles under a card; tag pills (`.timeline-tags span`) open a definition modal from `skillDefinitions`.
 
@@ -138,11 +142,11 @@ Two subsections on one page.
 |---|---|---|
 | Nov 2026 | Agent Harness Build Night | +81 Builders / Neo4j / ai&; with Sususu; built **Komainu**; 2 hackathon-boxes; `event-link` → `#komainu` |
 | Nov 2026 | AI Builders Tokyo After Party | Minato City; networking mixer closing the AI Builders week |
-| Nov 2026 | Daytona HackSprint Tokyo | Built **RoomLedger** (team of four, first names only: Carl, Kirill, Sususu, Mei); 2 hackathon-boxes; `event-link` → github.com/carlmasters02/room-ledger |
-| Nov 2026 | Agent Forge AI Hackathon (November edition) | Plug and Play Japan; solo; built **PatchSwarm**; 2 hackathon-boxes; `event-link` → github.com/carlmasters02/patch-swarm |
+| Nov 2026 | Daytona HackSprint Tokyo | Built **RoomLedger** (team of four, first names only: Carl, Kirill, Sususu, Mei); 2 hackathon-boxes; `event-link` → `#roomledger` |
+| Nov 2026 | Agent Forge AI Hackathon (November edition) | Plug and Play Japan; solo; built **PatchSwarm**; 2 hackathon-boxes; `event-link` → `#patchswarm` |
 | Nov 2026 | Vibe Coders Jam Session: feat. Base44 | Built a README cleaner (no link); not counted as a hackathon |
 | Nov 2026 | Gemini 4 Argon Tokyo Meetup | Google Japan, Shibuya Stream |
-| Oct 2026 | Tokyo Agent Hackathon | +81 Builders / Neo4j / ai& sponsors; solo; built **AI Wargame** (red-vs-blue LLM wargame on Neo4j); 2 hackathon-boxes (+81 Builders links to plus81builders.com/en; Neo4j and ai& link to neo4j.com / aiand.com); external `event-link` + in-text "AI Wargame" link to github.com/carlmasters02/ai-wargame |
+| Oct 2026 | Tokyo Agent Hackathon | +81 Builders / Neo4j / ai& sponsors; solo; built **AI Wargame** (red-vs-blue LLM wargame on Neo4j); 2 hackathon-boxes (+81 Builders links to plus81builders.com/en; Neo4j and ai& link to neo4j.com / aiand.com); `event-link` + in-text "AI Wargame" link → `#ai-wargame` |
 | Aug 2026 | HITCON 2026 | Taipei; 2 hackathon-boxes (Day One / Day Two) |
 | Jul 2026 | Cursor Tokyo AI Meetup | Chiyoda City |
 | Jul 2026 | Engineering Real World AI with Google and Google DeepMind | Google Japan, Shibuya |
@@ -189,7 +193,7 @@ A **single overlay** (`#modal` → `#modalCard` / `#modalTitle` / `#modalBody` /
 
 ## script.js — Feature Reference
 
-Data at top of file: `projects` (10), `languages` (3, with `logo` paths), `hackathons` (10), `skillData` (4 categories), `skillDefinitions` (timeline tag pills), `skillLogos`, `certs` (2).
+Data at top of file: `projects` (12), `languages` (3, with `logo` paths), `hackathons` (10), `skillData` (4 categories), `skillDefinitions` (timeline tag pills), `skillLogos`, `certs` (2).
 
 | Feature | Trigger / Location | Notes |
 |---|---|---|
