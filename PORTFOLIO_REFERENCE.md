@@ -93,9 +93,9 @@ Two-column `.about-grid`. Left: bio paragraphs + three stat counters. Right: `.c
 Stats (each opens the drill-down modal). The final number is written as the `.stat-number` text in the HTML so it reads correctly without JS; `script.js` stores it as `data-target`, resets to 0, and counts up on scroll:
 | Stat | Number in HTML | Source array in script.js |
 |---|---|---|
-| Real Projects | `9` | `projects` |
+| Real Projects | `10` | `projects` |
 | Languages | `3` | `languages` |
-| Hackathons | `7` | `hackathons` |
+| Hackathons | `10` | `hackathons` |
 
 ### Skills (`#skills`) — `02 / skills`, "What I Know"
 Four `.skill-category` buttons in a 2×2 grid (one column under 900px), each opening the category → skill modal:
@@ -110,10 +110,11 @@ Four `.skill-category` buttons in a 2×2 grid (one column under 900px), each ope
 Descriptions live in the `skillData` object in `script.js` (`Languages` is derived from the `languages` array so the two never drift). Logos from `skillLogos` (icons/*.webp) only render when every skill in the category has one.
 
 ### Projects (`#projects`) — `03 / projects`, "What I've Built"
-Vertical `.timeline` of **products only**, nine items, newest first:
+Vertical `.timeline` of **products only**, ten items, newest first:
 
 | Date | Project | Anchor | Notes |
 |---|---|---|---|
+| November 2026 – Present | **Komainu** (`is-live`) | `#komainu` | With Sususu, Agent Harness Build Night · github.com/carlmasters02/komainu |
 | October 2026 | **PickYourLinux** (`is-live`) | `#pickyourlinux` | pickyourlinux.com · GitHub: PickYourLinux |
 | October 2026 | **AI Wargame** | `#ai-wargame` | Solo, Tokyo Agent Hackathon · github.com/carlmasters02/ai-wargame |
 | September 2026 | **AEGIS Threat Dashboard** (`is-live`) | `#aegis` | aegisthreatdashboard.com · GitHub: AEGIS-threat-dashboard |
@@ -131,10 +132,16 @@ Two subsections on one page.
 
 **Education & Career** timeline (3 items): B.S. Cybersecurity at Temple University Japan (2025–Present, `is-live`) · U.S. Marine Corps 0842 Field Artillery Radar Operator + KMI Custodian (2021–2025) · High School Diploma, Lake Minneola HS (2017–2021). Military entries link out to official references (AN/TPS-80, AN/TPQ-48, AN/TPQ-46, KMI, CMC, CMT).
 
-**Events & Competitions** timeline (12 items, newest first; same-month order is confirmed, keep it):
+**Events & Competitions** timeline (17 items, newest first; same-month order is confirmed, keep it):
 
 | Date | Event | Notes |
 |---|---|---|
+| Nov 2026 | Agent Harness Build Night | +81 Builders / Neo4j / ai&; with Sususu; built **Komainu**; 2 hackathon-boxes; `event-link` → `#komainu` |
+| Nov 2026 | AI Builders Tokyo After Party | Minato City; networking mixer closing the AI Builders week |
+| Nov 2026 | Daytona HackSprint Tokyo | Built **RoomLedger** (team of four, first names only: Carl, Kirill, Sususu, Mei); 2 hackathon-boxes; `event-link` → github.com/carlmasters02/room-ledger |
+| Nov 2026 | Agent Forge AI Hackathon (November edition) | Plug and Play Japan; solo; built **PatchSwarm**; 2 hackathon-boxes; `event-link` → github.com/carlmasters02/patch-swarm |
+| Nov 2026 | Vibe Coders Jam Session: feat. Base44 | Built a README cleaner (no link); not counted as a hackathon |
+| Nov 2026 | Gemini 4 Argon Tokyo Meetup | Google Japan, Shibuya Stream |
 | Oct 2026 | Tokyo Agent Hackathon | +81 Builders / Neo4j / ai& sponsors; solo; built **AI Wargame** (red-vs-blue LLM wargame on Neo4j); 2 hackathon-boxes (+81 Builders links to plus81builders.com/en; Neo4j and ai& link to neo4j.com / aiand.com); external `event-link` + in-text "AI Wargame" link to github.com/carlmasters02/ai-wargame |
 | Aug 2026 | HITCON 2026 | Taipei; 2 hackathon-boxes (Day One / Day Two) |
 | Jul 2026 | Cursor Tokyo AI Meetup | Chiyoda City |
@@ -182,7 +189,7 @@ A **single overlay** (`#modal` → `#modalCard` / `#modalTitle` / `#modalBody` /
 
 ## script.js — Feature Reference
 
-Data at top of file: `projects` (9), `languages` (3, with `logo` paths), `hackathons` (7), `skillData` (4 categories), `skillDefinitions` (timeline tag pills), `skillLogos`, `certs` (2).
+Data at top of file: `projects` (10), `languages` (3, with `logo` paths), `hackathons` (10), `skillData` (4 categories), `skillDefinitions` (timeline tag pills), `skillLogos`, `certs` (2).
 
 | Feature | Trigger / Location | Notes |
 |---|---|---|

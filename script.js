@@ -74,6 +74,13 @@ const projects = [
     desc: 'A guide for people new to Linux or looking for a new distro. I struggled to pick one when I started out, so I built the tool I wish I\'d had. A multiple-choice quiz uses filter questions to narrow 56 distros down to the one that fits you best and recommends a specific edition. An interactive family tree also shows how each distro descends from Debian, Fedora, or Arch.',
     tech: ['JavaScript', 'D3.js', 'Linux'],
     link: 'https://pickyourlinux.com'
+  },
+  {
+    title: 'Komainu (Agent Harness Build Night)',
+    term: 'security-first coding agent',
+    desc: 'A security-first coding agent built on OpenCode. It assumes a prompt injection will eventually fool the model and puts six layers around it: an OS sandbox, a check on every command and URL, taint tracking once untrusted content enters the session, secret redaction, a vulnerability scan on every file the agent writes, and a tamper-evident audit log. It also remembers misbehaving sources across projects and checks pasted images for hidden prompt injections. In a 15-attack benchmark that assumes the model fully obeys the attacker, none succeed silently.',
+    tech: ['TypeScript', 'OpenCode', 'Sandboxing', 'Neo4j'],
+    link: 'https://github.com/carlmasters02/komainu'
   }
 ];
 
@@ -118,7 +125,7 @@ const hackathons = [
     team: 'Carl Masters, Ruoan Li, Hina \u2018Ai\u2019 Sekine, and Thiago Komeno.'
   },
   {
-    name: 'Agent Forge AI Hackathon',
+    name: 'Agent Forge AI Hackathon (July)',
     desc: 'A one-day hackathon building production-ready AI agents themed around Tokyo and Japanese culture. Every build had to integrate at least one partner platform, so most of the day went into learning unfamiliar tooling across GPU infrastructure, model APIs, and agentic coding environments.',
     tags: ['AI Agents', 'GPU Infrastructure', 'Model APIs', 'Agentic Coding'],
     team: 'Entered solo.'
@@ -128,6 +135,24 @@ const hackathons = [
     desc: 'A one-day hackathon hosted by +81 Builders with Neo4j and ai& as sponsors, on an open-innovation theme: build anything with AI that actually works by sundown. Built AI Wargame, a live simulation where two LLM agents, a DeepSeek attacker and a Kimi defender, compete over a simulated corporate network stored in Neo4j, with ai& serving both models and every match streamed to a live dashboard. Pure simulation: no exploit code and no real traffic.',
     tags: ['AI Agents', 'Neo4j', 'Attacker vs Defender Simulation'],
     team: 'Entered solo.'
+  },
+  {
+    name: 'Agent Forge AI Hackathon (November)',
+    desc: 'The second Agent Forge, co-hosted by AI Builders and Plug and Play Japan with AgentField, Daytona, Tavily, and Nosana as stack partners. Built PatchSwarm, an agent swarm that proves which CVEs in a codebase are actually exploitable by attacking the project in a Daytona sandbox, patches them, re-runs the same attack to confirm the fix, has a Qwen model on Nosana review the diff, and opens a pull request only after a human approves.',
+    tags: ['AI Agents', 'Vulnerability Triage', 'AgentField', 'Daytona'],
+    team: 'Entered solo.'
+  },
+  {
+    name: 'Daytona HackSprint Tokyo',
+    desc: 'A short-format hackathon from AI Builders with Daytona as title sponsor. Built RoomLedger, which turns photos of your home into a claim-ready contents ledger for insurance and an earthquake fix list. Each room is processed in its own disposable Daytona sandbox that strips GPS and EXIF data before an open Qwen vision model on Nosana identifies and values each item.',
+    tags: ['Daytona', 'Nosana', 'Computer Vision', 'Privacy'],
+    team: 'Carl, Kirill, Sususu, and Mei.'
+  },
+  {
+    name: 'Agent Harness Build Night (+81 Builders)',
+    desc: 'A build night about the harness around an agent rather than the model: the loop, the tools, memory, permissions, and how you check the work. Built Komainu, a security-first coding agent on OpenCode that assumes the model can be fooled by a prompt injection and puts six layers of protection around it, from an OS sandbox to a tamper-evident audit log.',
+    tags: ['AI Agents', 'Agent Security', 'Sandboxing', 'Prompt Injection Defense'],
+    team: 'Carl and Sususu.'
   }
 ];
 
@@ -243,7 +268,10 @@ const skillDefinitions = {
   'D3.js': 'A JavaScript library for data-driven graphics. PickYourLinux uses its force layout to draw the interactive family tree of 56 Linux distros.',
   'Linux': 'My daily environment, across Fedora, Kali, Whonix, and Tails. PickYourLinux grew out of how hard it was to choose a distro when I first switched.',
   'Wearables': 'Building for hardware worn on the body. The G2 translator targets Even Realities G2 smart glasses, showing translated text in their heads-up display.',
-  'Stripe Billing': 'Integrated Stripe to handle Pro subscription billing, including checkout flow and subscription state.',
+  'TypeScript': 'JavaScript with static types. Komainu\'s security engine and its OpenCode plugin are written in TypeScript and type-checked against the real OpenCode plugin API.',
+  'Sandboxing': 'Running code where it cannot reach what it should not. Komainu runs every shell command an agent issues inside an OS sandbox (bubblewrap on Linux, Seatbelt on macOS), with credential files unreadable, writes limited to the project, and network access behind a domain allowlist.',
+  'Prompt Injection Defense': 'Protecting an AI agent from instructions hidden in the content it reads, such as a poisoned README or web page. Komainu does not trust detection alone: once untrusted content enters a session, risky actions need human approval, and the sandbox limits the damage if the model is fooled anyway.',
+  'Stripe Billing':'Integrated Stripe to handle Pro subscription billing, including checkout flow and subscription state.',
   'Production Security': 'Applied production security practices across the rebuild: server-side secret handling, authenticated API routes, and least-privilege data access.'
 };
 
